@@ -1,0 +1,58 @@
+export interface Testimonial {
+  id: string;
+  author: string;
+  role: string;
+  company: string;
+  category: "corporate" | "real-estate" | "events";
+  quote: string;
+  highlight?: string;
+  avatarImage?: string;
+  projectSlug?: string;
+}
+
+export const testimonialsContent: Testimonial[] = [
+  {
+    id: "kalos-construction",
+    author: "Michael Kopanski",
+    role: "Principal Builder & Founder",
+    company: "Kalos Construction Group",
+    category: "real-estate",
+    quote:
+      "Stefan and the Conté Films team transformed how our luxury architectural builds are perceived online. The level of care, lighting accuracy, and drone movement they brought to our flagship residence was remarkable. Their work direct-contributed to our reputation among high-end architects and homebuyers.",
+    highlight: "Transformed how our luxury architectural builds are perceived online.",
+    projectSlug: "kalos-construction-multimillion-residence",
+  },
+  {
+    id: "dr-daniel-berant",
+    author: "Dr. Daniel Berant",
+    role: "Medical Director & Speaker",
+    company: "Berant Health & Education",
+    category: "events",
+    quote:
+      "Working with Conté is seamless. On event days, they operate with quiet efficiency without disrupting attendees, while capturing footage that looks like a high-budget documentary feature. They understand how to extract real value from live sessions.",
+    highlight: "Operate with quiet efficiency... footage looks like a high-budget documentary feature.",
+    projectSlug: "dr-daniel-berant-educational-keynotes",
+  },
+  {
+    id: "tremedy-integrative",
+    author: "Simran Keshwani",
+    role: "Executive Director",
+    company: "Tremedy Integrative Health Center",
+    category: "corporate",
+    quote:
+      "Conté Films captured the exact warmth and medical credibility our practice stands for. Patients routinely mention seeing our video before booking their first appointment. Stefan's creative direction made our whole team feel comfortable on camera.",
+    highlight: "Patients routinely mention seeing our video before booking their first appointment.",
+    projectSlug: "tremedy-integrative-health",
+  },
+  {
+    id: "larkly-suncare",
+    author: "Dr. Sarah Wilkie",
+    role: "Co-Founder",
+    company: "Larkly Suncare",
+    category: "corporate",
+    quote:
+      "Stefan’s fashion background gave our product launch campaign an instant editorial edge. Conté delivered commercial-grade videos and social cutdowns that outperformed every visual asset we had previously commissioned.",
+    highlight: "Gave our product launch campaign an instant editorial edge.",
+    projectSlug: "larkly-suncare-brand-campaign",
+  },
+];

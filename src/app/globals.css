@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Light Theme (Clean White) */
+  --bg-primary: #FFFFFF;
+  --bg-surface: #F9F9F8;
+  --bg-elevated: #FFFFFF;
+  --text-primary: #111111;
+  --text-muted: #6B6B6B;
+  --border-subtle: rgba(0, 0, 0, 0.06);
+  --border-medium: rgba(0, 0, 0, 0.12);
+  --accent-bronze: #9E7C4F;
+  --accent-bronze-hover: #876A3D;
+  --overlay-bg: rgba(255, 255, 255, 0.92);
+  --hero-overlay: rgba(9, 9, 9, 0.45);
+}
+
+.dark {
+  /* Dark Theme (Cinematic Near-Black) */
+  --bg-primary: #090909;
+  --bg-surface: #111111;
+  --bg-elevated: #181818;
+  --text-primary: #F5F3EE;
+  --text-muted: #9E9A92;
+  --border-subtle: rgba(245, 243, 238, 0.08);
+  --border-medium: rgba(245, 243, 238, 0.16);
+  --accent-bronze: #C5A880;
+  --accent-bronze-hover: #D8BD96;
+  --overlay-bg: rgba(9, 9, 9, 0.90);
+  --hero-overlay: rgba(0, 0, 0, 0.55);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", Arial, Helvetica, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-medium);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-bronze);
+}
+
+/* Focus Ring Utility */
+.focus-ring {
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary;
+}
+
+/* Media Frame Aspect Ratio Container */
+.aspect-cinema {
+  aspect-ratio: 16 / 9;
+}
+
+.aspect-portrait-editorial {
+  aspect-ratio: 4 / 5;
+}
+
+.aspect-vertical-story {
+  aspect-ratio: 9 / 16;
+}
+
+/* Reduced Motion Safety */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
