@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import "@/app/globals.css";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -73,7 +80,7 @@ export default function RootLayout({
       <head>
         <StructuredData />
       </head>
-      <body className="antialiased min-h-screen bg-bg-primary text-text-primary flex flex-col justify-between">
+      <body className={`${inter.variable} ${inter.className} antialiased min-h-screen bg-bg-primary text-text-primary flex flex-col justify-between`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={true}>
           <Header />
           <main id="main-content" className="flex-grow">

@@ -40,7 +40,7 @@
 
 html {
   scroll-behavior: smooth;
-  font-family: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), "Inter", -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", Arial, Helvetica, sans-serif;
   background-color: var(--bg-primary);
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
