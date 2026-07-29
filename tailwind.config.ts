@@ -30,16 +30,22 @@ const config: Config = {
       },
       fontFamily: {
         sans: [
-          "var(--font-geist-sans)",
-          "Geist",
+          "var(--font-inter)",
+          "Inter",
+          "system-ui",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "sans-serif",
+        ],
+        serif: [
+          "var(--font-inter)",
+          "Inter",
           "system-ui",
           "-apple-system",
           "BlinkMacSystemFont",
           "sans-serif",
         ],
         mono: [
-          "var(--font-geist-mono)",
-          "Geist Mono",
           "monospace",
         ],
       },

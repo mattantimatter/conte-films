@@ -24,30 +24,30 @@ export function Logo({ className }: LogoProps) {
     <Link
       href="/"
       className={cn(
-        "inline-flex items-center gap-2 focus-ring rounded-sm transition-opacity hover:opacity-85 group",
+        "inline-flex items-center focus-ring rounded-sm transition-opacity hover:opacity-85 group",
         className
       )}
       aria-label="Conté Films Home"
     >
-      {/* SVG Image Logo for Dark Mode (White Text) */}
+      {/* Uploaded Logo Image - White Text for Dark Theme */}
       <div className={cn("items-center", isDark || !mounted ? "flex" : "hidden")}>
         <Image
-          src="/logo-light.svg"
+          src="/logo-white.png"
           alt="Conté Films"
-          width={220}
-          height={38}
+          width={1024}
+          height={203}
           priority
           className="h-6 sm:h-7 w-auto object-contain"
         />
       </div>
 
-      {/* SVG Image Logo for Light Mode (Black Text) */}
+      {/* Uploaded Logo Image - Dark Text for Light Theme */}
       <div className={cn("items-center", !isDark && mounted ? "flex" : "hidden")}>
         <Image
-          src="/logo-dark.svg"
+          src="/logo-dark.png"
           alt="Conté Films"
-          width={220}
-          height={38}
+          width={1024}
+          height={203}
           priority
           className="h-6 sm:h-7 w-auto object-contain"
         />

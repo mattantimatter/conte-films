@@ -40,11 +40,15 @@
 
 html {
   scroll-behavior: smooth;
-  font-family: var(--font-geist-sans), Geist, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-family: var(--font-inter), "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif !important;
   background-color: var(--bg-primary);
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body, h1, h2, h3, h4, h5, h6, p, a, span, button, input, textarea, select {
+  font-family: var(--font-inter), "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif !important;
 }
 
 body {
