@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useTheme } from "next-themes";
@@ -12,9 +12,9 @@ interface LogoProps {
 
 export function Logo({ className }: LogoProps) {
   const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = React.useState(false);
+  const [mounted, setMounted] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setMounted(true);
   }, []);
 
@@ -24,35 +24,34 @@ export function Logo({ className }: LogoProps) {
     <Link
       href="/"
       className={cn(
-        "inline-flex items-center focus-ring rounded-sm transition-opacity hover:opacity-80",
+        "inline-flex items-center gap-2 focus-ring rounded-sm transition-opacity hover:opacity-85 group",
         className
       )}
       aria-label="Conté Films Home"
     >
-      {/* Dark logo (black text) — visible in light mode */}
-      <Image
-        src="/logo-dark.png"
-        alt="Conté Films"
-        width={180}
-        height={32}
-        priority
-        className={cn(
-          "h-5 sm:h-6 w-auto object-contain transition-opacity duration-200",
-          isDark ? "hidden" : "block"
-        )}
-      />
-      {/* White logo — visible in dark mode */}
-      <Image
-        src="/logo-white.png"
-        alt="Conté Films"
-        width={180}
-        height={32}
-        priority
-        className={cn(
-          "h-5 sm:h-6 w-auto object-contain transition-opacity duration-200",
-          isDark ? "block" : "hidden"
-        )}
-      />
+      {/* SVG Image Logo for Dark Mode (White Text) */}
+      <div className={cn("items-center", isDark || !mounted ? "flex" : "hidden")}>
+        <Image
+          src="/logo-light.svg"
+          alt="Conté Films"
+          width={220}
+          height={38}
+          priority
+          className="h-6 sm:h-7 w-auto object-contain"
+        />
+      </div>
+
+      {/* SVG Image Logo for Light Mode (Black Text) */}
+      <div className={cn("items-center", !isDark && mounted ? "flex" : "hidden")}>
+        <Image
+          src="/logo-dark.svg"
+          alt="Conté Films"
+          width={220}
+          height={38}
+          priority
+          className="h-6 sm:h-7 w-auto object-contain"
+        />
+      </div>
     </Link>
   );
 }

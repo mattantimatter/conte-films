@@ -30,15 +30,17 @@ const config: Config = {
       },
       fontFamily: {
         sans: [
-          "var(--font-inter)",
-          "Inter",
+          "var(--font-geist-sans)",
+          "Geist",
+          "system-ui",
           "-apple-system",
           "BlinkMacSystemFont",
-          "system-ui",
-          '"Segoe UI"',
-          "Arial",
-          "Helvetica",
           "sans-serif",
+        ],
+        mono: [
+          "var(--font-geist-mono)",
+          "Geist Mono",
+          "monospace",
         ],
       },
       letterSpacing: {
