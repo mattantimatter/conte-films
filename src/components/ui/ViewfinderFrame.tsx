@@ -65,7 +65,7 @@ export function ViewfinderFrame({
               key={corner}
               aria-hidden
               className={cn(
-                "absolute h-5 w-5 rounded-[3px] border-accent-bronze/45 transition-colors duration-500 group-hover/spot:border-accent-bronze",
+                "absolute h-5 w-5 rounded-[3px] border-accent-bronze/60 transition-colors duration-500 group-hover/spot:border-accent-bronze",
                 corner,
               )}
             />

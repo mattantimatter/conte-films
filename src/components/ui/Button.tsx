@@ -104,15 +104,7 @@ export function Button({
       {variant === "secondary" && (
         <span
           aria-hidden
-          className="pointer-events-none absolute inset-0 rounded-full opacity-0 transition-opacity duration-300 group-hover/btn:opacity-100"
-          style={{
-            padding: "1px",
-            backgroundImage: "var(--accent-gradient)",
-            WebkitMask: "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
-            mask: "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
-            WebkitMaskComposite: "xor",
-            maskComposite: "exclude",
-          }}
+          className="accent-hairline opacity-0 transition-opacity duration-300 group-hover/btn:opacity-100"
         />
       )}
 

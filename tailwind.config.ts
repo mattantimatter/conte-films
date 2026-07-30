@@ -33,8 +33,11 @@ const config: Config = {
         },
       },
       backgroundImage: {
-        "accent-gradient": "var(--accent-gradient)",
-        "accent-sheen": "var(--accent-gradient-sheen)",
+        // Stops are spelled out rather than pulled from one shared custom
+        // property so the ramp resolves against whichever --accent-* values are
+        // nearest the element. See the note in globals.css.
+        "accent-gradient":
+          "linear-gradient(var(--accent-angle), var(--accent-via) 0%, var(--accent-from) 45%, var(--accent-to) 100%)",
       },
       boxShadow: {
         accent: "0 10px 30px -12px var(--accent-glow)",

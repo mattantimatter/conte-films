@@ -60,29 +60,21 @@
   --hero-overlay: rgba(0, 0, 0, 0.55);
 }
 
-/* Shared gradient recipes. Angle is overridable per-use via --accent-angle. */
-:root,
-.dark {
+:root {
   --accent-angle: 118deg;
-  /* Opens on the mid tone and puts the bright stop in the middle, so the ramp
-     reads as a specular highlight and short strings (a stat, a numeral) still
-     land on a representative colour instead of the pale end. */
-  --accent-gradient: linear-gradient(
-    var(--accent-angle),
-    var(--accent-via) 0%,
-    var(--accent-from) 45%,
-    var(--accent-to) 100%
-  );
-  /* Wider ramp with a bright turn used for sheen sweeps and animated fills */
-  --accent-gradient-sheen: linear-gradient(
-    var(--accent-angle),
-    var(--accent-to) 0%,
-    var(--accent-via) 22%,
-    var(--accent-from) 50%,
-    var(--accent-via) 78%,
-    var(--accent-to) 100%
-  );
 }
+
+/* The ramp is written out at every point of use rather than stored in one
+   --accent-gradient property. A custom property holding var() references is
+   substituted where it is *declared*, so a single shared property would bake in
+   the root's stops and .accent-on-dark could never override them. Spelling the
+   stops out lets each element resolve against the nearest --accent-* values.
+   The two recipes are:
+
+     ramp  — opens on the mid tone with the bright stop in the middle, so it
+             reads as a specular highlight and short strings still land on a
+             representative colour instead of the pale end.
+     sheen — a wider ramp that turns twice, for animated fills and glows. */
 
 * {
   box-sizing: border-box;
@@ -172,7 +164,12 @@ h6 {
    strings in a wide box only ever sample the opening stop. */
 .text-gradient-accent {
   color: var(--accent-bronze);
-  background-image: var(--accent-gradient);
+  background-image: linear-gradient(
+    var(--accent-angle),
+    var(--accent-via) 0%,
+    var(--accent-from) 45%,
+    var(--accent-to) 100%
+  );
   background-size: 100% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -198,18 +195,20 @@ h6 {
   );
 }
 
-/* 1px gradient border drawn with a mask so the fill stays transparent. */
-.border-gradient-accent {
-  position: relative;
-}
-
-.border-gradient-accent::after {
-  content: "";
+/* 1px gradient border. Apply to an empty child span so callers can transition
+   its opacity independently of the surface it outlines; the radius is inherited
+   from the positioning parent. */
+.accent-hairline {
   position: absolute;
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background-image: var(--accent-gradient);
+  background-image: linear-gradient(
+    var(--accent-angle),
+    var(--accent-via) 0%,
+    var(--accent-from) 45%,
+    var(--accent-to) 100%
+  );
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
@@ -244,7 +243,14 @@ h6 {
 }
 
 .animate-accent-drift {
-  background-image: var(--accent-gradient-sheen);
+  background-image: linear-gradient(
+    var(--accent-angle),
+    var(--accent-to) 0%,
+    var(--accent-via) 22%,
+    var(--accent-from) 50%,
+    var(--accent-via) 78%,
+    var(--accent-to) 100%
+  );
   background-size: 220% 220%;
   animation: accent-drift 9s ease-in-out infinite;
 }

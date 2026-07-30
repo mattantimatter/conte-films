@@ -27,8 +27,12 @@ export default function HomePage() {
         <div className="absolute inset-0 z-10 flex items-center justify-center p-4 sm:p-6 lg:p-8 pointer-events-none">
           <div className="accent-on-dark max-w-4xl text-center space-y-6 pointer-events-auto">
             <Reveal direction="up" delay={0.1}>
-              <span className="inline-block px-4 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-gradient-accent text-xs font-mono font-semibold tracking-widest uppercase shadow-lg">
-                Atlanta Visual Production Studio
+              {/* The pill and the gradient text have to be separate elements —
+                  background-clip: text would otherwise clip the pill fill too. */}
+              <span className="inline-flex items-center rounded-full bg-black/70 px-4 py-1.5 backdrop-blur-md border border-white/20 shadow-lg">
+                <span className="text-gradient-accent text-xs font-mono font-semibold tracking-widest uppercase">
+                  Atlanta Visual Production Studio
+                </span>
               </span>
             </Reveal>
 
