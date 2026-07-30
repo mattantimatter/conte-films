@@ -1,6 +1,9 @@
 import React from "react";
+import { Route } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
 import { StaggerGroup, StaggerItem } from "@/components/StaggerGroup";
+import { Eyebrow } from "@/components/ui/Eyebrow";
+import { SpotlightCard } from "@/components/ui/SpotlightCard";
 
 const phases = [
   {
@@ -37,42 +40,36 @@ export function ProcessSection() {
   return (
     <section className="py-24 bg-bg-primary border-b border-border-subtle transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Reveal direction="up" className="max-w-3xl mb-16 space-y-4">
-          <p className="text-xs uppercase tracking-[0.2em] font-semibold text-accent-bronze">
+        <Reveal direction="up" className="max-w-3xl mb-16">
+          <Eyebrow icon={<Route className="h-3.5 w-3.5" />} rule>
             Our Production Framework
-          </p>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-medium tracking-tight text-text-primary">
+          </Eyebrow>
+          <h2 className="mt-6 font-display text-[2rem] sm:text-4xl lg:text-5xl font-semibold tracking-[-0.035em] leading-[1.08] text-text-primary">
             Organized execution. No studio clutter.
           </h2>
-          <p className="text-base text-text-muted leading-relaxed">
+          <p className="mt-5 text-base text-text-muted leading-relaxed">
             A collaborative workflow built around clear communication, organized shoot days, and outcomes designed to advance your brand.
           </p>
         </Reveal>
 
-        <StaggerGroup className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <StaggerGroup className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
           {phases.map((phase) => (
-            <StaggerItem key={phase.number}>
-              <div className="p-8 rounded-lg bg-bg-surface border border-border-subtle hover:border-accent-bronze/40 transition-colors h-full flex flex-col justify-between space-y-6">
-                <div>
-                  <div className="flex items-center justify-between border-b border-border-subtle pb-4 mb-4">
-                    <span className="text-2xl font-serif font-bold text-accent-bronze">
-                      {phase.number}
-                    </span>
-                    <span className="text-[10px] font-mono tracking-widest text-text-muted uppercase">
-                      Phase {phase.number}
-                    </span>
-                  </div>
-                  <h3 className="text-xl font-serif font-semibold text-text-primary">
-                    {phase.title}
-                  </h3>
-                  <p className="text-xs font-medium text-accent-bronze mt-1">
-                    {phase.subtitle}
-                  </p>
-                  <p className="text-sm text-text-muted mt-4 leading-relaxed">
-                    {phase.description}
-                  </p>
+            <StaggerItem key={phase.number} className="h-full">
+              <SpotlightCard className="h-full bg-bg-surface" contentClassName="flex flex-col p-8">
+                <div className="mb-4 flex items-center justify-between border-b border-border-subtle pb-4">
+                  <span className="text-gradient-accent font-display text-2xl font-semibold tabular-nums leading-none">
+                    {phase.number}
+                  </span>
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-text-muted">
+                    Phase {phase.number}
+                  </span>
                 </div>
-              </div>
+                <h3 className="font-display text-xl font-semibold tracking-[-0.02em] text-text-primary">
+                  {phase.title}
+                </h3>
+                <p className="mt-1.5 text-xs font-medium text-accent-bronze">{phase.subtitle}</p>
+                <p className="mt-4 text-sm leading-relaxed text-text-muted">{phase.description}</p>
+              </SpotlightCard>
             </StaggerItem>
           ))}
         </StaggerGroup>

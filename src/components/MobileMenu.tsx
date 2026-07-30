@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { Menu, X, ArrowUpRight, ChevronRight, Phone, Mail } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Logo } from "@/components/Logo";
+import { Button } from "@/components/ui/Button";
 import { siteContent } from "@/content/site";
 import { cn } from "@/lib/utils";
 
@@ -148,14 +149,15 @@ export function MobileMenu() {
 
           {/* Footer & Primary Action */}
           <div className="pt-6 border-t border-border-subtle space-y-4">
-            <Link
+            <Button
               href="/contact"
               onClick={() => setIsOpen(false)}
-              className="w-full py-3.5 px-6 rounded-md bg-accent-bronze text-white font-medium text-center flex items-center justify-center gap-2 hover:bg-accent-bronze-hover transition-colors text-base"
+              size="lg"
+              fullWidth
+              icon={<ArrowUpRight className="w-4 h-4" />}
             >
-              <span>Start a Project</span>
-              <ArrowUpRight className="w-4 h-4" />
-            </Link>
+              Start a Project
+            </Button>
 
             <div className="flex flex-col gap-2 pt-2 text-xs text-text-muted">
               <a

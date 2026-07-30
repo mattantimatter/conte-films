@@ -1,9 +1,9 @@
 import React from "react";
 import { Metadata } from "next";
-import Link from "next/link";
 import { Home as HomeIcon, CheckCircle, ArrowUpRight, Compass, ShieldCheck, Sun } from "lucide-react";
 import { solutionsContent } from "@/content/solutions";
 import { Reveal } from "@/components/Reveal";
+import { Button } from "@/components/ui/Button";
 import { StaggerGroup, StaggerItem } from "@/components/StaggerGroup";
 import { ProjectGrid } from "@/components/ProjectGrid";
 import { TestimonialSection } from "@/components/TestimonialSection";
@@ -45,12 +45,9 @@ export default function RealEstateSolutionPage() {
               </Reveal>
 
               <Reveal direction="up" delay={0.3} className="pt-4 flex flex-wrap gap-4">
-                <Link
-                  href="/contact"
-                  className="px-8 py-3.5 rounded-full bg-accent-bronze text-white font-semibold text-xs uppercase tracking-widest hover:bg-accent-bronze-hover transition-all shadow-md focus-ring"
-                >
+                <Button href="/contact" size="lg" icon={<ArrowUpRight className="w-4 h-4" />}>
                   Book Architectural Shoot
-                </Link>
+                </Button>
                 <a
                   href="#drone"
                   className="px-8 py-3.5 rounded-full bg-bg-elevated text-text-primary border border-border-medium hover:border-accent-bronze transition-colors text-xs font-semibold uppercase tracking-widest"
