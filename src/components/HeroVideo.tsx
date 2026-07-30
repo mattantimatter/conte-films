@@ -1,129 +1,59 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
+import { useState } from "react";
 import { Volume2, VolumeX, ChevronDown } from "lucide-react";
+import { MuxBackgroundVideo } from "@mux/mux-background-video/react";
 
-const MUX_PLAYBACK_ID = "7FEEOISkBx8NenBqj76E902NEDY4fqL6qFizqzK8oYoc";
-const HLS_URL   = `https://stream.mux.com/${MUX_PLAYBACK_ID}.m3u8`;
-const POSTER    = `https://image.mux.com/${MUX_PLAYBACK_ID}/thumbnail.jpg?width=1920&height=1080&fit_mode=smartcrop&time=2`;
+const PLAYBACK_ID = "7FEEOISkBx8NenBqj76E902NEDY4fqL6qFizqzK8oYoc";
+
+const STREAM_URL =
+  `https://stream.mux.com/${PLAYBACK_ID}.m3u8` +
+  `?min_resolution=720p` +
+  `&max_resolution=1080p` +
+  `&rendition_order=desc`;
+
+const POSTER_URL = `https://image.mux.com/${PLAYBACK_ID}/thumbnail.webp?time=0&width=1920`;
 
 export function HeroVideo() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [isMuted, setIsMuted] = useState(true);
-  const [isPlaying, setIsPlaying] = useState(false);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    // Always set muted directly on DOM element — React's muted prop is broken
-    video.muted = true;
-
-    const startPlay = () => video.play().catch(() => {});
-
-    // Only reveal video once it's rendering actual frames at the right quality
-    const onPlaying = () => setIsPlaying(true);
-    video.addEventListener("playing", onPlaying);
-
-    async function initHls() {
-      // Safari supports HLS natively — just point src at the .m3u8
-      if (video && video.canPlayType("application/vnd.apple.mpegurl")) {
-        video.src = HLS_URL;
-        video.addEventListener("loadedmetadata", startPlay, { once: true });
-        startPlay();
-        return;
-      }
-
-      // Chrome / Firefox / Edge — use hls.js
-      const { default: Hls } = await import("hls.js");
-      if (!Hls.isSupported() || !video) return;
-
-      const hls = new Hls({
-        capLevelToPlayerSize: false,
-        abrEwmaDefaultEstimate: 50_000_000,
-        maxBufferLength: 60,
-        maxMaxBufferLength: 120,
-      });
-
-      hls.loadSource(HLS_URL);
-      hls.attachMedia(video);
-
-      hls.on(Hls.Events.MANIFEST_PARSED, (_event, data) => {
-        // Find the level closest to 720p by height
-        const TARGET_HEIGHT = 720;
-        let bestIdx = 0;
-        let bestDiff = Infinity;
-        data.levels.forEach((level, idx) => {
-          const diff = Math.abs((level.height || 0) - TARGET_HEIGHT);
-          if (diff < bestDiff) {
-            bestDiff = diff;
-            bestIdx = idx;
-          }
-        });
-        // Lock to 720p — prevents blurry low-quality first segments
-        hls.startLevel = bestIdx;
-        hls.loadLevel = bestIdx;
-        hls.currentLevel = bestIdx;
-        startPlay();
-      });
-
-      return () => hls.destroy();
-    }
-
-    const cleanup = initHls();
-
-    // Pause/resume on scroll
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          startPlay();
-        } else {
-          video.pause();
-        }
-      },
-      { threshold: 0.1 }
-    );
-    observer.observe(video);
-
-    return () => {
-      video.removeEventListener("playing", onPlaying);
-      observer.disconnect();
-      cleanup?.then((fn) => fn?.());
-    };
-  }, []);
-
-  const toggleMute = () => {
-    const video = videoRef.current;
-    if (!video) return;
-    video.muted = !video.muted;
-    setIsMuted(video.muted);
-  };
+  const [playing, setPlaying] = useState(false);
+  const [muted, setMuted] = useState(true);
 
   return (
     <div className="relative w-full h-full min-h-screen flex items-center justify-center overflow-hidden bg-[#090909]">
 
-      <video
-        ref={videoRef}
-        autoPlay
-        muted
-        loop
-        playsInline
-        poster={POSTER}
-        className={`absolute inset-0 w-full h-full object-cover scale-105 transition-opacity duration-700 ${
-          isPlaying ? "opacity-100" : "opacity-0"
-        }`}
-      />
+      {/* Mux Background Video — min 720p, max 1080p, highest rendition first */}
+      <div className="absolute inset-0 overflow-hidden">
+        <MuxBackgroundVideo
+          src={STREAM_URL}
+          preload="auto"
+          muted={muted}
+          onPlaying={() => {
+            // Small delay so we're sure the 720p segment is actually rendering
+            window.setTimeout(() => setPlaying(true), 500);
+          }}
+          className="h-full w-full object-cover scale-105"
+        >
+          {/* Mux Background Video uses child img as its built-in loading state */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={POSTER_URL}
+            alt=""
+            className="h-full w-full object-cover scale-105"
+          />
+        </MuxBackgroundVideo>
 
-      {/* Poster shown while 720p segment loads — prevents blurry flash */}
-      {!isPlaying && (
-        // eslint-disable-next-line @next/next/no-img-element
+        {/* Poster overlay — stays fully opaque until 720p playback is confirmed,
+            then dissolves over 700ms so the quality switch is never visible */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={POSTER}
+          src={POSTER_URL}
           alt=""
           aria-hidden
-          className="absolute inset-0 w-full h-full object-cover scale-105"
+          className={`pointer-events-none absolute inset-0 h-full w-full object-cover scale-105 transition-opacity duration-700 ${
+            playing ? "opacity-0" : "opacity-100"
+          }`}
         />
-      )}
+      </div>
 
       {/* Cinematic gradient overlays */}
       <div className="absolute inset-0 bg-gradient-to-t from-[#090909] via-black/30 to-black/50 pointer-events-none" />
@@ -132,12 +62,12 @@ export function HeroVideo() {
       {/* Mute toggle */}
       <div className="absolute bottom-10 right-8 z-20 hidden sm:block">
         <button
-          onClick={toggleMute}
+          onClick={() => setMuted((m) => !m)}
           className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-md text-white/90 border border-white/20 text-xs font-mono tracking-wider hover:border-accent-bronze hover:text-accent-bronze transition-all focus-ring"
-          aria-label={isMuted ? "Unmute reel audio" : "Mute reel audio"}
+          aria-label={muted ? "Unmute reel audio" : "Mute reel audio"}
         >
-          {isMuted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
-          <span>{isMuted ? "SOUND OFF" : "SOUND ON"}</span>
+          {muted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
+          <span>{muted ? "SOUND OFF" : "SOUND ON"}</span>
         </button>
       </div>
 

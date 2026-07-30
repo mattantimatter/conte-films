@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@mux/mux-background-video": "^0.2.3",
     "clsx": "^2.1.1",
     "framer-motion": "^11.3.8",
     "geist": "^1.7.2",
