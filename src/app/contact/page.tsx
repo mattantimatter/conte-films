@@ -4,6 +4,7 @@ import { Phone, Mail, MapPin, Calendar, Clock, Instagram, Facebook } from "lucid
 import { siteContent } from "@/content/site";
 import { ContactForm } from "@/components/ContactForm";
 import { Reveal } from "@/components/Reveal";
+import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export const metadata: Metadata = {
@@ -23,9 +24,7 @@ export default function ContactPage() {
             {/* Left Column: Direct Contact Info & Expectations */}
             <div className="lg:col-span-5 space-y-8">
               <Reveal direction="up" className="space-y-4">
-                <span className="text-xs uppercase tracking-[0.25em] font-semibold text-accent-bronze">
-                  Start a Project
-                </span>
+                <Eyebrow>Start a Project</Eyebrow>
                 <h1 className="text-4xl sm:text-6xl font-serif font-medium text-text-primary tracking-tight leading-tight">
                   Tell us what you’re creating.
                 </h1>

@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import { Building2, CheckCircle, ArrowUpRight, Shield, Award } from "lucide-react";
 import { solutionsContent } from "@/content/solutions";
 import { Reveal } from "@/components/Reveal";
+import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Button } from "@/components/ui/Button";
 import { StaggerGroup, StaggerItem } from "@/components/StaggerGroup";
 import { ProjectGrid } from "@/components/ProjectGrid";
@@ -29,10 +30,7 @@ export default function CorporateSolutionPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center pt-8">
             <div className="lg:col-span-8 space-y-6">
               <Reveal direction="up">
-                <span className="text-xs uppercase tracking-[0.25em] font-semibold text-accent-bronze flex items-center gap-2">
-                  <Building2 className="w-4 h-4" />
-                  <span>Corporate & Brand Content</span>
-                </span>
+                <Eyebrow icon={<Building2 className="w-4 h-4" />}>Corporate & Brand Content</Eyebrow>
                 <h1 className="text-4xl sm:text-6xl font-serif font-medium text-text-primary tracking-tight leading-tight mt-2">
                   {content.heroHeadline}
                 </h1>
@@ -58,9 +56,7 @@ export default function CorporateSolutionPage() {
       <section className="py-20 bg-bg-surface border-y border-border-subtle transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <Reveal direction="up" className="max-w-3xl space-y-3">
-            <span className="text-xs uppercase tracking-[0.25em] font-semibold text-accent-bronze">
-              Who We Serve
-            </span>
+            <Eyebrow>Who We Serve</Eyebrow>
             <h2 className="text-3xl font-serif font-medium text-text-primary">
               Built for organizations where credibility is paramount.
             </h2>
@@ -81,9 +77,7 @@ export default function CorporateSolutionPage() {
       <section className="py-24 bg-bg-primary transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
           <Reveal direction="up" className="max-w-3xl space-y-4">
-            <span className="text-xs uppercase tracking-[0.25em] font-semibold text-accent-bronze">
-              Production Capabilities
-            </span>
+            <Eyebrow>Production Capabilities</Eyebrow>
             <h2 className="text-3xl sm:text-5xl font-serif font-medium text-text-primary">
               Comprehensive corporate visual services.
             </h2>
@@ -106,9 +100,7 @@ export default function CorporateSolutionPage() {
       <section className="py-24 bg-bg-surface border-y border-border-subtle transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <Reveal direction="up" className="max-w-3xl space-y-4">
-            <span className="text-xs uppercase tracking-[0.25em] font-semibold text-accent-bronze">
-              Corporate Case Studies
-            </span>
+            <Eyebrow>Corporate Case Studies</Eyebrow>
             <h2 className="text-3xl sm:text-5xl font-serif font-medium text-text-primary">
               Selected Corporate & Healthcare Productions
             </h2>

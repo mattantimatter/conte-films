@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import { Home as HomeIcon, CheckCircle, ArrowUpRight, Compass, ShieldCheck, Sun } from "lucide-react";
 import { solutionsContent } from "@/content/solutions";
 import { Reveal } from "@/components/Reveal";
+import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Button } from "@/components/ui/Button";
 import { StaggerGroup, StaggerItem } from "@/components/StaggerGroup";
 import { ProjectGrid } from "@/components/ProjectGrid";
@@ -29,10 +30,7 @@ export default function RealEstateSolutionPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center pt-8">
             <div className="lg:col-span-8 space-y-6">
               <Reveal direction="up">
-                <span className="text-xs uppercase tracking-[0.25em] font-semibold text-accent-bronze flex items-center gap-2">
-                  <HomeIcon className="w-4 h-4" />
-                  <span>Luxury Real Estate & Architecture</span>
-                </span>
+                <Eyebrow icon={<HomeIcon className="w-4 h-4" />}>Luxury Real Estate & Architecture</Eyebrow>
                 <h1 className="text-4xl sm:text-6xl font-serif font-medium text-text-primary tracking-tight leading-tight mt-2">
                   {content.heroHeadline}
                 </h1>
@@ -66,10 +64,7 @@ export default function RealEstateSolutionPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-6 space-y-6">
               <Reveal direction="up">
-                <span className="text-xs uppercase tracking-[0.25em] font-semibold text-accent-bronze flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4" />
-                  <span>FAA Part 107 Remote Pilots</span>
-                </span>
+                <Eyebrow icon={<ShieldCheck className="w-4 h-4" />}>FAA Part 107 Remote Pilots</Eyebrow>
                 <h2 className="text-3xl sm:text-5xl font-serif font-medium text-text-primary tracking-tight">
                   FAA-Certified Aerial Photography & Video
                 </h2>
@@ -109,9 +104,7 @@ export default function RealEstateSolutionPage() {
       <section className="py-24 bg-bg-primary transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <Reveal direction="up" className="max-w-3xl space-y-4">
-            <span className="text-xs uppercase tracking-[0.25em] font-semibold text-accent-bronze">
-              Architectural Portfolio
-            </span>
+            <Eyebrow>Architectural Portfolio</Eyebrow>
             <h2 className="text-3xl sm:text-5xl font-serif font-medium text-text-primary">
               Multimillion-Dollar Residence Productions
             </h2>

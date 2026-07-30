@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowUpRight, Camera, Film, Compass, ShieldCheck, Award, Users } from "lucide-react";
 import { siteContent } from "@/content/site";
 import { Reveal } from "@/components/Reveal";
+import { Eyebrow } from "@/components/ui/Eyebrow";
 import { StaggerGroup, StaggerItem } from "@/components/StaggerGroup";
 import { CTASection } from "@/components/CTASection";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
@@ -53,9 +54,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center pt-8">
             <div className="lg:col-span-7 space-y-6">
               <Reveal direction="up">
-                <span className="text-xs uppercase tracking-[0.25em] font-semibold text-accent-bronze">
-                  The Conté Films Story
-                </span>
+                <Eyebrow>The Conté Films Story</Eyebrow>
                 <h1 className="text-4xl sm:text-6xl font-serif font-medium text-text-primary tracking-tight leading-tight mt-2">
                   Founder-led visual craft with the scale of a commercial studio.
                 </h1>
@@ -116,9 +115,7 @@ export default function AboutPage() {
       <section className="py-24 bg-bg-surface border-y border-border-subtle transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal direction="up" className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-            <span className="text-xs uppercase tracking-[0.25em] font-semibold text-accent-bronze">
-              Visual Philosophy
-            </span>
+            <Eyebrow>Visual Philosophy</Eyebrow>
             <h2 className="text-3xl sm:text-5xl font-serif font-medium text-text-primary tracking-tight">
               Three pillars that guide every production.
             </h2>
@@ -150,9 +147,7 @@ export default function AboutPage() {
       <section className="py-24 bg-bg-primary transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
           <Reveal direction="up" className="max-w-3xl space-y-4">
-            <span className="text-xs uppercase tracking-[0.25em] font-semibold text-accent-bronze">
-              Verified Experience
-            </span>
+            <Eyebrow>Verified Experience</Eyebrow>
             <h2 className="text-3xl sm:text-5xl font-serif font-medium text-text-primary tracking-tight">
               A track record of excellence in Metro Atlanta & beyond.
             </h2>
@@ -198,9 +193,7 @@ export default function AboutPage() {
       <section className="py-24 bg-bg-surface border-t border-border-subtle transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
           <Reveal direction="up" className="max-w-3xl space-y-4">
-            <span className="text-xs uppercase tracking-[0.25em] font-semibold text-accent-bronze">
-              Capabilities Breakdown
-            </span>
+            <Eyebrow>Capabilities Breakdown</Eyebrow>
             <h2 className="text-3xl sm:text-5xl font-serif font-medium text-text-primary tracking-tight">
               Full-service visual production from concept to final master.
             </h2>
