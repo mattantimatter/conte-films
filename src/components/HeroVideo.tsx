@@ -5,10 +5,9 @@ import { Volume2, VolumeX, ChevronDown } from "lucide-react";
 
 const MUX_PLAYBACK_ID = "7FEEOISkBx8NenBqj76E902NEDY4fqL6qFizqzK8oYoc";
 
-// Mux streaming URLs
-const MUX_MP4_HIGH  = `https://stream.mux.com/${MUX_PLAYBACK_ID}/high.mp4`;
-const MUX_MP4_MED   = `https://stream.mux.com/${MUX_PLAYBACK_ID}/medium.mp4`;
-const MUX_POSTER    = `https://image.mux.com/${MUX_PLAYBACK_ID}/thumbnail.jpg?width=1920&height=1080&fit_mode=smartcrop&time=2`;
+const MUX_MP4_HIGH = `https://stream.mux.com/${MUX_PLAYBACK_ID}/high.mp4`;
+const MUX_MP4_MED  = `https://stream.mux.com/${MUX_PLAYBACK_ID}/medium.mp4`;
+const MUX_POSTER   = `https://image.mux.com/${MUX_PLAYBACK_ID}/thumbnail.jpg?width=1920&height=1080&fit_mode=smartcrop&time=2`;
 
 export function HeroVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -19,19 +18,35 @@ export function HeroVideo() {
     const video = videoRef.current;
     if (!video) return;
 
-    // Autoplay as soon as enough data is available
+    // React doesn't reliably apply the `muted` attribute to the DOM —
+    // set it directly on the element to satisfy browser autoplay policy.
+    video.muted = true;
+    video.loop = true;
+    video.playsInline = true;
+
+    const tryPlay = () => {
+      video.play().catch(() => {
+        // If play fails, retry once after a short delay
+        setTimeout(() => video.play().catch(() => {}), 500);
+      });
+    };
+
+    // Try immediately in case data is already buffered
+    tryPlay();
+
     const onCanPlay = () => {
-      video.play().catch(() => {});
+      tryPlay();
       setIsLoaded(true);
     };
-    video.addEventListener("canplaythrough", onCanPlay);
 
-    // Pause when scrolled out of view to save resources
+    video.addEventListener("canplay", onCanPlay);
+
+    // Pause/resume on scroll
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            video.play().catch(() => {});
+            tryPlay();
           } else {
             video.pause();
           }
@@ -39,58 +54,46 @@ export function HeroVideo() {
       },
       { threshold: 0.1 }
     );
-
     observer.observe(video);
 
     return () => {
-      video.removeEventListener("canplaythrough", onCanPlay);
+      video.removeEventListener("canplay", onCanPlay);
       observer.disconnect();
     };
   }, []);
 
   const toggleMute = () => {
-    if (videoRef.current) {
-      videoRef.current.muted = !isMuted;
-      setIsMuted(!isMuted);
-    }
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = !video.muted;
+    setIsMuted(video.muted);
   };
 
   return (
     <div className="relative w-full h-full min-h-screen flex items-center justify-center overflow-hidden bg-[#090909]">
 
-      {/* Mux Video Background */}
+      {/* Mux Video — muted/loop/playsInline set via ref in useEffect to bypass React's broken muted prop */}
       <video
         ref={videoRef}
         autoPlay
-        muted
         loop
+        muted
         playsInline
         poster={MUX_POSTER}
         preload="auto"
         className={`absolute inset-0 w-full h-full object-cover scale-105 transition-opacity duration-1000 ${
-          isLoaded ? "opacity-100" : "opacity-0"
+          isLoaded ? "opacity-100" : "opacity-60"
         }`}
       >
-        {/* High quality first, fallback to medium */}
         <source src={MUX_MP4_HIGH} type="video/mp4" />
-        <source src={MUX_MP4_MED} type="video/mp4" />
+        <source src={MUX_MP4_MED}  type="video/mp4" />
       </video>
 
-      {/* Poster shown while video loads */}
-      {!isLoaded && (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src={MUX_POSTER}
-          alt="Conté Films hero reel"
-          className="absolute inset-0 w-full h-full object-cover scale-105"
-        />
-      )}
-
-      {/* Cinematic gradient overlay */}
+      {/* Cinematic overlays */}
       <div className="absolute inset-0 bg-gradient-to-t from-[#090909] via-black/30 to-black/50 pointer-events-none" />
       <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/20 pointer-events-none" />
 
-      {/* Mute / Unmute toggle */}
+      {/* Mute toggle */}
       <div className="absolute bottom-10 right-8 z-20 hidden sm:block">
         <button
           onClick={toggleMute}
