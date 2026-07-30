@@ -1,9 +1,6 @@
-"use client";
-
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 
 interface LogoProps {
@@ -11,15 +8,6 @@ interface LogoProps {
 }
 
 export function Logo({ className }: LogoProps) {
-  const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const isDark = mounted && resolvedTheme === "dark";
-
   return (
     <Link
       href="/"
@@ -29,29 +17,25 @@ export function Logo({ className }: LogoProps) {
       )}
       aria-label="Conté Films Home"
     >
-      {/* Uploaded Logo Image - White Text for Dark Theme */}
-      <div className={cn("items-center", isDark || !mounted ? "flex" : "hidden")}>
-        <Image
-          src="/logo-white.png"
-          alt="Conté Films"
-          width={1024}
-          height={203}
-          priority
-          className="h-6 sm:h-7 w-auto object-contain"
-        />
-      </div>
+      {/* Dark mode logo: White text (visible only in dark mode) */}
+      <Image
+        src="/logo-white.png"
+        alt="Conté Films"
+        width={1024}
+        height={203}
+        priority
+        className="h-6 sm:h-7 w-auto object-contain hidden dark:block"
+      />
 
-      {/* Uploaded Logo Image - Dark Text for Light Theme */}
-      <div className={cn("items-center", !isDark && mounted ? "flex" : "hidden")}>
-        <Image
-          src="/logo-dark.png"
-          alt="Conté Films"
-          width={1024}
-          height={203}
-          priority
-          className="h-6 sm:h-7 w-auto object-contain"
-        />
-      </div>
+      {/* Light mode logo: Solid Black text (visible only in light mode) */}
+      <Image
+        src="/logo-dark.png"
+        alt="Conté Films"
+        width={1024}
+        height={203}
+        priority
+        className="h-6 sm:h-7 w-auto object-contain block dark:hidden"
+      />
     </Link>
   );
 }
