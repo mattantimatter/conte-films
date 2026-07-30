@@ -68,7 +68,7 @@ export function Header() {
               Work
             </Link>
 
-            <SolutionsDropdown isScrolled={isScrolled} />
+            <SolutionsDropdown isScrolled={isScrolled} isHome={isHome} />
 
             <Link
               href="/about"

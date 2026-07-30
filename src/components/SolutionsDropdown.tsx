@@ -34,7 +34,7 @@ const solutions: SolutionItem[] = [
   },
 ];
 
-export function SolutionsDropdown({ isScrolled }: { isScrolled?: boolean }) {
+export function SolutionsDropdown({ isScrolled, isHome }: { isScrolled?: boolean; isHome?: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
@@ -77,6 +77,8 @@ export function SolutionsDropdown({ isScrolled }: { isScrolled?: boolean }) {
           "inline-flex items-center gap-1.5 text-sm font-medium transition-colors py-2 focus-ring rounded-sm",
           isSolutionsActive
             ? "text-accent-bronze font-semibold"
+            : isHome && !isScrolled
+            ? "text-white/90 hover:text-white"
             : "text-text-primary hover:text-accent-bronze"
         )}
         aria-expanded={isOpen}
