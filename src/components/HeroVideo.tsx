@@ -4,61 +4,69 @@ import React, { useRef, useState, useEffect } from "react";
 import { Volume2, VolumeX, ChevronDown } from "lucide-react";
 
 const MUX_PLAYBACK_ID = "7FEEOISkBx8NenBqj76E902NEDY4fqL6qFizqzK8oYoc";
-
-const MUX_MP4_HIGH = `https://stream.mux.com/${MUX_PLAYBACK_ID}/high.mp4`;
-const MUX_MP4_MED  = `https://stream.mux.com/${MUX_PLAYBACK_ID}/medium.mp4`;
-const MUX_POSTER   = `https://image.mux.com/${MUX_PLAYBACK_ID}/thumbnail.jpg?width=1920&height=1080&fit_mode=smartcrop&time=2`;
+const HLS_URL   = `https://stream.mux.com/${MUX_PLAYBACK_ID}.m3u8`;
+const POSTER    = `https://image.mux.com/${MUX_PLAYBACK_ID}/thumbnail.jpg?width=1920&height=1080&fit_mode=smartcrop&time=2`;
 
 export function HeroVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isMuted, setIsMuted] = useState(true);
-  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    // React doesn't reliably apply the `muted` attribute to the DOM —
-    // set it directly on the element to satisfy browser autoplay policy.
+    // Always set muted directly on DOM element — React's muted prop is broken
     video.muted = true;
-    video.loop = true;
-    video.playsInline = true;
 
-    const tryPlay = () => {
-      video.play().catch(() => {
-        // If play fails, retry once after a short delay
-        setTimeout(() => video.play().catch(() => {}), 500);
+    const startPlay = () => video.play().catch(() => {});
+
+    async function initHls() {
+      // Safari supports HLS natively — just point src at the .m3u8
+      if (video && video.canPlayType("application/vnd.apple.mpegurl")) {
+        video.src = HLS_URL;
+        video.addEventListener("loadedmetadata", startPlay, { once: true });
+        startPlay();
+        return;
+      }
+
+      // Chrome / Firefox / Edge — use hls.js
+      const { default: Hls } = await import("hls.js");
+      if (!Hls.isSupported() || !video) return;
+
+      const hls = new Hls({
+        startLevel: -1,
+        maxBufferLength: 30,
+        maxMaxBufferLength: 60,
       });
-    };
 
-    // Try immediately in case data is already buffered
-    tryPlay();
+      hls.loadSource(HLS_URL);
+      hls.attachMedia(video);
 
-    const onCanPlay = () => {
-      tryPlay();
-      setIsLoaded(true);
-    };
+      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        startPlay();
+      });
 
-    video.addEventListener("canplay", onCanPlay);
+      return () => hls.destroy();
+    }
+
+    const cleanup = initHls();
 
     // Pause/resume on scroll
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            tryPlay();
-          } else {
-            video.pause();
-          }
-        });
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          startPlay();
+        } else {
+          video.pause();
+        }
       },
       { threshold: 0.1 }
     );
     observer.observe(video);
 
     return () => {
-      video.removeEventListener("canplay", onCanPlay);
       observer.disconnect();
+      cleanup?.then((fn) => fn?.());
     };
   }, []);
 
@@ -72,24 +80,17 @@ export function HeroVideo() {
   return (
     <div className="relative w-full h-full min-h-screen flex items-center justify-center overflow-hidden bg-[#090909]">
 
-      {/* Mux Video — muted/loop/playsInline set via ref in useEffect to bypass React's broken muted prop */}
       <video
         ref={videoRef}
         autoPlay
-        loop
         muted
+        loop
         playsInline
-        poster={MUX_POSTER}
-        preload="auto"
-        className={`absolute inset-0 w-full h-full object-cover scale-105 transition-opacity duration-1000 ${
-          isLoaded ? "opacity-100" : "opacity-60"
-        }`}
-      >
-        <source src={MUX_MP4_HIGH} type="video/mp4" />
-        <source src={MUX_MP4_MED}  type="video/mp4" />
-      </video>
+        poster={POSTER}
+        className="absolute inset-0 w-full h-full object-cover scale-105"
+      />
 
-      {/* Cinematic overlays */}
+      {/* Cinematic gradient overlays */}
       <div className="absolute inset-0 bg-gradient-to-t from-[#090909] via-black/30 to-black/50 pointer-events-none" />
       <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/20 pointer-events-none" />
 
