@@ -35,14 +35,19 @@ export function HeroVideo() {
 
       const hls = new Hls({
         startLevel: -1,
-        maxBufferLength: 30,
-        maxMaxBufferLength: 60,
+        capLevelToPlayerSize: false,
+        // Seed bandwidth estimate high so HLS.js starts at max quality
+        abrEwmaDefaultEstimate: 50_000_000, // 50 Mbps default estimate
+        maxBufferLength: 60,
+        maxMaxBufferLength: 120,
       });
 
       hls.loadSource(HLS_URL);
       hls.attachMedia(video);
 
-      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+      hls.on(Hls.Events.MANIFEST_PARSED, (_event, data) => {
+        // Force the highest quality level immediately
+        hls.currentLevel = data.levels.length - 1;
         startPlay();
       });
 
