@@ -1,8 +1,18 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useState } from "react";
 import { Volume2, VolumeX, ChevronDown } from "lucide-react";
-import { MuxBackgroundVideo } from "@mux/mux-background-video/react";
+
+// Disable SSR for MuxBackgroundVideo — it injects a <style> tag that causes
+// an HTML-entity hydration mismatch between server (&gt;) and client (>).
+const MuxBackgroundVideo = dynamic(
+  () =>
+    import("@mux/mux-background-video/react").then(
+      (m) => m.MuxBackgroundVideo
+    ),
+  { ssr: false }
+);
 
 const PLAYBACK_ID = "7FEEOISkBx8NenBqj76E902NEDY4fqL6qFizqzK8oYoc";
 
@@ -21,19 +31,26 @@ export function HeroVideo() {
   return (
     <div className="relative w-full h-full min-h-screen flex items-center justify-center overflow-hidden bg-[#090909]">
 
-      {/* Mux Background Video — min 720p, max 1080p, highest rendition first */}
       <div className="absolute inset-0 overflow-hidden">
+        {/* Poster — always present, sits beneath the video during buffering */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={POSTER_URL}
+          alt=""
+          aria-hidden
+          className="absolute inset-0 h-full w-full object-cover scale-105"
+        />
+
+        {/* Client-only Mux player — no SSR so no hydration mismatch */}
         <MuxBackgroundVideo
           src={STREAM_URL}
           preload="auto"
           muted={muted}
           onPlaying={() => {
-            // Small delay so we're sure the 720p segment is actually rendering
             window.setTimeout(() => setPlaying(true), 500);
           }}
-          className="h-full w-full object-cover scale-105"
+          className="absolute inset-0 h-full w-full object-cover scale-105"
         >
-          {/* Mux Background Video uses child img as its built-in loading state */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={POSTER_URL}
@@ -42,8 +59,7 @@ export function HeroVideo() {
           />
         </MuxBackgroundVideo>
 
-        {/* Poster overlay — stays fully opaque until 720p playback is confirmed,
-            then dissolves over 700ms so the quality switch is never visible */}
+        {/* Overlay poster — dissolves after 720p playback is confirmed */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={POSTER_URL}
