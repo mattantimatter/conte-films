@@ -5,9 +5,10 @@ import { cn } from "@/lib/utils";
 
 interface LogoProps {
   className?: string;
+  forceWhite?: boolean;
 }
 
-export function Logo({ className }: LogoProps) {
+export function Logo({ className, forceWhite }: LogoProps) {
   return (
     <Link
       href="/"
@@ -17,24 +18,30 @@ export function Logo({ className }: LogoProps) {
       )}
       aria-label="Conté Films Home"
     >
-      {/* Dark mode logo: White text (visible only in dark mode) */}
+      {/* White logo: shown in dark mode OR when forced (e.g. over dark hero video) */}
       <Image
         src="/logo-white.png"
         alt="Conté Films"
         width={1024}
         height={203}
         priority
-        className="h-6 sm:h-7 w-auto object-contain hidden dark:block"
+        className={cn(
+          "h-6 sm:h-7 w-auto object-contain",
+          forceWhite ? "block" : "hidden dark:block"
+        )}
       />
 
-      {/* Light mode logo: Solid Black text (visible only in light mode) */}
+      {/* Dark logo: shown in light mode, hidden when forceWhite */}
       <Image
         src="/logo-dark.png"
         alt="Conté Films"
         width={1024}
         height={203}
         priority
-        className="h-6 sm:h-7 w-auto object-contain block dark:hidden"
+        className={cn(
+          "h-6 sm:h-7 w-auto object-contain",
+          forceWhite ? "hidden" : "block dark:hidden"
+        )}
       />
     </Link>
   );

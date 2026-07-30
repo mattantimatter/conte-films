@@ -50,7 +50,7 @@ export function Header() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           {/* Logo */}
-          <Logo />
+          <Logo forceWhite={isHome && !isScrolled} />
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
@@ -60,6 +60,8 @@ export function Header() {
                 "transition-colors py-2 focus-ring rounded-sm",
                 pathname === "/#featured-work"
                   ? "text-accent-bronze font-semibold"
+                  : isHome && !isScrolled
+                  ? "text-white/90 hover:text-white"
                   : "text-text-primary hover:text-accent-bronze"
               )}
             >
@@ -74,6 +76,8 @@ export function Header() {
                 "transition-colors py-2 focus-ring rounded-sm",
                 pathname === "/about"
                   ? "text-accent-bronze font-semibold"
+                  : isHome && !isScrolled
+                  ? "text-white/90 hover:text-white"
                   : "text-text-primary hover:text-accent-bronze"
               )}
             >
@@ -86,6 +90,8 @@ export function Header() {
                 "transition-colors py-2 focus-ring rounded-sm",
                 pathname === "/contact"
                   ? "text-accent-bronze font-semibold"
+                  : isHome && !isScrolled
+                  ? "text-white/90 hover:text-white"
                   : "text-text-primary hover:text-accent-bronze"
               )}
             >
