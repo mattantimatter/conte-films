@@ -3,7 +3,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Volume2, VolumeX, ChevronDown } from "lucide-react";
 
-const MUX_PLAYBACK_ID = "ArDjNINeOF00JwbBtRQyA5md7k9FXi8Y024emj8gm9oaY";
+const MUX_PLAYBACK_ID = "7FEEOISkBx8NenBqj76E902NEDY4fqL6qFizqzK8oYoc";
 
 // Mux streaming URLs
 const MUX_MP4_HIGH  = `https://stream.mux.com/${MUX_PLAYBACK_ID}/high.mp4`;
