@@ -1,25 +1,19 @@
 "use client";
 
-import React, { useState } from "react";
-import Image from "next/image";
+import React from "react";
 import { MapPin, Play } from "lucide-react";
 import { Project } from "@/content/projects";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
-import { cn } from "@/lib/utils";
 
 interface ProjectCardProps {
   project: Project;
   onSelect: (project: Project) => void;
-  priority?: boolean;
 }
 
 const GRAIN_URL =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")";
 
-export function ProjectCard({ project, onSelect, priority = false }: ProjectCardProps) {
-  const [posterLoaded, setPosterLoaded] = useState(false);
-  const [posterFailed, setPosterFailed] = useState(false);
-
+export function ProjectCard({ project, onSelect }: ProjectCardProps) {
   return (
     <SpotlightCard className="h-full" contentClassName="flex flex-col">
       {/* Poster */}
@@ -29,7 +23,9 @@ export function ProjectCard({ project, onSelect, priority = false }: ProjectCard
         aria-label={`Play ${project.title}`}
         className="accent-on-dark group/poster relative block aspect-cinema w-full overflow-hidden bg-neutral-950 text-left focus-ring"
       >
-        {/* Generated backdrop — stays put until a production still is available */}
+        {/* Composed backdrop. Production stills are still outstanding — see
+            ASSET_GUIDE.md — so nothing is requested from project.posterImage
+            yet; drop an <Image fill /> above the scrim once they land. */}
         <span
           aria-hidden
           className="absolute inset-0 bg-[radial-gradient(120%_100%_at_15%_0%,rgba(255,255,255,0.09),transparent_55%)]"
@@ -49,23 +45,6 @@ export function ProjectCard({ project, onSelect, priority = false }: ProjectCard
           className="pointer-events-none absolute inset-0 opacity-[0.16] mix-blend-overlay"
           style={{ backgroundImage: GRAIN_URL }}
         />
-
-        {/* Production still, once it exists */}
-        {!posterFailed && (
-          <Image
-            src={project.posterImage}
-            alt={project.altText}
-            fill
-            priority={priority}
-            sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-            onLoad={() => setPosterLoaded(true)}
-            onError={() => setPosterFailed(true)}
-            className={cn(
-              "object-cover transition-[opacity,transform] duration-700 ease-out group-hover/poster:scale-105",
-              posterLoaded ? "opacity-100" : "opacity-0",
-            )}
-          />
-        )}
 
         {/* Scrim + play affordance */}
         <span className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-black/30" />

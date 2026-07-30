@@ -109,13 +109,9 @@ export function ProjectGrid({ initialCategory = "all", limit }: ProjectGridProps
           className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8"
           staggerChildren={0.07}
         >
-          {displayedProjects.map((project, idx) => (
+          {displayedProjects.map((project) => (
             <StaggerItem key={project.slug} className="h-full">
-              <ProjectCard
-                project={project}
-                onSelect={(p) => setSelectedProject(p)}
-                priority={idx === 0}
-              />
+              <ProjectCard project={project} onSelect={setSelectedProject} />
             </StaggerItem>
           ))}
         </StaggerGroup>
