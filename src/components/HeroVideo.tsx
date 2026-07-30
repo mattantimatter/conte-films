@@ -10,6 +10,7 @@ const POSTER    = `https://image.mux.com/${MUX_PLAYBACK_ID}/thumbnail.jpg?width=
 export function HeroVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isMuted, setIsMuted] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -19,6 +20,10 @@ export function HeroVideo() {
     video.muted = true;
 
     const startPlay = () => video.play().catch(() => {});
+
+    // Only reveal video once it's rendering actual frames at the right quality
+    const onPlaying = () => setIsPlaying(true);
+    video.addEventListener("playing", onPlaying);
 
     async function initHls() {
       // Safari supports HLS natively — just point src at the .m3u8
@@ -34,10 +39,8 @@ export function HeroVideo() {
       if (!Hls.isSupported() || !video) return;
 
       const hls = new Hls({
-        startLevel: -1,
         capLevelToPlayerSize: false,
-        // Seed bandwidth estimate high so HLS.js starts at max quality
-        abrEwmaDefaultEstimate: 50_000_000, // 50 Mbps default estimate
+        abrEwmaDefaultEstimate: 50_000_000,
         maxBufferLength: 60,
         maxMaxBufferLength: 120,
       });
@@ -46,8 +49,21 @@ export function HeroVideo() {
       hls.attachMedia(video);
 
       hls.on(Hls.Events.MANIFEST_PARSED, (_event, data) => {
-        // Force the highest quality level immediately
-        hls.currentLevel = data.levels.length - 1;
+        // Find the level closest to 720p by height
+        const TARGET_HEIGHT = 720;
+        let bestIdx = 0;
+        let bestDiff = Infinity;
+        data.levels.forEach((level, idx) => {
+          const diff = Math.abs((level.height || 0) - TARGET_HEIGHT);
+          if (diff < bestDiff) {
+            bestDiff = diff;
+            bestIdx = idx;
+          }
+        });
+        // Lock to 720p — prevents blurry low-quality first segments
+        hls.startLevel = bestIdx;
+        hls.loadLevel = bestIdx;
+        hls.currentLevel = bestIdx;
         startPlay();
       });
 
@@ -70,6 +86,7 @@ export function HeroVideo() {
     observer.observe(video);
 
     return () => {
+      video.removeEventListener("playing", onPlaying);
       observer.disconnect();
       cleanup?.then((fn) => fn?.());
     };
@@ -92,8 +109,21 @@ export function HeroVideo() {
         loop
         playsInline
         poster={POSTER}
-        className="absolute inset-0 w-full h-full object-cover scale-105"
+        className={`absolute inset-0 w-full h-full object-cover scale-105 transition-opacity duration-700 ${
+          isPlaying ? "opacity-100" : "opacity-0"
+        }`}
       />
+
+      {/* Poster shown while 720p segment loads — prevents blurry flash */}
+      {!isPlaying && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={POSTER}
+          alt=""
+          aria-hidden
+          className="absolute inset-0 w-full h-full object-cover scale-105"
+        />
+      )}
 
       {/* Cinematic gradient overlays */}
       <div className="absolute inset-0 bg-gradient-to-t from-[#090909] via-black/30 to-black/50 pointer-events-none" />
