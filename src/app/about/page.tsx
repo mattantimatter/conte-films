@@ -73,23 +73,37 @@ export default function AboutPage() {
 
             <div className="lg:col-span-5">
               <Reveal direction="left">
-                <div className="relative aspect-portrait-editorial rounded-2xl overflow-hidden border border-border-medium bg-bg-surface p-8 flex flex-col justify-between shadow-2xl">
-                  <div className="space-y-2">
-                    <span className="text-[10px] font-mono tracking-widest text-accent-bronze uppercase">
-                      Studio Founder
-                    </span>
-                    <h3 className="text-3xl font-serif font-bold text-text-primary">
-                      Stefan Jobe
-                    </h3>
-                    <p className="text-xs text-text-muted">
-                      Executive Creative Director & Director of Photography
-                    </p>
+                <div className="relative rounded-2xl overflow-hidden border border-border-medium shadow-2xl bg-bg-surface">
+                  {/* Portrait photo */}
+                  <div className="relative aspect-[3/4] overflow-hidden">
+                    <img
+                      src="/stefan-jobe.jpg"
+                      alt="Stefan Jobe — Studio Founder, Conté Films"
+                      className="w-full h-full object-cover object-top"
+                    />
+                    {/* Subtle gradient scrim at bottom of photo */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-bg-surface via-transparent to-transparent" />
                   </div>
 
-                  <div className="space-y-3 pt-8 border-t border-border-subtle">
-                    <p className="text-xs text-text-muted italic leading-relaxed">
-                      &ldquo;Every project we take on is an opportunity to elevate how our clients are perceived by their most valuable audiences.&rdquo;
-                    </p>
+                  {/* Info block */}
+                  <div className="p-6 space-y-4">
+                    <div className="space-y-1">
+                      <span className="text-[10px] font-mono tracking-widest text-accent-bronze uppercase">
+                        Studio Founder
+                      </span>
+                      <h3 className="text-2xl font-serif font-bold text-text-primary">
+                        Stefan Jobe
+                      </h3>
+                      <p className="text-xs text-text-muted">
+                        Executive Creative Director &amp; Director of Photography
+                      </p>
+                    </div>
+
+                    <div className="pt-4 border-t border-border-subtle">
+                      <p className="text-xs text-text-muted italic leading-relaxed">
+                        &ldquo;Every project we take on is an opportunity to elevate how our clients are perceived by their most valuable audiences.&rdquo;
+                      </p>
+                    </div>
                   </div>
                 </div>
               </Reveal>
