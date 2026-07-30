@@ -3,6 +3,15 @@
 @tailwind utilities;
 
 :root {
+  /* Native system typefaces — SF Pro on Apple, Segoe on Windows, Roboto on Android */
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI Variable Text",
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji";
+  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui,
+    "Segoe UI Variable Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+
   /* Light Theme (Clean White) */
   --bg-primary: #FFFFFF;
   --bg-surface: #F9F9F8;
@@ -11,8 +20,18 @@
   --text-muted: #6B6B6B;
   --border-subtle: rgba(0, 0, 0, 0.06);
   --border-medium: rgba(0, 0, 0, 0.12);
-  --accent-bronze: #9E7C4F;
-  --accent-bronze-hover: #876A3D;
+
+  /* Accent — a metallic gold/bronze/copper sweep rather than a single flat gold.
+     Light-theme stops stay dark enough to clear 4.5:1 on white. */
+  --accent-from: #9C6B28;
+  --accent-via: #7E4F26;
+  --accent-to: #8A5A3A;
+  --accent-bronze: #7E4F26;
+  --accent-bronze-hover: #6B3F22;
+  --accent-fg: #FFFFFF;
+  --accent-soft: rgba(156, 107, 40, 0.1);
+  --accent-glow: rgba(156, 107, 40, 0.25);
+
   --overlay-bg: rgba(255, 255, 255, 0.92);
   --hero-overlay: rgba(9, 9, 9, 0.45);
 }
@@ -26,11 +45,36 @@
   --text-muted: #9E9A92;
   --border-subtle: rgba(245, 243, 238, 0.08);
   --border-medium: rgba(245, 243, 238, 0.16);
-  --accent-bronze: #C5A880;
-  --accent-bronze-hover: #D8BD96;
+
+  /* Inverted metallic sweep — champagne through gold to bronze */
+  --accent-from: #F5E2B8;
+  --accent-via: #D7B278;
+  --accent-to: #B08850;
+  --accent-bronze: #D7B278;
+  --accent-bronze-hover: #EBCB94;
+  --accent-fg: #17110A;
+  --accent-soft: rgba(215, 178, 120, 0.12);
+  --accent-glow: rgba(215, 178, 120, 0.3);
+
   --overlay-bg: rgba(9, 9, 9, 0.90);
   --hero-overlay: rgba(0, 0, 0, 0.55);
 }
+
+:root {
+  --accent-angle: 118deg;
+}
+
+/* The ramp is written out at every point of use rather than stored in one
+   --accent-gradient property. A custom property holding var() references is
+   substituted where it is *declared*, so a single shared property would bake in
+   the root's stops and .accent-on-dark could never override them. Spelling the
+   stops out lets each element resolve against the nearest --accent-* values.
+   The two recipes are:
+
+     ramp  — opens on the mid tone with the bright stop in the middle, so it
+             reads as a specular highlight and short strings still land on a
+             representative colour instead of the pale end.
+     sheen — a wider ramp that turns twice, for animated fills and glows. */
 
 * {
   box-sizing: border-box;
@@ -40,23 +84,32 @@
 
 html {
   scroll-behavior: smooth;
-  font-family: var(--font-inter), "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif !important;
+  font-family: var(--font-sans);
   background-color: var(--bg-primary);
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-body, h1, h2, h3, h4, h5, h6, p, a, span, button, input, textarea, select {
-  font-family: var(--font-inter), "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif !important;
+  text-rendering: optimizeLegibility;
 }
 
 body {
+  font-family: var(--font-sans);
   background-color: var(--bg-primary);
   color: var(--text-primary);
   min-height: 100vh;
   overflow-x: hidden;
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* SF Pro Display is optically tuned for large sizes; let the system pick it for headings. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
 }
 
 /* Custom Scrollbar */
@@ -77,6 +130,11 @@ body {
   background: var(--accent-bronze);
 }
 
+::selection {
+  background: var(--accent-soft);
+  color: var(--text-primary);
+}
+
 /* Focus Ring Utility */
 .focus-ring {
   @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-bronze focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary;
@@ -93,6 +151,108 @@ body {
 
 .aspect-vertical-story {
   aspect-ratio: 9 / 16;
+}
+
+/* ---------------------------------------------------------------------------
+   Gradient accent utilities
+   --------------------------------------------------------------------------- */
+
+/* Gradient text. Falls back to the solid accent where bg-clip is unsupported.
+   Two things to know when using it: the clip only applies to the element's own
+   text (child elements keep their own colour), and the ramp is mapped to the
+   element box — so the node should shrink-wrap its text, otherwise short
+   strings in a wide box only ever sample the opening stop. */
+.text-gradient-accent {
+  color: var(--accent-bronze);
+  background-image: linear-gradient(
+    var(--accent-angle),
+    var(--accent-via) 0%,
+    var(--accent-from) 45%,
+    var(--accent-to) 100%
+  );
+  background-size: 100% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  width: fit-content;
+  max-width: 100%;
+}
+
+@supports (-webkit-background-clip: text) or (background-clip: text) {
+  .text-gradient-accent {
+    color: transparent;
+  }
+}
+
+/* Hairline rule that fades the accent out at both ends. */
+.rule-gradient-accent {
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--accent-via) 25%,
+    var(--accent-from) 50%,
+    var(--accent-via) 75%,
+    transparent 100%
+  );
+}
+
+/* 1px gradient border. Apply to an empty child span so callers can transition
+   its opacity independently of the surface it outlines; the radius is inherited
+   from the positioning parent. */
+.accent-hairline {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background-image: linear-gradient(
+    var(--accent-angle),
+    var(--accent-via) 0%,
+    var(--accent-from) 45%,
+    var(--accent-to) 100%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Surfaces that stay dark in both themes need the dark accent ramp, otherwise
+   the light-theme bronze disappears against them. */
+.accent-on-dark {
+  --accent-from: #F5E2B8;
+  --accent-via: #D7B278;
+  --accent-to: #B08850;
+  --accent-bronze: #D7B278;
+  --accent-bronze-hover: #EBCB94;
+  --accent-fg: #17110A;
+  --accent-soft: rgba(215, 178, 120, 0.12);
+  --accent-glow: rgba(215, 178, 120, 0.3);
+}
+
+/* Slow metallic drift for gradient fills that should feel alive. */
+@keyframes accent-drift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-accent-drift {
+  background-image: linear-gradient(
+    var(--accent-angle),
+    var(--accent-to) 0%,
+    var(--accent-via) 22%,
+    var(--accent-from) 50%,
+    var(--accent-via) 78%,
+    var(--accent-to) 100%
+  );
+  background-size: 220% 220%;
+  animation: accent-drift 9s ease-in-out infinite;
 }
 
 /* Reduced Motion Safety */

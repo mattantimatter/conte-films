@@ -1,9 +1,10 @@
 import React from "react";
 import { Metadata } from "next";
-import Link from "next/link";
 import { Calendar, CheckCircle, ArrowUpRight, Radio, Zap } from "lucide-react";
 import { solutionsContent } from "@/content/solutions";
 import { Reveal } from "@/components/Reveal";
+import { Eyebrow } from "@/components/ui/Eyebrow";
+import { Button } from "@/components/ui/Button";
 import { StaggerGroup, StaggerItem } from "@/components/StaggerGroup";
 import { ProjectGrid } from "@/components/ProjectGrid";
 import { TestimonialSection } from "@/components/TestimonialSection";
@@ -29,10 +30,7 @@ export default function EventsSolutionPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center pt-8">
             <div className="lg:col-span-8 space-y-6">
               <Reveal direction="up">
-                <span className="text-xs uppercase tracking-[0.25em] font-semibold text-accent-bronze flex items-center gap-2">
-                  <Calendar className="w-4 h-4" />
-                  <span>Events & Experiences</span>
-                </span>
+                <Eyebrow icon={<Calendar className="w-4 h-4" />}>Events & Experiences</Eyebrow>
                 <h1 className="text-4xl sm:text-6xl font-serif font-medium text-text-primary tracking-tight leading-tight mt-2">
                   {content.heroHeadline}
                 </h1>
@@ -45,12 +43,9 @@ export default function EventsSolutionPage() {
               </Reveal>
 
               <Reveal direction="up" delay={0.3} className="pt-4 flex flex-wrap gap-4">
-                <Link
-                  href="/contact"
-                  className="px-8 py-3.5 rounded-full bg-accent-bronze text-white font-semibold text-xs uppercase tracking-widest hover:bg-accent-bronze-hover transition-all shadow-md focus-ring"
-                >
+                <Button href="/contact" size="lg" icon={<ArrowUpRight className="w-4 h-4" />}>
                   Book Event Coverage
-                </Link>
+                </Button>
               </Reveal>
             </div>
           </div>
@@ -61,9 +56,7 @@ export default function EventsSolutionPage() {
       <section className="py-24 bg-bg-surface border-y border-border-subtle transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
           <Reveal direction="up" className="max-w-3xl space-y-4">
-            <span className="text-xs uppercase tracking-[0.25em] font-semibold text-accent-bronze">
-              Coverage Models
-            </span>
+            <Eyebrow>Coverage Models</Eyebrow>
             <h2 className="text-3xl sm:text-5xl font-serif font-medium text-text-primary">
               Multi-Camera & Rapid Social Delivery
             </h2>
@@ -86,9 +79,7 @@ export default function EventsSolutionPage() {
       <section className="py-24 bg-bg-primary transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <Reveal direction="up" className="max-w-3xl space-y-4">
-            <span className="text-xs uppercase tracking-[0.25em] font-semibold text-accent-bronze">
-              Event Case Studies
-            </span>
+            <Eyebrow>Event Case Studies</Eyebrow>
             <h2 className="text-3xl sm:text-5xl font-serif font-medium text-text-primary">
               Featured Conference & Keynote Productions
             </h2>

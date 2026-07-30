@@ -11,10 +11,10 @@
   "dependencies": {
     "@mux/mux-background-video": "^0.2.3",
     "clsx": "^2.1.1",
-    "framer-motion": "^11.3.8",
     "geist": "^1.7.2",
     "hls.js": "^1.6.16",
     "lucide-react": "^0.424.0",
+    "motion": "^12.43.0",
     "next": "^14.2.5",
     "next-themes": "^0.3.0",
     "react": "^18.3.1",

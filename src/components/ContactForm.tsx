@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Send, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 import { contactFormSchema, ContactFormData } from "@/lib/contact-schema";
+import { Button } from "@/components/ui/Button";
 
 export function ContactForm() {
   const [formData, setFormData] = useState<Partial<ContactFormData>>({
@@ -380,23 +381,20 @@ export function ContactForm() {
       </div>
 
       {/* Submit Button */}
-      <button
+      <Button
         type="submit"
+        size="lg"
+        fullWidth
         disabled={status === "loading"}
-        className="w-full py-4 px-8 rounded-full bg-accent-bronze text-white font-semibold text-xs uppercase tracking-widest hover:bg-accent-bronze-hover transition-all transform hover:-translate-y-0.5 shadow-lg flex items-center justify-center gap-2 focus-ring disabled:opacity-50"
-      >
-        {status === "loading" ? (
-          <>
+        leadingIcon={
+          status === "loading" ? (
             <Loader2 className="w-4 h-4 animate-spin" />
-            <span>Submitting Inquiry...</span>
-          </>
-        ) : (
-          <>
-            <span>Submit Project Inquiry</span>
-            <Send className="w-4 h-4" />
-          </>
-        )}
-      </button>
+          ) : undefined
+        }
+        icon={status === "loading" ? undefined : <Send className="w-4 h-4" />}
+      >
+        {status === "loading" ? "Submitting Inquiry…" : "Submit Project Inquiry"}
+      </Button>
     </form>
   );
 }

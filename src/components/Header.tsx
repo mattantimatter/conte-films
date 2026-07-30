@@ -8,6 +8,7 @@ import { Logo } from "@/components/Logo";
 import { SolutionsDropdown } from "@/components/SolutionsDropdown";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { MobileMenu } from "@/components/MobileMenu";
+import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
 export function Header() {
@@ -35,7 +36,7 @@ export function Header() {
       {/* Skip to Content Link for Accessibility */}
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 z-[100] px-4 py-2 bg-accent-bronze text-white font-medium text-sm rounded-md shadow-lg"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 z-[100] px-4 py-2 bg-accent-gradient text-accent-fg font-medium text-sm rounded-md shadow-lg"
       >
         Skip to main content
       </a>
@@ -45,7 +46,10 @@ export function Header() {
           "fixed top-0 left-0 right-0 z-40 transition-all duration-300",
           isScrolled
             ? "bg-bg-primary/85 backdrop-blur-md border-b border-border-subtle py-3 shadow-sm"
-            : "bg-transparent py-5"
+            : "bg-transparent py-5",
+          // Sitting over the hero video, so the accent needs the dark-surface
+          // ramp to match the hero's own actions rather than the page theme's.
+          isHome && !isScrolled && "accent-on-dark"
         )}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
@@ -103,13 +107,9 @@ export function Header() {
           <div className="hidden md:flex items-center gap-4">
             <ThemeToggle />
 
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-widest bg-accent-bronze text-white hover:bg-accent-bronze-hover transition-all transform hover:-translate-y-0.5 shadow-sm focus-ring"
-            >
-              <span>Start a Project</span>
-              <ArrowUpRight className="w-3.5 h-3.5" />
-            </Link>
+            <Button href="/contact" size="sm" icon={<ArrowUpRight className="w-3.5 h-3.5" />}>
+              Start a Project
+            </Button>
           </div>
 
           {/* Mobile Navigation Menu */}
