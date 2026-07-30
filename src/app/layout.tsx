@@ -1,17 +1,10 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "@/app/globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { StructuredData } from "@/components/StructuredData";
 import { siteContent } from "@/content/site";
-
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-inter",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://contefilms.com"),
@@ -76,11 +69,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning className={inter.variable}>
+    <html lang="en" suppressHydrationWarning>
       <head>
         <StructuredData />
       </head>
-      <body className={`${inter.className} antialiased min-h-screen bg-bg-primary text-text-primary flex flex-col justify-between`}>
+      <body className="font-sans antialiased min-h-screen bg-bg-primary text-text-primary flex flex-col justify-between">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={true}>
           <Header />
           <main id="main-content" className="flex-grow">
