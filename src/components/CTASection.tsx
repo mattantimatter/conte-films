@@ -37,7 +37,7 @@ export function CTASection({
           </Button>
 
           <Button
-            href={siteContent.contact.bookingUrl}
+            href="/contact"
             variant="secondary"
             size="lg"
             className="w-full sm:w-auto"

@@ -18,11 +18,6 @@ const nextConfig = {
         destination: '/#solutions',
         permanent: true,
       },
-      {
-        source: '/work',
-        destination: '/#featured-work',
-        permanent: true,
-      },
     ];
   },
 };

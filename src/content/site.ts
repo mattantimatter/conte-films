@@ -29,7 +29,7 @@ export interface StudioMeta {
 
 export const siteContent: StudioMeta = {
   name: "Conté Films",
-  tagline: "Films that make the work impossible to overlook.",
+  tagline: "Films that make your work impossible to overlook.",
   description:
     "Atlanta-based visual production studio creating cinematic photography, film, and aerial media for corporate brands, luxury real estate, and defining experiences.",
   founder: "Stefan Jobe",
@@ -45,7 +45,7 @@ export const siteContent: StudioMeta = {
     phone: "6784440034",
     phoneFormatted: "(678) 444-0034",
     email: "hello@contefilms.com",
-    bookingUrl: "https://contefilms.com/contact", // TODO: Update to direct scheduling software link upon client confirmation
+    bookingUrl: "/contact", // All booking CTAs route to the contact form
   },
   social: {
     instagram: "https://www.instagram.com/contefilms", // TODO: Confirm exact handle if updated
@@ -59,12 +59,11 @@ export const siteContent: StudioMeta = {
     "Decade of High-End Commercial & Luxury Production",
   ],
   clientList: [
-    "Atlanta Humane Society",
+    "Clinix AI",
     "Caesars Palace Las Vegas",
-    "Larkly Suncare",
-    "Tremedy Integrative Health Center",
-    "Buckhead Art & Company",
-    "Dr. Daniel Berant",
+    "Atlanta Humane Society",
     "Kalos Construction Group",
+    "Henry Schein",
+    "Buckhead Business Association",
   ],
 };

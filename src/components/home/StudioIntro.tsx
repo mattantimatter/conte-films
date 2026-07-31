@@ -121,13 +121,6 @@ function FounderCard() {
         className="animate-accent-drift pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full opacity-30 blur-[80px]"
       />
 
-      {/* Film perforations down the left edge */}
-      <span aria-hidden className="pointer-events-none absolute inset-y-8 left-3 flex flex-col justify-between">
-        {Array.from({ length: 7 }).map((_, index) => (
-          <span key={index} className="h-2.5 w-1.5 rounded-[2px] bg-white/10" />
-        ))}
-      </span>
-
       <div className="relative flex min-h-[20rem] flex-col justify-between gap-8">
         <div className="flex items-start justify-between gap-4">
           <span className="bg-accent-gradient rounded-full px-3 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-accent-fg">
@@ -153,12 +146,12 @@ function FounderCard() {
                 alt={`${siteContent.founder}, founder and executive creative director of ${siteContent.name}`}
                 fill
                 sizes="48px"
-                className="object-cover object-top"
+                className="object-cover object-center"
               />
             </span>
             <div className="min-w-0">
               <p className="truncate text-sm font-semibold text-white">{siteContent.founder}</p>
-              <p className="truncate text-xs text-white/55">Executive Creative Director</p>
+              <p className="truncate text-xs text-white/55">Founder and Executive Creative Director</p>
             </div>
           </div>
 

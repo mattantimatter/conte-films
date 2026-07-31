@@ -4,6 +4,29 @@ import React, { useState } from "react";
 import { Send, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 import { contactFormSchema, ContactFormData } from "@/lib/contact-schema";
 import { Button } from "@/components/ui/Button";
+import { Select } from "@/components/ui/Select";
+
+const projectTypeOptions = [
+  { value: "corporate", label: "Corporate & Brand Content" },
+  { value: "real-estate", label: "Luxury Real Estate & Architecture" },
+  { value: "events", label: "Events & Experiences" },
+  { value: "other", label: "Other Visual Production" },
+];
+
+const budgetOptions = [
+  { value: "Under $5,000", label: "Under $5,000" },
+  { value: "$5,000 - $10,000", label: "$5,000 - $10,000" },
+  { value: "$10,000 - $25,000", label: "$10,000 - $25,000" },
+  { value: "$25,000 - $50,000", label: "$25,000 - $50,000" },
+  { value: "$50,000+", label: "$50,000+" },
+];
+
+const timeframeOptions = [
+  { value: "Immediate (Next 2 Weeks)", label: "Immediate (Next 2 Weeks)" },
+  { value: "Within 1 - 2 Months", label: "Within 1 - 2 Months" },
+  { value: "3 - 6 Months Out", label: "3 - 6 Months Out" },
+  { value: "Flexible / Planning Stage", label: "Flexible / Planning Stage" },
+];
 
 export function ContactForm() {
   const [formData, setFormData] = useState<Partial<ContactFormData>>({
@@ -14,7 +37,7 @@ export function ContactForm() {
     company: "",
     projectType: "corporate",
     services: [],
-    budget: "$10k - $25k",
+    budget: "$10,000 - $25,000",
     timeframe: "Within 1 - 2 Months",
     location: "",
     projectDetails: "",
@@ -35,21 +58,6 @@ export function ContactForm() {
     "Corporate Photography / Headshots",
     "Social-First Vertical Cuts",
     "Ongoing Content Retainer",
-  ];
-
-  const budgetOptions = [
-    "Under $5,000",
-    "$5,000 - $10,000",
-    "$10,000 - $25,000",
-    "$25,000 - $50,000",
-    "$50,000+",
-  ];
-
-  const timeframeOptions = [
-    "Immediate (Next 2 Weeks)",
-    "Within 1 - 2 Months",
-    "3 - 6 Months Out",
-    "Flexible / Planning Stage",
   ];
 
   const handleCheckboxToggle = (service: string) => {
@@ -73,7 +81,6 @@ export function ContactForm() {
     setStatus("loading");
     setErrorMessage("");
 
-    // Validate with Zod client side first
     const validationResult = contactFormSchema.safeParse(formData);
     if (!validationResult.success) {
       const fieldErrors: Record<string, string> = {};
@@ -144,7 +151,6 @@ export function ContactForm() {
         </div>
       )}
 
-      {/* Honeypot Spam Trap */}
       <input
         type="text"
         name="website"
@@ -155,7 +161,6 @@ export function ContactForm() {
         autoComplete="off"
       />
 
-      {/* Name Row */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
           <label htmlFor="firstName" className="block text-xs font-semibold uppercase tracking-wider text-text-primary mb-2">
@@ -192,7 +197,6 @@ export function ContactForm() {
         </div>
       </div>
 
-      {/* Email & Phone */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
           <label htmlFor="email" className="block text-xs font-semibold uppercase tracking-wider text-text-primary mb-2">
@@ -226,7 +230,6 @@ export function ContactForm() {
         </div>
       </div>
 
-      {/* Company & Project Type */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
           <label htmlFor="company" className="block text-xs font-semibold uppercase tracking-wider text-text-primary mb-2">
@@ -249,21 +252,22 @@ export function ContactForm() {
           <label htmlFor="projectType" className="block text-xs font-semibold uppercase tracking-wider text-text-primary mb-2">
             Primary Project Category <span className="text-accent-bronze">*</span>
           </label>
-          <select
+          <Select
             id="projectType"
             value={formData.projectType || "corporate"}
-            onChange={(e) => setFormData({ ...formData, projectType: e.target.value as any })}
-            className="w-full px-4 py-3 rounded-md bg-bg-primary border border-border-medium text-text-primary text-sm focus-ring"
-          >
-            <option value="corporate">Corporate & Brand Content</option>
-            <option value="real-estate">Luxury Real Estate & Architecture</option>
-            <option value="events">Events & Experiences</option>
-            <option value="other">Other Visual Production</option>
-          </select>
+            onChange={(value) =>
+              setFormData({
+                ...formData,
+                projectType: value as ContactFormData["projectType"],
+              })
+            }
+            options={projectTypeOptions}
+            aria-invalid={!!errors.projectType}
+          />
+          {errors.projectType && <p className="text-xs text-red-500 mt-1">{errors.projectType}</p>}
         </div>
       </div>
 
-      {/* Services Needed Multi-Select */}
       <div>
         <label className="block text-xs font-semibold uppercase tracking-wider text-text-primary mb-3">
           Services Needed <span className="text-text-muted font-normal">(Select all that apply)</span>
@@ -293,46 +297,36 @@ export function ContactForm() {
         </div>
       </div>
 
-      {/* Budget & Timeframe */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
           <label htmlFor="budget" className="block text-xs font-semibold uppercase tracking-wider text-text-primary mb-2">
             Estimated Budget Range <span className="text-accent-bronze">*</span>
           </label>
-          <select
+          <Select
             id="budget"
-            value={formData.budget || "$10k - $25k"}
-            onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-            className="w-full px-4 py-3 rounded-md bg-bg-primary border border-border-medium text-text-primary text-sm focus-ring"
-          >
-            {budgetOptions.map((opt) => (
-              <option key={opt} value={opt}>
-                {opt}
-              </option>
-            ))}
-          </select>
+            value={formData.budget || "$10,000 - $25,000"}
+            onChange={(value) => setFormData({ ...formData, budget: value })}
+            options={budgetOptions}
+            aria-invalid={!!errors.budget}
+          />
+          {errors.budget && <p className="text-xs text-red-500 mt-1">{errors.budget}</p>}
         </div>
 
         <div>
           <label htmlFor="timeframe" className="block text-xs font-semibold uppercase tracking-wider text-text-primary mb-2">
             Target Timeframe <span className="text-accent-bronze">*</span>
           </label>
-          <select
+          <Select
             id="timeframe"
             value={formData.timeframe || "Within 1 - 2 Months"}
-            onChange={(e) => setFormData({ ...formData, timeframe: e.target.value })}
-            className="w-full px-4 py-3 rounded-md bg-bg-primary border border-border-medium text-text-primary text-sm focus-ring"
-          >
-            {timeframeOptions.map((opt) => (
-              <option key={opt} value={opt}>
-                {opt}
-              </option>
-            ))}
-          </select>
+            onChange={(value) => setFormData({ ...formData, timeframe: value })}
+            options={timeframeOptions}
+            aria-invalid={!!errors.timeframe}
+          />
+          {errors.timeframe && <p className="text-xs text-red-500 mt-1">{errors.timeframe}</p>}
         </div>
       </div>
 
-      {/* Location */}
       <div>
         <label htmlFor="location" className="block text-xs font-semibold uppercase tracking-wider text-text-primary mb-2">
           Production Location <span className="text-text-muted font-normal">(e.g., Buckhead, Midtown Atlanta, On-Site)</span>
@@ -347,7 +341,6 @@ export function ContactForm() {
         />
       </div>
 
-      {/* Project Details */}
       <div>
         <label htmlFor="projectDetails" className="block text-xs font-semibold uppercase tracking-wider text-text-primary mb-2">
           Tell Us About Your Project <span className="text-accent-bronze">*</span>
@@ -365,7 +358,6 @@ export function ContactForm() {
         {errors.projectDetails && <p className="text-xs text-red-500 mt-1">{errors.projectDetails}</p>}
       </div>
 
-      {/* Referral Source */}
       <div>
         <label htmlFor="referralSource" className="block text-xs font-semibold uppercase tracking-wider text-text-primary mb-2">
           How Did You Hear About Conté Films? <span className="text-text-muted font-normal">(Optional)</span>
@@ -380,7 +372,6 @@ export function ContactForm() {
         />
       </div>
 
-      {/* Submit Button */}
       <Button
         type="submit"
         size="lg"

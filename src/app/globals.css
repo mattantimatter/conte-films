@@ -177,9 +177,34 @@ h6 {
   max-width: 100%;
 }
 
+/* Italic letterforms overhang their glyph box; without extra padding,
+   background-clip:text shears trailing edges and descenders
+   (e.g. the "l" / "y" in exceptional, authority). Prefer a solid accent
+   fill for italics — WebKit still clips descenders under bg-clip:text
+   even with padding. */
+.text-gradient-accent.italic {
+  display: inline-block;
+  padding-inline: 0.06em 0.12em;
+  padding-block: 0.12em 0.2em;
+  margin-inline: -0.06em -0.06em;
+  margin-block: -0.08em -0.12em;
+  vertical-align: baseline;
+  overflow: visible;
+  line-height: 1.25;
+  background-image: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  color: var(--accent-bronze);
+}
+
 @supports (-webkit-background-clip: text) or (background-clip: text) {
   .text-gradient-accent {
     color: transparent;
+  }
+
+  /* Keep italic accents opaque — must win over the transparent clip rule. */
+  .text-gradient-accent.italic {
+    color: var(--accent-bronze);
   }
 }
 
@@ -253,6 +278,53 @@ h6 {
   );
   background-size: 220% 220%;
   animation: accent-drift 9s ease-in-out infinite;
+}
+
+/* Real-estate pricing sqft slider */
+.pricing-sqft-slider {
+  height: 1.25rem;
+}
+.pricing-sqft-slider::-webkit-slider-runnable-track {
+  height: 0.375rem;
+  border-radius: 9999px;
+  background: linear-gradient(
+    to right,
+    var(--accent-bronze) 0%,
+    var(--accent-bronze) var(--sqft-progress, 0%),
+    var(--border-medium) var(--sqft-progress, 0%),
+    var(--border-medium) 100%
+  );
+}
+.pricing-sqft-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: -0.4375rem;
+  border-radius: 9999px;
+  border: 2px solid var(--accent-bronze);
+  background: var(--bg-primary);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-bronze) 18%, transparent);
+  cursor: pointer;
+}
+.pricing-sqft-slider::-moz-range-track {
+  height: 0.375rem;
+  border-radius: 9999px;
+  background: var(--border-medium);
+}
+.pricing-sqft-slider::-moz-range-progress {
+  height: 0.375rem;
+  border-radius: 9999px;
+  background: var(--accent-bronze);
+}
+.pricing-sqft-slider::-moz-range-thumb {
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid var(--accent-bronze);
+  border-radius: 9999px;
+  background: var(--bg-primary);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-bronze) 18%, transparent);
+  cursor: pointer;
 }
 
 /* Reduced Motion Safety */

@@ -1,7 +1,14 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
+import {
+  Building2,
+  CalendarDays,
+  Home,
+  LayoutGrid,
+  type LucideIcon,
+} from "lucide-react";
 import { Project, projectsContent } from "@/content/projects";
 import { ProjectCard } from "@/components/ProjectCard";
 import { VideoLightbox } from "@/components/VideoLightbox";
@@ -13,29 +20,21 @@ interface ProjectGridProps {
   limit?: number;
 }
 
-const FILTERS = [
-  { id: "all", label: "All Work" },
-  { id: "corporate", label: "Corporate & Healthcare" },
-  { id: "real-estate", label: "Real Estate & Architecture" },
-  { id: "events", label: "Events & Keynotes" },
-] as const;
+const FILTERS: {
+  id: "all" | "corporate" | "real-estate" | "events";
+  label: string;
+  icon: LucideIcon;
+}[] = [
+  { id: "all", label: "All Work", icon: LayoutGrid },
+  { id: "corporate", label: "Corporate & Healthcare", icon: Building2 },
+  { id: "real-estate", label: "Real Estate & Architecture", icon: Home },
+  { id: "events", label: "Events & Keynotes", icon: CalendarDays },
+];
 
 export function ProjectGrid({ initialCategory = "all", limit }: ProjectGridProps) {
   const [activeFilter, setActiveFilter] = useState<string>(initialCategory);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const shouldReduceMotion = useReducedMotion();
-
-  const counts = useMemo(
-    () =>
-      FILTERS.reduce<Record<string, number>>((totals, filter) => {
-        totals[filter.id] =
-          filter.id === "all"
-            ? projectsContent.length
-            : projectsContent.filter((project) => project.category === filter.id).length;
-        return totals;
-      }, {}),
-    [],
-  );
 
   const filteredProjects = projectsContent.filter(
     (project) => activeFilter === "all" || project.category === activeFilter,
@@ -52,10 +51,14 @@ export function ProjectGrid({ initialCategory = "all", limit }: ProjectGridProps
             <div
               role="tablist"
               aria-label="Filter portfolio by category"
-              className="inline-flex max-w-full flex-wrap justify-center gap-1 rounded-full border border-border-subtle bg-bg-surface p-1 shadow-sm"
+              className={cn(
+                "flex max-w-full flex-wrap justify-center gap-2",
+                "md:inline-flex md:gap-1 md:rounded-full md:border md:border-border-subtle md:bg-bg-surface md:p-1 md:shadow-sm",
+              )}
             >
               {FILTERS.map((filter) => {
                 const isActive = activeFilter === filter.id;
+                const Icon = filter.icon;
                 return (
                   <button
                     key={filter.id}
@@ -63,8 +66,10 @@ export function ProjectGrid({ initialCategory = "all", limit }: ProjectGridProps
                     role="tab"
                     aria-selected={isActive}
                     className={cn(
-                      "relative rounded-full px-4 py-2.5 text-[11px] font-semibold uppercase tracking-[0.14em]",
+                      "relative rounded-full px-3.5 py-2.5 text-[11px] font-semibold uppercase tracking-[0.14em]",
                       "transition-colors duration-300 focus-ring active:scale-[0.97]",
+                      "border border-border-subtle bg-bg-surface shadow-sm",
+                      "md:border-transparent md:bg-transparent md:shadow-none md:px-4",
                       !isActive && "text-text-muted hover:text-text-primary",
                     )}
                   >
@@ -82,19 +87,12 @@ export function ProjectGrid({ initialCategory = "all", limit }: ProjectGridProps
                     )}
                     <span
                       className={cn(
-                        "relative flex items-center gap-1.5",
+                        "relative flex items-center gap-2",
                         isActive && "text-accent-fg",
                       )}
                     >
-                      {filter.label}
-                      <span
-                        className={cn(
-                          "tabular-nums text-[9px] font-medium",
-                          isActive ? "opacity-70" : "opacity-50",
-                        )}
-                      >
-                        {counts[filter.id]}
-                      </span>
+                      <Icon className="h-3.5 w-3.5 shrink-0" strokeWidth={1.75} aria-hidden />
+                      <span>{filter.label}</span>
                     </span>
                   </button>
                 );

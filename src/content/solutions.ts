@@ -25,7 +25,7 @@ export const solutionsContent: Record<string, SolutionDetail> = {
     subtitle: "Strategic Visual Production for Enterprise & Growing Brands",
     heroHeadline: "Visual assets engineered to advance your brand authority.",
     heroDescription:
-      "From high-stakes brand documentary films to executive interviews, patient testimonials, and recruitment content, Conté Films partners with corporate, healthcare, and professional-services organizations to build lasting market credibility.",
+      "Brand films, executive interviews, and patient testimonials for corporate, healthcare, and professional-services organizations building lasting market credibility.",
     targetAudience: [
       "Mid-market and enterprise leadership teams",
       "Healthcare institutions & medical practices",
@@ -101,7 +101,7 @@ export const solutionsContent: Record<string, SolutionDetail> = {
     subtitle: "Cinematic Media for Bespoke Architecture & Custom Estates",
     heroHeadline: "Architectural cinema that honors exceptional design.",
     heroDescription:
-      "Serving luxury custom home builders, architects, interior designers, developers, and premier agents across Metro Atlanta. We produce twilight photography, architectural walkthrough films, and FAA-certified aerial media that accentuate craftsmanship, scale, and natural light.",
+      "Twilight photography, architectural walkthroughs, and FAA-certified aerial media for luxury builders, architects, and brokers across Metro Atlanta.",
     targetAudience: [
       "Luxury custom-home builders & general contractors",
       "Architectural firms & interior design studios",
@@ -175,9 +175,9 @@ export const solutionsContent: Record<string, SolutionDetail> = {
     slug: "events",
     title: "Events & Experiences",
     subtitle: "Capturing the Scale, Energy & Substance of Premier Events",
-    heroHeadline: "Cinematic coverage for moments that shape your organization.",
+    heroHeadline: "Cinematic coverage for moments that shape brands.",
     heroDescription:
-      "From high-level corporate conferences, galas, and keynotes to brand activations and nonprofit fundraisers. Conté Films delivers multi-camera video, rapid social edits, and event photography that extend event ROI far beyond the live audience.",
+      "Multi-camera video, rapid social edits, and event photography for conferences, galas, and brand activations — extending ROI far beyond the live audience.",
     targetAudience: [
       "Corporate conference & executive summit organizers",
       "Brand activation teams & marketing directors",

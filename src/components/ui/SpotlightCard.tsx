@@ -41,9 +41,9 @@ export function SpotlightCard({
     <div
       onPointerMove={trackPointer}
       className={cn(
-        "group/spot relative overflow-hidden rounded-2xl",
+        "group/spot relative isolate overflow-hidden rounded-2xl",
         "border border-border-subtle bg-bg-primary",
-        "transition-[transform,box-shadow] duration-500 ease-out",
+        "translate-y-0 transform-gpu transition-[transform,box-shadow] duration-500 ease-out",
         lift && "hover:-translate-y-1 hover:shadow-accent-lg",
         className,
       )}

@@ -92,7 +92,7 @@ export function Footer() {
             <ul className="space-y-2.5 text-sm">
               <li>
                 <Link
-                  href="/#featured-work"
+                  href="/work"
                   className="text-text-primary hover:text-accent-bronze transition-colors focus-ring rounded-sm"
                 >
                   Featured Work
@@ -103,7 +103,7 @@ export function Footer() {
                   href="/about"
                   className="text-text-primary hover:text-accent-bronze transition-colors focus-ring rounded-sm"
                 >
-                  About Stefan Jobe
+                  About Conté
                 </Link>
               </li>
               <li>
@@ -137,9 +137,6 @@ export function Footer() {
                 <Mail className="w-3.5 h-3.5 text-accent-bronze" />
                 <span>{siteContent.contact.email}</span>
               </a>
-              <p className="text-xs text-text-muted pt-2">
-                Buckhead Business Association Member
-              </p>
             </div>
           </div>
         </div>
@@ -148,7 +145,7 @@ export function Footer() {
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-text-muted gap-4">
           <p>© {currentYear} {siteContent.name}. All rights reserved. Atlanta Visual Production Studio.</p>
           <div className="flex items-center gap-6">
-            <span>Atlanta • Buckhead • Nationwide</span>
+            <span>Atlanta-Based · Nationwide Coverage</span>
             <Link
               href="/contact"
               className="inline-flex items-center gap-1 text-accent-bronze hover:underline"

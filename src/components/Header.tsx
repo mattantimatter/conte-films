@@ -29,7 +29,7 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const isHome = pathname === "/";
+  const isOverDarkHero = pathname === "/" || pathname.startsWith("/solutions/");
 
   return (
     <>
@@ -49,22 +49,22 @@ export function Header() {
             : "bg-transparent py-5",
           // Sitting over the hero video, so the accent needs the dark-surface
           // ramp to match the hero's own actions rather than the page theme's.
-          isHome && !isScrolled && "accent-on-dark"
+          isOverDarkHero && !isScrolled && "accent-on-dark"
         )}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           {/* Logo */}
-          <Logo forceWhite={isHome && !isScrolled} />
+          <Logo forceWhite={isOverDarkHero && !isScrolled} />
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
             <Link
-              href="/#featured-work"
+              href="/work"
               className={cn(
                 "transition-colors py-2 focus-ring rounded-sm",
-                pathname === "/#featured-work"
+                pathname === "/work"
                   ? "text-accent-bronze font-semibold"
-                  : isHome && !isScrolled
+                  : isOverDarkHero && !isScrolled
                   ? "text-white/90 hover:text-white"
                   : "text-text-primary hover:text-accent-bronze"
               )}
@@ -72,7 +72,7 @@ export function Header() {
               Work
             </Link>
 
-            <SolutionsDropdown isScrolled={isScrolled} isHome={isHome} />
+            <SolutionsDropdown isScrolled={isScrolled} isHome={isOverDarkHero} />
 
             <Link
               href="/about"
@@ -80,7 +80,7 @@ export function Header() {
                 "transition-colors py-2 focus-ring rounded-sm",
                 pathname === "/about"
                   ? "text-accent-bronze font-semibold"
-                  : isHome && !isScrolled
+                  : isOverDarkHero && !isScrolled
                   ? "text-white/90 hover:text-white"
                   : "text-text-primary hover:text-accent-bronze"
               )}
@@ -94,7 +94,7 @@ export function Header() {
                 "transition-colors py-2 focus-ring rounded-sm",
                 pathname === "/contact"
                   ? "text-accent-bronze font-semibold"
-                  : isHome && !isScrolled
+                  : isOverDarkHero && !isScrolled
                   ? "text-white/90 hover:text-white"
                   : "text-text-primary hover:text-accent-bronze"
               )}

@@ -14,6 +14,7 @@ import StaggeredText from "@/components/react-bits/staggered-text";
 import { Button } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
+import { SiteFaq } from "@/components/SiteFaq";
 import { siteContent } from "@/content/site";
 
 export default function HomePage() {
@@ -37,8 +38,8 @@ export default function HomePage() {
             </Reveal>
 
             <Reveal direction="up" delay={0.2}>
-              <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-semibold text-white tracking-[-0.04em] leading-[1.05] drop-shadow-2xl">
-                Films that make the work{" "}
+              <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-semibold text-white tracking-[-0.04em] leading-[1.15] drop-shadow-2xl">
+                Films that make your work{" "}
                 <span className="text-gradient-accent font-normal italic">impossible</span> to overlook.
               </h1>
             </Reveal>
@@ -51,7 +52,7 @@ export default function HomePage() {
 
             <Reveal direction="up" delay={0.4} className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
               <Button
-                href="#featured-work"
+                href="/work"
                 size="lg"
                 className="w-full sm:w-auto"
                 leadingIcon={<PlayCircle className="w-4 h-4" />}
@@ -108,7 +109,17 @@ export default function HomePage() {
             </p>
           </Reveal>
 
-          <ProjectGrid initialCategory="all" />
+          <ProjectGrid initialCategory="all" limit={3} />
+
+          <div className="flex justify-center">
+            <Button
+              href="/work"
+              size="lg"
+              icon={<ArrowUpRight className="w-4 h-4" />}
+            >
+              See More
+            </Button>
+          </div>
         </div>
       </section>
 
@@ -131,7 +142,7 @@ export default function HomePage() {
                       alt={`${siteContent.founder}, founder and director of ${siteContent.name}`}
                       fill
                       sizes="(min-width: 1024px) 320px, 80vw"
-                      className="object-cover object-top transition-transform duration-700 ease-out group-hover/spot:scale-105"
+                      className="object-cover object-center transition-transform duration-700 ease-out group-hover/spot:scale-105"
                     />
                     <span
                       aria-hidden
@@ -142,7 +153,7 @@ export default function HomePage() {
                         {siteContent.founder}
                       </p>
                       <p className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-white/60">
-                        Founder &amp; Director
+                        Founder and Executive Creative Director
                       </p>
                     </div>
                   </div>
@@ -172,7 +183,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 9. Final CTA */}
+      {/* 9. FAQ */}
+      <SiteFaq />
+
+      {/* 10. Final CTA */}
       <CTASection />
     </div>
   );

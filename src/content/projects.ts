@@ -10,7 +10,8 @@ export interface Project {
   posterImage: string;
   gallery?: string[];
   videoSource?: {
-    type: "mp4" | "vimeo" | "youtube";
+    type: "mp4" | "vimeo" | "youtube" | "mux";
+    /** For mux, this is the Mux playback ID */
     url: string;
     aspectRatio?: "16:9" | "9:16" | "4:3";
   };
@@ -37,10 +38,11 @@ export const projectsContent: Project[] = [
       "Full-scale visual production documenting a landmark custom estate in Metro Atlanta, capturing intricate craftsmanship, material textures, and natural lighting transitions.",
     fullDescription:
       "Designed specifically for high-stakes builder reputation and architectural publication, this production combined ground-based cinema cameras with smooth FAA-certified aerial passes to articulate the scale, spatial harmony, and bespoke detailing of Kalos Construction's flag residence.",
-    posterImage: "/images/projects/kalos-residence-poster.jpg",
+    posterImage:
+      "https://image.mux.com/cZ8Qdmz3KK4402Pk27GveJbUdr7ve1t64sMXxWj8OmT8/thumbnail.webp?time=1&width=1280",
     videoSource: {
-      type: "mp4",
-      url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4", // Replace with final asset per ASSET_GUIDE.md
+      type: "mux",
+      url: "cZ8Qdmz3KK4402Pk27GveJbUdr7ve1t64sMXxWj8OmT8",
       aspectRatio: "16:9",
     },
     featured: true,
@@ -216,5 +218,61 @@ export const projectsContent: Project[] = [
       "Contemporary art gallery interior with museum-grade track lighting and large modern paintings",
     year: "2023",
     location: "Buckhead, Atlanta, GA",
+  },
+  {
+    slug: "buckhead-business-association-event-recap",
+    client: "Buckhead Business Association",
+    title: "Member Event Recap Film",
+    category: "events",
+    categoryLabel: "Association & Community",
+    services: [
+      "Event Recap Film",
+      "Multi-Camera Coverage",
+      "Rapid Social Cutdowns",
+      "Speaker & Networking Highlights",
+    ],
+    summary:
+      "A polished event recap capturing networking energy, speaker moments, and community leadership for the Buckhead Business Association.",
+    fullDescription:
+      "Conté Films documented a signature BBA gathering with unobtrusive multi-camera coverage, delivering a cinematic recap film and same-week social cutdowns for member engagement and association marketing.",
+    posterImage: "/images/projects/buckhead-business-association-poster.jpg",
+    videoSource: {
+      type: "mp4",
+      url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4", // Replace with final asset per ASSET_GUIDE.md
+      aspectRatio: "16:9",
+    },
+    featured: true,
+    altText:
+      "Buckhead Business Association networking event with speakers and members in a modern Atlanta venue",
+    year: "2024",
+    location: "Buckhead, Atlanta, GA",
+  },
+  {
+    slug: "clinix-ai-brand-faq-series",
+    client: "Clinix AI",
+    title: "Brand & FAQ Talking-Head Series",
+    category: "corporate",
+    categoryLabel: "Technology & Brand",
+    services: [
+      "Brand Overview Film",
+      "FAQ Talking-Head Series",
+      "Executive Interview Production",
+      "Social-First Vertical Cuts",
+    ],
+    summary:
+      "A crisp brand and FAQ talking-head series clarifying Clinix AI’s product story, clinical value, and most-asked customer questions.",
+    fullDescription:
+      "Designed for website embed and sales enablement, Conté Films produced a controlled talking-head system with consistent lighting, branded lower-thirds, and modular FAQ answers that Clinix AI can deploy across product, support, and go-to-market channels.",
+    posterImage: "/images/projects/clinix-ai-poster.jpg",
+    videoSource: {
+      type: "mp4",
+      url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", // Replace with final asset per ASSET_GUIDE.md
+      aspectRatio: "16:9",
+    },
+    featured: true,
+    altText:
+      "Clinix AI executive speaking to camera in a clean branded talking-head interview setup",
+    year: "2024",
+    location: "Atlanta, GA",
   },
 ];

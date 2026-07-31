@@ -73,7 +73,7 @@ export function MobileMenu() {
           <nav className="my-auto py-8 space-y-6">
             <div>
               <Link
-                href="/#featured-work"
+                href="/work"
                 onClick={() => setIsOpen(false)}
                 className="text-2xl font-serif tracking-wider font-light text-text-primary hover:text-accent-bronze transition-colors flex items-center justify-between py-2 border-b border-border-subtle/50"
               >
