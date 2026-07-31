@@ -5,6 +5,7 @@ import StaggeredText from "@/components/react-bits/staggered-text";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { siteContent } from "@/content/site";
+import { cn } from "@/lib/utils";
 
 const STATS = [
   {
@@ -70,11 +71,15 @@ export function StudioIntro() {
 
             {/* Credential stats */}
             <Reveal direction="up" delay={0.3} className="mt-10">
-              <ul className="grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-border-subtle bg-border-subtle sm:grid-cols-3">
-                {STATS.map(({ icon: Icon, value, unit, label }) => (
+              <ul className="clip-rounded grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-border-subtle bg-border-subtle sm:grid-cols-3">
+                {STATS.map(({ icon: Icon, value, unit, label }, index) => (
                   <li
                     key={label}
-                    className="group/stat relative bg-bg-primary p-5 transition-colors duration-300 hover:bg-bg-surface"
+                    className={cn(
+                      "group/stat relative bg-bg-primary p-5 transition-colors duration-300 hover:bg-bg-surface",
+                      index === 0 && "rounded-t-2xl sm:rounded-t-none sm:rounded-l-2xl",
+                      index === STATS.length - 1 && "rounded-b-2xl sm:rounded-b-none sm:rounded-r-2xl"
+                    )}
                   >
                     <span
                       aria-hidden
@@ -108,11 +113,11 @@ export function StudioIntro() {
 
 function FounderCard() {
   return (
-    <figure className="accent-on-dark group/spot relative isolate overflow-hidden rounded-[1.75rem] bg-neutral-950 p-8 shadow-2xl sm:p-10">
+    <figure className="accent-on-dark group/spot relative isolate clip-rounded overflow-hidden rounded-[1.75rem] bg-neutral-950 p-8 shadow-2xl sm:p-10">
       {/* Gradient hairline */}
       <span
         aria-hidden
-        className="accent-hairline opacity-60 transition-opacity duration-500 group-hover/spot:opacity-100"
+        className="accent-hairline rounded-[1.75rem] opacity-60 transition-opacity duration-500 group-hover/spot:opacity-100"
       />
 
       {/* Accent bloom */}

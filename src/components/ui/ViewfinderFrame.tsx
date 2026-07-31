@@ -30,7 +30,7 @@ export function ViewfinderFrame({
   return (
     <div
       className={cn(
-        "relative isolate overflow-hidden rounded-xl border border-border-subtle bg-bg-elevated",
+        "relative isolate clip-rounded overflow-hidden rounded-xl border border-border-subtle bg-bg-elevated",
         className,
       )}
     >

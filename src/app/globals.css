@@ -239,6 +239,18 @@ h6 {
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
+  /* Safari: keep mask corners aligned with the parent radius */
+  transform: translateZ(0);
+  overflow: hidden;
+}
+
+/* Safari often fails to clip overflow to border-radius (esp. top-right) when
+   blurred children sit near the edge. Force a compositing/mask clip. */
+.clip-rounded {
+  overflow: hidden;
+  transform: translateZ(0);
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  mask-image: radial-gradient(white, black);
 }
 
 /* Surfaces that stay dark in both themes need the dark accent ramp, otherwise
