@@ -185,7 +185,6 @@ export function SiteFaq() {
       ctaLabel="Contact the Studio"
       ctaHref="/contact"
       ctaNote="Weekdays · Metro Atlanta & traveling worldwide"
-      className="border-t border-border-subtle"
     />
   );
 }
@@ -203,7 +202,6 @@ export function CorporateFaq() {
       ctaLabel="Start Corporate Project"
       ctaHref="/contact"
       ctaNote="Brand films · interviews · testimonials · social cuts"
-      className="border-t border-border-subtle"
     />
   );
 }
@@ -221,7 +219,6 @@ export function RealEstateFaq() {
       ctaLabel="Book Architectural Shoot"
       ctaHref="/contact"
       ctaNote="Video · drone · photography · social cuts"
-      className="border-t border-border-subtle"
     />
   );
 }
@@ -239,7 +236,6 @@ export function EventsFaq() {
       ctaLabel="Book Event Coverage"
       ctaHref="/contact"
       ctaNote="Conferences · keynotes · galas · activations"
-      className="border-t border-border-subtle"
     />
   );
 }

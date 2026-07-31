@@ -13,7 +13,7 @@ export function CTASection({
   subheadline?: string;
 }) {
   return (
-    <section className="relative py-28 overflow-hidden bg-bg-surface border-t border-border-subtle transition-colors">
+    <section className="relative py-28 overflow-hidden bg-bg-surface transition-colors">
       {/* Subtle Background Glow */}
       <div
         aria-hidden

@@ -39,7 +39,7 @@ export default function CorporateSolutionPage() {
       <CorporateCapabilities />
 
       {/* Featured Corporate Work */}
-      <section id="case-studies" className="py-24 bg-bg-surface border-y border-border-subtle transition-colors">
+      <section id="case-studies" className="py-24 bg-bg-surface transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <Reveal direction="up" className="max-w-3xl space-y-4">
             <Eyebrow>Corporate Case Studies</Eyebrow>

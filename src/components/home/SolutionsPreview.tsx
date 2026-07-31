@@ -77,7 +77,7 @@ export function SolutionsPreview() {
   return (
     <section
       id="solutions"
-      className="relative overflow-hidden border-y border-border-subtle bg-bg-surface py-24 transition-colors sm:py-32"
+      className="relative overflow-hidden bg-bg-surface py-24 transition-colors sm:py-32"
     >
       <div
         aria-hidden

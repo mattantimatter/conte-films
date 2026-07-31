@@ -50,7 +50,6 @@ export function EventsDeliverables() {
       headline="Event deliverables, configured to your run of show."
       description="Choose the assets your conference or activation needs — highlight films, stage recordings, social cuts, and galleries based on scope, not a one-size package."
       items={deliverables}
-      className="border-t border-border-subtle"
     />
   );
 }

@@ -53,7 +53,6 @@ export function CorporateWhoWeServe() {
       attributionImage="/stefan-jobe.jpg"
       description="Conté partners with leadership teams across corporate, healthcare, and professional services to produce visual assets that earn trust before the first conversation."
       items={industries}
-      className="border-y border-border-subtle"
     />
   );
 }

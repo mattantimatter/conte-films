@@ -45,7 +45,6 @@ export function RealEstateDeliverables() {
       description="Build the visual suite your listing or builder portfolio needs — film, aerials, stills, and social cuts available as you configure the production."
       features={features}
       images={images}
-      className="border-t border-border-subtle"
     />
   );
 }

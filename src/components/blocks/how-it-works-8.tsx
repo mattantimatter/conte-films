@@ -156,7 +156,7 @@ export default function HowItWorks8({
       id={id}
       aria-labelledby="hiw8-heading"
       className={cn(
-        "w-full border-y border-border-subtle bg-bg-surface px-4 py-16 transition-colors sm:px-6 sm:py-20 lg:px-8 lg:py-24",
+        "w-full bg-bg-surface px-4 py-16 transition-colors sm:px-6 sm:py-20 lg:px-8 lg:py-24",
         className
       )}
     >

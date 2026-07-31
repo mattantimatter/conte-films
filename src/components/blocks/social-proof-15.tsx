@@ -133,7 +133,7 @@ export default function SocialProof15({
     <section
       id={id}
       className={cn(
-        "w-full border-y border-border-subtle bg-bg-surface px-4 py-16 transition-colors sm:px-6 sm:py-20 lg:px-8 lg:py-24",
+        "w-full bg-bg-surface px-4 py-16 transition-colors sm:px-6 sm:py-20 lg:px-8 lg:py-24",
         className
       )}
     >
@@ -175,7 +175,7 @@ export default function SocialProof15({
           )}
         </motion.div>
 
-        <motion.div variants={item} className="mt-10 border-t border-border-subtle lg:mt-12" />
+        <motion.div variants={item} className="mt-10 lg:mt-12" aria-hidden />
 
         <div
           onMouseEnter={() => setPaused(true)}

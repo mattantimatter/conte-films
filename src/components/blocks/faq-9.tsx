@@ -94,7 +94,7 @@ export default function FAQ9({
               </p>
             </div>
             <div>
-              <div className="grid grid-cols-2 divide-x divide-white/10 border-y border-white/10">
+              <div className="grid grid-cols-2 divide-x divide-white/10">
                 {stats.map((stat, index) => (
                   <div
                     key={stat.label}

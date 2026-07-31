@@ -63,7 +63,7 @@ export default function Pricing13({
     <section
       id={id}
       className={cn(
-        "w-full border-y border-border-subtle bg-bg-primary px-4 py-16 transition-colors sm:px-6 sm:py-20 lg:px-8 lg:py-24",
+        "w-full bg-bg-primary px-4 py-16 transition-colors sm:px-6 sm:py-20 lg:px-8 lg:py-24",
         className
       )}
     >

@@ -51,7 +51,6 @@ export function CorporateDeliverables() {
       headline="Corporate deliverables, configured to your goals."
       description="Build the asset set your campaign needs — brand films, cutdowns, stills, and more are available based on project scope, not bundled into every package by default."
       items={deliverables}
-      className="border-y border-border-subtle"
     />
   );
 }

@@ -154,7 +154,7 @@ export function RealEstatePricing() {
   return (
     <section
       id="pricing"
-      className="w-full border-y border-border-subtle bg-bg-primary px-4 py-16 transition-colors sm:px-6 sm:py-20 lg:px-8 lg:py-24"
+      className="w-full bg-bg-primary px-4 py-16 transition-colors sm:px-6 sm:py-20 lg:px-8 lg:py-24"
     >
       <motion.div
         initial="hidden"

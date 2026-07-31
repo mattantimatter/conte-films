@@ -250,29 +250,30 @@ export const projectsContent: Project[] = [
   {
     slug: "clinix-ai-brand-faq-series",
     client: "Clinix AI",
-    title: "Brand & FAQ Talking-Head Series",
+    title: "Customer Testimonials & FAQ Video Series",
     category: "corporate",
     categoryLabel: "Technology & Brand",
     services: [
-      "Brand Overview Film",
+      "Customer Testimonial Films",
       "FAQ Talking-Head Series",
-      "Executive Interview Production",
+      "On-Location Clinical Capture",
       "Social-First Vertical Cuts",
     ],
     summary:
-      "A crisp brand and FAQ talking-head series clarifying Clinix AI’s product story, clinical value, and most-asked customer questions.",
+      "On-site customer testimonials and FAQ videos for Clinix AI, filmed at Big Apple Spine and Orthopedics in New York.",
     fullDescription:
-      "Designed for website embed and sales enablement, Conté Films produced a controlled talking-head system with consistent lighting, branded lower-thirds, and modular FAQ answers that Clinix AI can deploy across product, support, and go-to-market channels.",
-    posterImage: "/images/projects/clinix-ai-poster.jpg",
+      "Conté Films produced customer testimonials and modular FAQ talking-head videos for Clinix AI on location at Big Apple Spine and Orthopedics in New York, NY — capturing authentic clinical context, patient and practitioner voices, and product clarity for website, sales, and support channels.",
+    posterImage:
+      "https://image.mux.com/JGXRuZQd3017bT5O02QN42ArO6RJebiKDQcFR1rkbfUl00/thumbnail.webp?time=1&width=1280",
     videoSource: {
-      type: "mp4",
-      url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", // Replace with final asset per ASSET_GUIDE.md
+      type: "mux",
+      url: "JGXRuZQd3017bT5O02QN42ArO6RJebiKDQcFR1rkbfUl00",
       aspectRatio: "16:9",
     },
     featured: true,
     altText:
-      "Clinix AI executive speaking to camera in a clean branded talking-head interview setup",
+      "Clinix AI customer testimonials and FAQ video production filmed onsite at Big Apple Spine and Orthopedics in New York",
     year: "2024",
-    location: "Atlanta, GA",
+    location: "New York, NY",
   },
 ];

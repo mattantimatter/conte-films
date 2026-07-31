@@ -70,7 +70,6 @@ export function AboutCapabilities() {
       headline="Full-service visual production from concept to final master."
       description="A modular capability set we draw from based on your goals — engage the disciplines your project needs, not a fixed all-in package."
       items={capabilities}
-      className="border-t border-border-subtle"
     />
   );
 }

@@ -126,7 +126,7 @@ export default function About12({
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
-            className="divide-y divide-border-subtle border-y border-border-subtle"
+            className="divide-y divide-border-subtle"
           >
             {items.map((value) => {
               const Icon = value.icon;

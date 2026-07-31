@@ -54,7 +54,7 @@ const clients = [
 
 export function ClientStrip() {
   return (
-    <section className="py-12 border-y border-border-subtle bg-bg-surface/50 transition-colors">
+    <section className="py-12 bg-bg-surface/50 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8">
           <Eyebrow className="justify-center">

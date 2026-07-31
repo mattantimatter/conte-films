@@ -53,7 +53,6 @@ export function EventsWhoWeServe() {
       attributionImage="/stefan-jobe.jpg"
       description="Conté partners with organizers, brand teams, and planners for multi-camera coverage, rapid social edits, and highlight films that keep working after the lights go down."
       items={audiences}
-      className="border-y border-border-subtle"
     />
   );
 }

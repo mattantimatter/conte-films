@@ -38,7 +38,7 @@ const phases = [
 
 export function ProcessSection() {
   return (
-    <section className="py-24 bg-bg-primary border-b border-border-subtle transition-colors">
+    <section className="py-24 bg-bg-primary transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <Reveal direction="up" className="max-w-3xl mb-16">
           <Eyebrow icon={<Route className="h-3.5 w-3.5" />} rule>

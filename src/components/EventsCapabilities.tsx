@@ -128,7 +128,7 @@ export function EventsCapabilities() {
       headline="Multi-camera & rapid social delivery."
       items={capabilities}
       defaultActive="stage"
-      className="border-y border-border-subtle bg-bg-surface"
+      className="bg-bg-surface"
     />
   );
 }
