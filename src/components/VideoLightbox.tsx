@@ -41,10 +41,10 @@ export function VideoLightbox({ project, onClose }: VideoLightboxProps) {
     video.playsInline = true;
     const startPlay = () => video.play().catch(() => {});
 
-    async function initHls() {
-      if (video.canPlayType("application/vnd.apple.mpegurl")) {
-        video.src = streamUrl;
-        video.addEventListener("loadedmetadata", startPlay, { once: true });
+    async function initHls(el: HTMLVideoElement) {
+      if (el.canPlayType("application/vnd.apple.mpegurl")) {
+        el.src = streamUrl;
+        el.addEventListener("loadedmetadata", startPlay, { once: true });
         startPlay();
         return;
       }
@@ -60,7 +60,7 @@ export function VideoLightbox({ project, onClose }: VideoLightboxProps) {
       });
 
       hls.loadSource(streamUrl);
-      hls.attachMedia(video);
+      hls.attachMedia(el);
       hls.on(Hls.Events.MANIFEST_PARSED, () => {
         hls.startLevel = 0;
         hls.loadLevel = 0;
@@ -71,7 +71,7 @@ export function VideoLightbox({ project, onClose }: VideoLightboxProps) {
       return () => hls.destroy();
     }
 
-    const cleanup = initHls();
+    const cleanup = initHls(video);
     return () => {
       cleanup?.then((fn) => fn?.());
       video.removeAttribute("src");
