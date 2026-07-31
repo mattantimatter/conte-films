@@ -108,6 +108,35 @@ export const projectsContent: Project[] = [
     location: "Atlanta, GA",
   },
   {
+    slug: "clinix-ai-brand-faq-series",
+    client: "Clinix AI",
+    title: "Customer Testimonials & FAQ Video Series",
+    category: "corporate",
+    categoryLabel: "Technology & Brand",
+    services: [
+      "Customer Testimonial Films",
+      "FAQ Talking-Head Series",
+      "On-Location Clinical Capture",
+      "Social-First Vertical Cuts",
+    ],
+    summary:
+      "On-site customer testimonials and FAQ videos for Clinix AI, filmed at Big Apple Spine and Orthopedics in New York.",
+    fullDescription:
+      "Conté Films produced customer testimonials and modular FAQ talking-head videos for Clinix AI on location at Big Apple Spine and Orthopedics in New York, NY — capturing authentic clinical context, patient and practitioner voices, and product clarity for website, sales, and support channels.",
+    posterImage:
+      "https://image.mux.com/JGXRuZQd3017bT5O02QN42ArO6RJebiKDQcFR1rkbfUl00/thumbnail.webp?time=1&width=1280",
+    videoSource: {
+      type: "mux",
+      url: "JGXRuZQd3017bT5O02QN42ArO6RJebiKDQcFR1rkbfUl00",
+      aspectRatio: "16:9",
+    },
+    featured: true,
+    altText:
+      "Clinix AI customer testimonials and FAQ video production filmed onsite at Big Apple Spine and Orthopedics in New York",
+    year: "2024",
+    location: "New York, NY",
+  },
+  {
     slug: "larkly-suncare-brand-campaign",
     client: "Larkly Suncare",
     title: "Editorial Product & Brand Launch Film",
@@ -213,11 +242,40 @@ export const projectsContent: Project[] = [
       url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4", // Replace with final asset per ASSET_GUIDE.md
       aspectRatio: "16:9",
     },
-    featured: false,
+    featured: true,
     altText:
       "Contemporary art gallery interior with museum-grade track lighting and large modern paintings",
     year: "2023",
     location: "Buckhead, Atlanta, GA",
+  },
+  {
+    slug: "metro-atlanta-aerial-architecture-reel",
+    client: "Conté Films Aerial",
+    title: "FAA Aerial Architecture & Site Cinema",
+    category: "real-estate",
+    categoryLabel: "Aerial & Architecture",
+    services: [
+      "FAA Part 107 Aerial Cinema",
+      "Lot-to-Roofline Context Passes",
+      "High-Resolution Aerial Stills",
+      "Listing & Portfolio Cutdowns",
+    ],
+    summary:
+      "Cinematic drone coverage articulating scale, site context, and architectural form across Metro Atlanta residential and commercial properties.",
+    fullDescription:
+      "Produced entirely under FAA Part 107 operations, this aerial architecture reel combines smooth orbiting passes, establishing approaches, and high-resolution stills that give builders, brokers, and architects the site context their ground films can’t capture alone.",
+    posterImage:
+      "https://image.mux.com/5BUMdA7REN28y02fC6kW1yoy02DYeWeMrSFYjpSm3Mu02I/thumbnail.webp?time=2&width=1280",
+    videoSource: {
+      type: "mux",
+      url: "5BUMdA7REN28y02fC6kW1yoy02DYeWeMrSFYjpSm3Mu02I",
+      aspectRatio: "16:9",
+    },
+    featured: true,
+    altText:
+      "Aerial drone cinema of luxury residential architecture and landscaped sites across Metro Atlanta",
+    year: "2024",
+    location: "Metro Atlanta, GA",
   },
   {
     slug: "buckhead-business-association-event-recap",
@@ -246,34 +304,5 @@ export const projectsContent: Project[] = [
       "Buckhead Business Association networking event with speakers and members in a modern Atlanta venue",
     year: "2024",
     location: "Buckhead, Atlanta, GA",
-  },
-  {
-    slug: "clinix-ai-brand-faq-series",
-    client: "Clinix AI",
-    title: "Customer Testimonials & FAQ Video Series",
-    category: "corporate",
-    categoryLabel: "Technology & Brand",
-    services: [
-      "Customer Testimonial Films",
-      "FAQ Talking-Head Series",
-      "On-Location Clinical Capture",
-      "Social-First Vertical Cuts",
-    ],
-    summary:
-      "On-site customer testimonials and FAQ videos for Clinix AI, filmed at Big Apple Spine and Orthopedics in New York.",
-    fullDescription:
-      "Conté Films produced customer testimonials and modular FAQ talking-head videos for Clinix AI on location at Big Apple Spine and Orthopedics in New York, NY — capturing authentic clinical context, patient and practitioner voices, and product clarity for website, sales, and support channels.",
-    posterImage:
-      "https://image.mux.com/JGXRuZQd3017bT5O02QN42ArO6RJebiKDQcFR1rkbfUl00/thumbnail.webp?time=1&width=1280",
-    videoSource: {
-      type: "mux",
-      url: "JGXRuZQd3017bT5O02QN42ArO6RJebiKDQcFR1rkbfUl00",
-      aspectRatio: "16:9",
-    },
-    featured: true,
-    altText:
-      "Clinix AI customer testimonials and FAQ video production filmed onsite at Big Apple Spine and Orthopedics in New York",
-    year: "2024",
-    location: "New York, NY",
   },
 ];
