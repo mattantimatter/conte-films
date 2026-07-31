@@ -51,7 +51,7 @@ export default function EventsSolutionPage() {
 
           <div className="flex justify-center">
             <Button href="/work" size="lg" icon={<ArrowUpRight className="w-4 h-4" />}>
-              See More
+              See more event case studies
             </Button>
           </div>
         </div>

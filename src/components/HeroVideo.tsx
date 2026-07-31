@@ -112,11 +112,13 @@ export function HeroVideo() {
           muted
           loop
           playsInline
+          aria-hidden
           className={`absolute inset-0 w-full h-full object-cover scale-105 transition-opacity duration-700 ${
             playing ? "opacity-100" : "opacity-0"
           }`}
-        />
-
+        >
+          <track kind="captions" src="/captions/ambient.vtt" srcLang="en" label="English" />
+        </video>
         {/* Top poster overlay — sits above video, dissolves once playing is confirmed */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img

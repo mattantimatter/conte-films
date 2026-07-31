@@ -152,11 +152,14 @@ export function SolutionHero({
               muted
               loop
               playsInline
+              aria-hidden
               className={cn(
                 "absolute inset-0 h-full w-full object-cover scale-105 transition-opacity duration-700",
                 playing ? "opacity-100" : "opacity-0"
               )}
-            />
+            >
+              <track kind="captions" src="/captions/ambient.vtt" srcLang="en" label="English" />
+            </video>
           )}
         </div>
 

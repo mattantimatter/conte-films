@@ -138,7 +138,7 @@ export function Select({
         aria-haspopup="listbox"
         aria-expanded={isOpen}
         aria-controls={listboxId}
-        aria-invalid={ariaInvalid}
+        aria-describedby={ariaInvalid ? `${triggerId}-error` : undefined}
         onClick={() => setIsOpen((open) => !open)}
         onKeyDown={handleKeyDown}
         className={cn(

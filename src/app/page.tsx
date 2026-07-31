@@ -117,7 +117,7 @@ export default function HomePage() {
               size="lg"
               icon={<ArrowUpRight className="w-4 h-4" />}
             >
-              See More
+              See more case studies
             </Button>
           </div>
         </div>

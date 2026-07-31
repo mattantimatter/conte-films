@@ -70,9 +70,9 @@ export function StudioIntro() {
 
             {/* Credential stats */}
             <Reveal direction="up" delay={0.3} className="mt-10">
-              <dl className="grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-border-subtle bg-border-subtle sm:grid-cols-3">
+              <ul className="grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-border-subtle bg-border-subtle sm:grid-cols-3">
                 {STATS.map(({ icon: Icon, value, unit, label }) => (
-                  <div
+                  <li
                     key={label}
                     className="group/stat relative bg-bg-primary p-5 transition-colors duration-300 hover:bg-bg-surface"
                   >
@@ -81,16 +81,16 @@ export function StudioIntro() {
                       className="rule-gradient-accent absolute inset-x-0 top-0 h-px origin-left scale-x-0 transition-transform duration-500 ease-out group-hover/stat:scale-x-100"
                     />
                     <div className="flex items-center gap-2 text-text-muted">
-                      <Icon className="h-3.5 w-3.5 transition-colors duration-300 group-hover/stat:text-accent-bronze" />
+                      <Icon className="h-3.5 w-3.5 transition-colors duration-300 group-hover/stat:text-accent-bronze" aria-hidden />
                       <span className="font-mono text-[10px] uppercase tracking-[0.2em]">{unit}</span>
                     </div>
-                    <dt className="text-gradient-accent mt-2 font-display text-2xl font-semibold tracking-tight">
+                    <p className="text-gradient-accent mt-2 font-display text-2xl font-semibold tracking-tight">
                       {value}
-                    </dt>
-                    <dd className="mt-1 text-xs leading-relaxed text-text-muted">{label}</dd>
-                  </div>
+                    </p>
+                    <p className="mt-1 text-xs leading-relaxed text-text-muted">{label}</p>
+                  </li>
                 ))}
-              </dl>
+              </ul>
             </Reveal>
           </div>
 

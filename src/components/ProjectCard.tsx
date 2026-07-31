@@ -125,11 +125,14 @@ export function ProjectCard({ project, onSelect }: ProjectCardProps) {
             loop
             playsInline
             preload="none"
+            aria-hidden
             className={cn(
               "absolute inset-0 h-full w-full object-cover transition-opacity duration-500",
               previewReady && hovering ? "opacity-100" : "opacity-0"
             )}
-          />
+          >
+            <track kind="captions" src="/captions/ambient.vtt" srcLang="en" label="English" />
+          </video>
         )}
 
         <span className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-black/35" />

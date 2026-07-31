@@ -141,7 +141,15 @@ export function VideoLightbox({ project, onClose }: VideoLightboxProps) {
                 muted={isMuted}
                 playsInline
                 className="h-full w-full object-contain"
-              />
+              >
+                <track
+                  kind="captions"
+                  src="/captions/ambient.vtt"
+                  srcLang="en"
+                  label="English"
+                  default
+                />
+              </video>
             ) : (
               <div className="p-8 text-center text-text-muted">
                 <p className="mb-4 text-sm">
