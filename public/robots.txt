@@ -1,0 +1,7 @@
+User-Agent: *
+Allow: /
+
+Sitemap: https://contefilms.com/sitemap.xml
+
+# Machine-readable site summary for AI agents
+# https://llmstxt.org/
