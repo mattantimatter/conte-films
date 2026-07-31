@@ -198,7 +198,7 @@ export function CorporateFaq() {
       faqs={corporateFaqs}
       stats={[
         { value: "4K", label: "Cinema delivery" },
-        { value: "B2B", label: "Brand & healthcare" },
+        { value: "10+", label: "Years of experience" },
       ]}
       ctaLabel="Start Corporate Project"
       ctaHref="/contact"
