@@ -191,17 +191,17 @@ export default function SocialProof15({
             >
               &ldquo;
             </span>
-            <div className="mt-2 grid min-h-[280px] sm:min-h-[340px]">
-              <AnimatePresence initial={false}>
+            <div className="relative mt-2 min-h-[280px] overflow-hidden sm:min-h-[340px]">
+              <AnimatePresence mode="wait" initial={false}>
                 <motion.figure
                   key={active}
-                  initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -12 }}
-                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                  className="col-start-1 row-start-1"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: shouldReduceMotion ? 0 : 0.28, ease: [0.22, 1, 0.36, 1] }}
+                  className="w-full"
                 >
-                  <blockquote className="max-w-3xl text-balance font-display text-2xl font-medium leading-snug tracking-tight text-text-primary sm:text-3xl lg:text-4xl">
+                  <blockquote className="max-w-3xl font-display text-2xl font-medium leading-snug tracking-tight text-text-primary sm:text-3xl lg:text-4xl">
                     {story.quote}
                   </blockquote>
                   <figcaption className="mt-8">
