@@ -47,14 +47,22 @@ export function CTASection({
           </Button>
         </Reveal>
 
-        <Reveal direction="up" delay={0.3} className="pt-6 text-xs text-text-muted flex flex-wrap items-center justify-center gap-6">
+        <Reveal
+          direction="up"
+          delay={0.3}
+          className="flex flex-col items-center gap-2 pt-6 text-xs text-text-muted sm:flex-row sm:flex-wrap sm:justify-center sm:gap-x-6 sm:gap-y-2"
+        >
           <span className="flex items-center gap-1.5">
-            <Phone className="w-3.5 h-3.5 text-accent-bronze" />
+            <Phone className="h-3.5 w-3.5 text-accent-bronze" />
             Direct: {siteContent.contact.phoneFormatted}
           </span>
-          <span>•</span>
+          <span className="hidden sm:inline" aria-hidden>
+            •
+          </span>
           <span>Response within 24 business hours</span>
-          <span>•</span>
+          <span className="hidden sm:inline" aria-hidden>
+            •
+          </span>
           <span>Metro Atlanta & Traveling Worldwide</span>
         </Reveal>
       </div>
