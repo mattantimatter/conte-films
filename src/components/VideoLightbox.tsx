@@ -147,7 +147,6 @@ export function VideoLightbox({ project, onClose }: VideoLightboxProps) {
                   src="/captions/ambient.vtt"
                   srcLang="en"
                   label="English"
-                  default
                 />
               </video>
             ) : (
