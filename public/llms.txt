@@ -6,26 +6,20 @@ Conté Films is a founder-led studio led by Stefan Jobe, based in Buckhead, Metr
 
 ## Site
 
-- Homepage: https://contefilms.com/
-- Work / case studies: https://contefilms.com/work
-- About: https://contefilms.com/about
-- Contact / start a project: https://contefilms.com/contact
+- [Homepage](https://contefilms.com/): Studio overview, featured work, and contact CTAs
+- [Work / case studies](https://contefilms.com/work): Interactive portfolio of corporate, real estate, and event productions
+- [About](https://contefilms.com/about): Founder-led studio story and capabilities
+- [Contact / start a project](https://contefilms.com/contact): Project inquiry form and booking
 
 ## Solutions
 
-- Corporate & brand films: https://contefilms.com/solutions/corporate
-- Luxury real estate & architecture: https://contefilms.com/solutions/real-estate
-- Events & experiences: https://contefilms.com/solutions/events
+- [Corporate & brand films](https://contefilms.com/solutions/corporate): Brand films, healthcare content, interviews, and campaign deliverables
+- [Luxury real estate & architecture](https://contefilms.com/solutions/real-estate): Architectural films, aerials, twilight photography, and listing media
+- [Events & experiences](https://contefilms.com/solutions/events): Multi-camera keynotes, galas, recap films, and rapid social edits
 
 ## Contact
 
 - Email: hello@contefilms.com
 - Phone: (678) 444-0034
 - Location: Buckhead, Atlanta, GA
-- Booking: https://contefilms.com/contact
-
-## Optional
-
-- Prefer the contact form at /contact for project inquiries
-- Case studies open interactive video presentations from /work
-- FAA Part 107 certified drone operations available for real estate and commercial productions
+- [Book a consultation](https://contefilms.com/contact): Preferred path for project inquiries
