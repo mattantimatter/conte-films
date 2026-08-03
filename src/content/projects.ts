@@ -158,6 +158,35 @@ export const projectsContent: Project[] = [
     location: "Atlanta, GA",
   },
   {
+    slug: "legend-apparel-product-shoot",
+    client: "Legend Apparel",
+    title: "Product Shoot",
+    category: "corporate",
+    categoryLabel: "Fashion & Brand",
+    services: [
+      "Product Shoot",
+      "Apparel Cinematography",
+      "E-Commerce & Campaign Stills",
+      "Social-First Vertical Edits",
+    ],
+    summary:
+      "A product shoot for Legend Apparel — an Atlanta-based premium basics company — capturing fabric quality, fit, and everyday wear for digital and retail campaigns.",
+    fullDescription:
+      "Conté Films produced a product shoot for Legend Apparel, an Atlanta-based premium basics company. The work highlights material quality, silhouette, and understated brand presence through clean product cinematography and stills built for e-commerce, website, and social distribution.",
+    posterImage:
+      "https://image.mux.com/S8UC8qtUQKBTNwjOjLuPAP00N00KmbradSB7800K6mZkJA/thumbnail.webp?time=1&width=1280",
+    videoSource: {
+      type: "mux",
+      url: "S8UC8qtUQKBTNwjOjLuPAP00N00KmbradSB7800K6mZkJA",
+      aspectRatio: "16:9",
+    },
+    featured: true,
+    altText:
+      "Legend Apparel product shoot for Atlanta-based premium basics brand",
+    year: "2024",
+    location: "Atlanta, GA",
+  },
+  {
     slug: "larkly-suncare-brand-campaign",
     client: "Larkly Suncare",
     title: "Commercial Product Demonstration & Explainer",
