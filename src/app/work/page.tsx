@@ -12,7 +12,23 @@ export const metadata: Metadata = {
     "Selected Conté Films productions across corporate, healthcare, luxury real estate, and events — cinematic photography, film, and aerial media.",
 };
 
-export default function WorkPage() {
+type WorkCategory = "all" | "corporate" | "real-estate" | "events";
+
+function resolveCategory(value?: string): WorkCategory {
+  if (value === "corporate" || value === "real-estate" || value === "events") {
+    return value;
+  }
+  if (value === "event") return "events";
+  return "all";
+}
+
+export default function WorkPage({
+  searchParams,
+}: {
+  searchParams: { category?: string };
+}) {
+  const category = resolveCategory(searchParams.category);
+
   return (
     <div className="space-y-0">
       <section className="relative overflow-hidden bg-bg-primary pb-24 pt-32 transition-colors sm:pb-32 sm:pt-40">
@@ -37,7 +53,7 @@ export default function WorkPage() {
             </p>
           </Reveal>
 
-          <ProjectGrid initialCategory="all" />
+          <ProjectGrid key={category} initialCategory={category} />
         </div>
       </section>
 

@@ -51,7 +51,7 @@ export default function EventsSolutionPage() {
           <ProjectGrid initialCategory="events" limit={3} />
 
           <div className="flex justify-center">
-            <Button href="/work" size="lg" icon={<ArrowUpRight className="w-4 h-4" />}>
+            <Button href="/work?category=events" size="lg" icon={<ArrowUpRight className="w-4 h-4" />}>
               See more event case studies
             </Button>
           </div>

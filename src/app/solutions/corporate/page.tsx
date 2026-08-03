@@ -52,7 +52,7 @@ export default function CorporateSolutionPage() {
           <ProjectGrid initialCategory="corporate" limit={3} />
 
           <div className="flex justify-center">
-            <Button href="/work" size="lg" icon={<ArrowUpRight className="w-4 h-4" />}>
+            <Button href="/work?category=corporate" size="lg" icon={<ArrowUpRight className="w-4 h-4" />}>
               See more corporate case studies
             </Button>
           </div>

@@ -52,7 +52,7 @@ export default function RealEstateSolutionPage() {
           <ProjectGrid initialCategory="real-estate" limit={3} />
 
           <div className="flex justify-center">
-            <Button href="/work" size="lg" icon={<ArrowUpRight className="w-4 h-4" />}>
+            <Button href="/work?category=real-estate" size="lg" icon={<ArrowUpRight className="w-4 h-4" />}>
               See more real estate case studies
             </Button>
           </div>

@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { motion, useReducedMotion } from "motion/react";
 import {
   Building2,
@@ -26,15 +27,18 @@ const FILTERS: {
   icon: LucideIcon;
 }[] = [
   { id: "all", label: "All Work", icon: LayoutGrid },
-  { id: "corporate", label: "Corporate & Healthcare", icon: Building2 },
-  { id: "real-estate", label: "Real Estate & Architecture", icon: Home },
-  { id: "events", label: "Events & Keynotes", icon: CalendarDays },
+  { id: "corporate", label: "Corporate", icon: Building2 },
+  { id: "real-estate", label: "Real Estate", icon: Home },
+  { id: "events", label: "Event", icon: CalendarDays },
 ];
 
-export function ProjectGrid({ initialCategory = "all", limit }: ProjectGridProps) {
+function ProjectGridInner({ initialCategory = "all", limit }: ProjectGridProps) {
   const [activeFilter, setActiveFilter] = useState<string>(initialCategory);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const shouldReduceMotion = useReducedMotion();
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   const filteredProjects = projectsContent.filter((project) =>
     projectMatchesCategory(
@@ -45,10 +49,20 @@ export function ProjectGrid({ initialCategory = "all", limit }: ProjectGridProps
 
   const displayedProjects = limit ? filteredProjects.slice(0, limit) : filteredProjects;
 
+  const selectFilter = (id: (typeof FILTERS)[number]["id"]) => {
+    setActiveFilter(id);
+    if (limit || pathname !== "/work") return;
+
+    const params = new URLSearchParams(searchParams.toString());
+    if (id === "all") params.delete("category");
+    else params.set("category", id);
+    const query = params.toString();
+    router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
+  };
+
   return (
     <>
       <div className="space-y-12">
-        {/* Segmented filter control */}
         {!limit && (
           <div className="flex justify-center">
             <div
@@ -65,7 +79,7 @@ export function ProjectGrid({ initialCategory = "all", limit }: ProjectGridProps
                 return (
                   <button
                     key={filter.id}
-                    onClick={() => setActiveFilter(filter.id)}
+                    onClick={() => selectFilter(filter.id)}
                     role="tab"
                     aria-selected={isActive}
                     className={cn(
@@ -104,7 +118,6 @@ export function ProjectGrid({ initialCategory = "all", limit }: ProjectGridProps
           </div>
         )}
 
-        {/* Projects */}
         <StaggerGroup
           key={activeFilter}
           className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8"
@@ -120,5 +133,13 @@ export function ProjectGrid({ initialCategory = "all", limit }: ProjectGridProps
 
       <VideoLightbox project={selectedProject} onClose={() => setSelectedProject(null)} />
     </>
+  );
+}
+
+export function ProjectGrid(props: ProjectGridProps) {
+  return (
+    <Suspense fallback={null}>
+      <ProjectGridInner {...props} />
+    </Suspense>
   );
 }
