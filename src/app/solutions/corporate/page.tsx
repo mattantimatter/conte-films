@@ -32,6 +32,7 @@ export default function CorporateSolutionPage() {
         description={content.heroDescription}
         primaryCta={{ label: "Start Corporate Project", href: "/contact" }}
         secondaryCta={{ label: "View Corporate Work", href: "#case-studies" }}
+        playbackId="Obdqkow01zfSdaWpL2xXidWofa3iopgxKTun500MfvKcQ"
       />
 
       <CorporateWhoWeServe />

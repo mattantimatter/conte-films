@@ -52,30 +52,60 @@ export const projectsContent: Project[] = [
     location: "Buckhead, Atlanta, GA",
   },
   {
-    slug: "atlanta-humane-society-brand-story",
-    client: "Atlanta Humane Society",
-    title: "Mission-Driven Brand Documentary",
-    category: "corporate",
-    categoryLabel: "Nonprofit & Brand Story",
+    slug: "pergament-properties-alpharetta-aerial",
+    client: "Pergament Properties",
+    title: "Commercial Drone Film — Alpharetta Property Portfolio",
+    category: "real-estate",
+    categoryLabel: "Commercial Aerial",
     services: [
-      "Brand Documentary Film",
-      "Executive & Staff Interviews",
-      "On-Location Photography",
-      "Campaign Cutdowns",
+      "FAA Part 107 Aerial Cinema",
+      "Commercial Property Overview",
+      "Site Context & Scale Passes",
+      "Listing & Marketing Cutdowns",
     ],
     summary:
-      "A moving brand story illuminating the human-animal bond and operational impact of Atlanta Humane Society across Metro Atlanta.",
+      "Commercial drone cinematography for Pergament Properties in Alpharetta, GA — capturing site scale, access, and architectural presence from the air.",
     fullDescription:
-      "Through authentic narrative interviews and atmospheric operational footage, Conté Films captured the heart of the organization’s mission, providing assets for annual galas, donor campaigns, and digital channels.",
-    posterImage: "/images/projects/atlanta-humane-poster.jpg",
+      "Conté Films produced FAA-certified aerial cinema for Pergament Properties’ Alpharetta holdings, using smooth commercial drone passes to communicate lot context, building massing, and neighborhood positioning for leasing, investor, and marketing audiences.",
+    posterImage:
+      "https://image.mux.com/kyzbTO1MsQQWFrWO5PmxIoqr3uqIxu8vK01pzyacdYA00/thumbnail.webp?time=1&width=1280",
     videoSource: {
-      type: "mp4",
-      url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4", // Replace with final asset per ASSET_GUIDE.md
+      type: "mux",
+      url: "kyzbTO1MsQQWFrWO5PmxIoqr3uqIxu8vK01pzyacdYA00",
       aspectRatio: "16:9",
     },
     featured: true,
     altText:
-      "Heartwarming moment between staff and rescued animal at Atlanta Humane Society facility",
+      "Aerial drone cinematography of commercial property for Pergament Properties in Alpharetta, Georgia",
+    year: "2024",
+    location: "Alpharetta, GA",
+  },
+  {
+    slug: "atlanta-humane-society-brand-story",
+    client: "Atlanta Humane Society",
+    title: "The Boromir Story — Documentary Commercial",
+    category: "corporate",
+    categoryLabel: "Nonprofit & Brand Story",
+    services: [
+      "Documentary Commercial Film",
+      "Rescue & Adoption Storytelling",
+      "On-Location Photography",
+      "Campaign Cutdowns",
+    ],
+    summary:
+      "A documentary commercial for Atlanta Humane Society telling The Boromir Story — a moving portrait of rescue, care, and the human-animal bond.",
+    fullDescription:
+      "Conté Films produced The Boromir Story as a documentary commercial for Atlanta Humane Society, capturing the emotional arc of rescue and rehabilitation with cinematic intimacy — built for donor campaigns, digital channels, and brand storytelling that advances the organization’s mission across Metro Atlanta.",
+    posterImage:
+      "https://image.mux.com/Obdqkow01zfSdaWpL2xXidWofa3iopgxKTun500MfvKcQ/thumbnail.webp?time=1&width=1280",
+    videoSource: {
+      type: "mux",
+      url: "Obdqkow01zfSdaWpL2xXidWofa3iopgxKTun500MfvKcQ",
+      aspectRatio: "16:9",
+    },
+    featured: true,
+    altText:
+      "Atlanta Humane Society documentary commercial The Boromir Story — rescue and adoption storytelling",
     year: "2023",
     location: "Atlanta, GA",
   },
