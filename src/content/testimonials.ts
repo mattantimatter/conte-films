@@ -45,7 +45,6 @@ export const testimonialsContent: Testimonial[] = [
       "Conté Films captured the exact warmth and medical credibility our practice stands for. Patients routinely mention seeing our video before booking their first appointment. Stefan's creative direction made our whole team feel comfortable on camera.",
     highlight: "Patients routinely mention seeing our video before booking their first appointment.",
     avatarImage: "/testimonials/simran-keshwani.jpg",
-    projectSlug: "tremedy-integrative-health",
   },
   {
     id: "larkly-suncare",

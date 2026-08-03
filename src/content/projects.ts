@@ -130,34 +130,6 @@ export const projectsContent: Project[] = [
     location: "Atlanta, GA",
   },
   {
-    slug: "tremedy-integrative-health",
-    client: "Tremedy Integrative Health Center",
-    title: "Comprehensive Healthcare Visual Ecosystem",
-    category: "corporate",
-    categoryLabel: "Healthcare & Corporate",
-    services: [
-      "Promotional Center Overview",
-      "Staff Profile Videos",
-      "Patient Educational Series",
-      "Facility & Practice Photography",
-    ],
-    summary:
-      "A cohesive visual suite highlighting patient experience, integrative medical care, and clinical expertise.",
-    fullDescription:
-      "Tremedy required an elevated aesthetic that balanced clinical credibility with warm human connection. We produced center overview films, practitioner spotlights, and website imagery designed to build patient trust prior to consultation.",
-    posterImage: "/images/projects/tremedy-health-poster.jpg",
-    videoSource: {
-      type: "mp4",
-      url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4", // Replace with final asset per ASSET_GUIDE.md
-      aspectRatio: "16:9",
-    },
-    featured: true,
-    altText:
-      "Modern integrative health therapy suite with warm natural lighting and physician consultation",
-    year: "2024",
-    location: "Atlanta, GA",
-  },
-  {
     slug: "legend-apparel-product-shoot",
     client: "Legend Apparel",
     title: "Product Shoot",
@@ -173,8 +145,7 @@ export const projectsContent: Project[] = [
       "A product shoot for Legend Apparel — an Atlanta-based premium basics company — capturing fabric quality, fit, and everyday wear for digital and retail campaigns.",
     fullDescription:
       "Conté Films produced a product shoot for Legend Apparel, an Atlanta-based premium basics company. The work highlights material quality, silhouette, and understated brand presence through clean product cinematography and stills built for e-commerce, website, and social distribution.",
-    posterImage:
-      "https://image.mux.com/S8UC8qtUQKBTNwjOjLuPAP00N00KmbradSB7800K6mZkJA/thumbnail.webp?time=1&width=1280",
+    posterImage: "/images/projects/legend-apparel-poster.jpg",
     videoSource: {
       type: "mux",
       url: "S8UC8qtUQKBTNwjOjLuPAP00N00KmbradSB7800K6mZkJA",
@@ -182,7 +153,7 @@ export const projectsContent: Project[] = [
     },
     featured: true,
     altText:
-      "Legend Apparel product shoot for Atlanta-based premium basics brand",
+      "Smiling model in a premium olive crew-neck tee from Legend Apparel, outdoor lifestyle product shoot",
     year: "2024",
     location: "Atlanta, GA",
   },
