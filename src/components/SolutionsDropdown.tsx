@@ -36,7 +36,7 @@ const solutions: SolutionItem[] = [
 
 const CLOSE_DELAY_MS = 280;
 
-export function SolutionsDropdown({ isScrolled, isHome }: { isScrolled?: boolean; isHome?: boolean }) {
+export function SolutionsDropdown({ overDarkHero }: { overDarkHero?: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -105,7 +105,7 @@ export function SolutionsDropdown({ isScrolled, isHome }: { isScrolled?: boolean
           "inline-flex items-center gap-1.5 text-sm font-medium transition-colors py-2 focus-ring rounded-sm",
           isSolutionsActive
             ? "text-accent-bronze font-semibold"
-            : isHome && !isScrolled
+            : overDarkHero
             ? "text-white/90 hover:text-white"
             : "text-text-primary hover:text-accent-bronze"
         )}

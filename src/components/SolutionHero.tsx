@@ -122,7 +122,10 @@ export function SolutionHero({
   }, [streamUrl]);
 
   return (
-    <section className="relative flex h-screen items-center justify-center overflow-hidden">
+    <section
+      data-site-hero
+      className="relative flex h-screen items-center justify-center overflow-hidden"
+    >
       {/* Background media plane — full-bleed like the homepage reel */}
       <div className="absolute inset-0 bg-[#090909]">
         <div className="absolute inset-0 overflow-hidden">

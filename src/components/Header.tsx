@@ -11,25 +11,45 @@ import { MobileMenu } from "@/components/MobileMenu";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
+const HEADER_CLEARANCE_PX = 72;
+
 export function Header() {
-  const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
+  const hasDarkHeroPage =
+    pathname === "/" || pathname.startsWith("/solutions/");
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [overDarkHero, setOverDarkHero] = useState(hasDarkHeroPage);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
+    const update = () => {
+      setIsScrolled(window.scrollY > 20);
+
+      if (!hasDarkHeroPage) {
+        setOverDarkHero(false);
+        return;
       }
+
+      const hero = document.querySelector<HTMLElement>("[data-site-hero]");
+      if (!hero) {
+        setOverDarkHero(false);
+        return;
+      }
+
+      // Stay in the light-on-dark nav state while the hero still fills
+      // the area under the fixed header.
+      setOverDarkHero(hero.getBoundingClientRect().bottom > HEADER_CLEARANCE_PX);
     };
 
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, [hasDarkHeroPage, pathname]);
 
-  const isOverDarkHero = pathname === "/" || pathname.startsWith("/solutions/");
+  const lightOnDark = hasDarkHeroPage && overDarkHero;
 
   return (
     <>
@@ -44,45 +64,49 @@ export function Header() {
       <header
         className={cn(
           "fixed top-0 left-0 right-0 z-40 transition-all duration-300",
-          isScrolled
-            ? "bg-bg-primary/85 backdrop-blur-md border-b border-border-subtle py-3 shadow-sm"
-            : "bg-transparent py-5",
+          lightOnDark
+            ? isScrolled
+              ? "border-b border-white/10 bg-black/40 py-3 backdrop-blur-md"
+              : "bg-transparent py-5"
+            : isScrolled
+              ? "border-b border-border-subtle bg-bg-primary/85 py-3 shadow-sm backdrop-blur-md"
+              : "bg-transparent py-5",
           // Sitting over the hero video, so the accent needs the dark-surface
           // ramp to match the hero's own actions rather than the page theme's.
-          isOverDarkHero && !isScrolled && "accent-on-dark"
+          lightOnDark && "accent-on-dark"
         )}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           {/* Logo */}
-          <Logo forceWhite={isOverDarkHero && !isScrolled} />
+          <Logo forceWhite={lightOnDark} />
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
+          <nav className="hidden items-center gap-8 text-sm font-medium md:flex">
             <Link
               href="/work"
               className={cn(
-                "transition-colors py-2 focus-ring rounded-sm",
+                "rounded-sm py-2 transition-colors focus-ring",
                 pathname === "/work"
-                  ? "text-accent-bronze font-semibold"
-                  : isOverDarkHero && !isScrolled
-                  ? "text-white/90 hover:text-white"
-                  : "text-text-primary hover:text-accent-bronze"
+                  ? "font-semibold text-accent-bronze"
+                  : lightOnDark
+                    ? "text-white/90 hover:text-white"
+                    : "text-text-primary hover:text-accent-bronze"
               )}
             >
               Work
             </Link>
 
-            <SolutionsDropdown isScrolled={isScrolled} isHome={isOverDarkHero} />
+            <SolutionsDropdown overDarkHero={lightOnDark} />
 
             <Link
               href="/about"
               className={cn(
-                "transition-colors py-2 focus-ring rounded-sm",
+                "rounded-sm py-2 transition-colors focus-ring",
                 pathname === "/about"
-                  ? "text-accent-bronze font-semibold"
-                  : isOverDarkHero && !isScrolled
-                  ? "text-white/90 hover:text-white"
-                  : "text-text-primary hover:text-accent-bronze"
+                  ? "font-semibold text-accent-bronze"
+                  : lightOnDark
+                    ? "text-white/90 hover:text-white"
+                    : "text-text-primary hover:text-accent-bronze"
               )}
             >
               About
@@ -91,12 +115,12 @@ export function Header() {
             <Link
               href="/contact"
               className={cn(
-                "transition-colors py-2 focus-ring rounded-sm",
+                "rounded-sm py-2 transition-colors focus-ring",
                 pathname === "/contact"
-                  ? "text-accent-bronze font-semibold"
-                  : isOverDarkHero && !isScrolled
-                  ? "text-white/90 hover:text-white"
-                  : "text-text-primary hover:text-accent-bronze"
+                  ? "font-semibold text-accent-bronze"
+                  : lightOnDark
+                    ? "text-white/90 hover:text-white"
+                    : "text-text-primary hover:text-accent-bronze"
               )}
             >
               Contact
@@ -104,18 +128,22 @@ export function Header() {
           </nav>
 
           {/* Desktop Right Actions */}
-          <div className="hidden md:flex items-center gap-4">
-            <ThemeToggle />
+          <div className="hidden items-center gap-4 md:flex">
+            <ThemeToggle
+              className={
+                lightOnDark
+                  ? "border-white/25 bg-white/10 text-white hover:border-white/50 hover:text-white"
+                  : undefined
+              }
+            />
 
-            <Button href="/contact" size="sm" icon={<ArrowUpRight className="w-3.5 h-3.5" />}>
+            <Button href="/contact" size="sm" icon={<ArrowUpRight className="h-3.5 w-3.5" />}>
               Start a Project
             </Button>
           </div>
 
           {/* Mobile Navigation Menu */}
-          <MobileMenu
-            overDarkHero={isOverDarkHero && !isScrolled}
-          />
+          <MobileMenu overDarkHero={lightOnDark} />
         </div>
       </header>
     </>

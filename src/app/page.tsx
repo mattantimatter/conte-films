@@ -21,7 +21,7 @@ export default function HomePage() {
   return (
     <div className="space-y-0">
       {/* 1. Cinematic Hero Section */}
-      <section className="relative h-screen flex items-center justify-center">
+      <section data-site-hero className="relative h-screen flex items-center justify-center">
         <HeroVideo />
 
         {/* Hero Text Content (Centered Floating Overlay) */}
