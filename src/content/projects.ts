@@ -145,7 +145,7 @@ export const projectsContent: Project[] = [
       "A product shoot for Legend Apparel — an Atlanta-based premium basics company — capturing fabric quality, fit, and everyday wear for digital and retail campaigns.",
     fullDescription:
       "Conté Films produced a product shoot for Legend Apparel, an Atlanta-based premium basics company. The work highlights material quality, silhouette, and understated brand presence through clean product cinematography and stills built for e-commerce, website, and social distribution.",
-    posterImage: "/images/projects/legend-apparel-poster.jpg",
+    posterImage: "/images/projects/legend-apparel-poster.jpg?v=2",
     videoSource: {
       type: "mux",
       url: "S8UC8qtUQKBTNwjOjLuPAP00N00KmbradSB7800K6mZkJA",
@@ -217,7 +217,7 @@ export const projectsContent: Project[] = [
   },
   {
     slug: "see-and-be-seen-grand-opening",
-    client: "See & Be Seen",
+    client: "See and Be Seen",
     title: "Grand Opening Video",
     category: "events",
     categories: ["events", "corporate"],
@@ -229,9 +229,9 @@ export const projectsContent: Project[] = [
       "Social & Website Cuts",
     ],
     summary:
-      "A grand opening film for See & Be Seen — capturing the launch energy of a healthcare brand event with cinematic event coverage and brand presence.",
+      "A grand opening film for See and Be Seen — capturing the launch energy of a healthcare brand event with cinematic event coverage and brand presence.",
     fullDescription:
-      "Conté Films produced the See & Be Seen Grand Opening Video, documenting the launch of this healthcare brand experience with polished event cinema — guest energy, space reveal, and brand moments engineered for website, social, and ongoing patient outreach.",
+      "Conté Films produced the See and Be Seen Grand Opening Video, documenting the launch of this healthcare brand experience with polished event cinema — guest energy, space reveal, and brand moments engineered for website, social, and ongoing patient outreach.",
     posterImage:
       "https://image.mux.com/5ZnUMQAGjkrIL8alJ2NraW01XCpwjNlpB31FN00iRyhdM/thumbnail.webp?time=1&width=1280",
     videoSource: {
@@ -241,7 +241,7 @@ export const projectsContent: Project[] = [
     },
     featured: true,
     altText:
-      "See & Be Seen healthcare brand grand opening event film by Conté Films",
+      "See and Be Seen healthcare brand grand opening event film by Conté Films",
     year: "2024",
     location: "Atlanta, GA",
   },
