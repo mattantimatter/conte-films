@@ -167,30 +167,31 @@ export const projectsContent: Project[] = [
   {
     slug: "dr-daniel-berant-educational-keynotes",
     client: "Dr. Daniel Berant",
-    title: "Keynote & Executive Thought Leadership Series",
+    title: "Thrive Live Keynote — Holistic Dentistry & Whole-Body Health",
     category: "events",
     categoryLabel: "Events & Executive",
     services: [
       "Multi-Camera Keynote Capture",
-      "Executive Interview Production",
-      "Rapid Social Cutdowns",
-      "Stage & Audience Photography",
+      "Stage & Audience Coverage",
+      "Thought-Leadership Cutdowns",
+      "Social-First Vertical Edits",
     ],
     summary:
-      "Polished multi-camera event capture and polished thought-leadership content engineered for professional distribution.",
+      "Dr. Dan Berant speaking at Thrive Live on holistic dentistry and how dentistry correlates to whole-body health.",
     fullDescription:
-      "High-definition multi-angle production capturing live keynote delivery, audience engagement, and post-session breakdown interviews designed for syndication and institutional presentation.",
-    posterImage: "/images/projects/dr-berant-event-poster.jpg",
+      "Conté Films captured Dr. Daniel Berant’s Thrive Live keynote on holistic dentistry — articulating how oral health connects to whole-body wellness for a live audience and post-event distribution across educational and practice channels.",
+    posterImage:
+      "https://image.mux.com/bGIYj00wffw02bWARMpoE8rmZCoYXc0001azcwXDQlzwjn00/thumbnail.webp?time=1&width=1280",
     videoSource: {
-      type: "mp4",
-      url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4", // Replace with final asset per ASSET_GUIDE.md
+      type: "mux",
+      url: "bGIYj00wffw02bWARMpoE8rmZCoYXc0001azcwXDQlzwjn00",
       aspectRatio: "16:9",
     },
     featured: true,
     altText:
-      "Dr. Daniel Berant presenting on stage with dramatic keylighting and conference screen",
+      "Dr. Daniel Berant presenting at Thrive Live on holistic dentistry and whole-body health",
     year: "2024",
-    location: "Atlanta, GA",
+    location: "Thrive Live",
   },
   {
     slug: "caesars-palace-las-vegas-experience",
