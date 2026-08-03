@@ -9,7 +9,7 @@ import {
   LayoutGrid,
   type LucideIcon,
 } from "lucide-react";
-import { Project, projectsContent } from "@/content/projects";
+import { Project, projectsContent, projectMatchesCategory } from "@/content/projects";
 import { ProjectCard } from "@/components/ProjectCard";
 import { VideoLightbox } from "@/components/VideoLightbox";
 import { StaggerGroup, StaggerItem } from "@/components/StaggerGroup";
@@ -36,8 +36,11 @@ export function ProjectGrid({ initialCategory = "all", limit }: ProjectGridProps
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const shouldReduceMotion = useReducedMotion();
 
-  const filteredProjects = projectsContent.filter(
-    (project) => activeFilter === "all" || project.category === activeFilter,
+  const filteredProjects = projectsContent.filter((project) =>
+    projectMatchesCategory(
+      project,
+      activeFilter as "all" | "corporate" | "real-estate" | "events",
+    ),
   );
 
   const displayedProjects = limit ? filteredProjects.slice(0, limit) : filteredProjects;

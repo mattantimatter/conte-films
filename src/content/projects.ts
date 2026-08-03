@@ -3,6 +3,8 @@ export interface Project {
   client: string;
   title: string;
   category: "corporate" | "real-estate" | "events";
+  /** Extra categories this project should appear under (in addition to `category`). */
+  categories?: Array<"corporate" | "real-estate" | "events">;
   categoryLabel: string;
   services: string[];
   summary: string;
@@ -19,6 +21,24 @@ export interface Project {
   altText: string;
   year?: string;
   location?: string;
+}
+
+export function projectCategories(
+  project: Project
+): Array<"corporate" | "real-estate" | "events"> {
+  const set = new Set<"corporate" | "real-estate" | "events">([
+    project.category,
+    ...(project.categories ?? []),
+  ]);
+  return [...set];
+}
+
+export function projectMatchesCategory(
+  project: Project,
+  filter: "all" | "corporate" | "real-estate" | "events"
+) {
+  if (filter === "all") return true;
+  return projectCategories(project).includes(filter);
 }
 
 export const projectsContent: Project[] = [
@@ -138,6 +158,65 @@ export const projectsContent: Project[] = [
     location: "Atlanta, GA",
   },
   {
+    slug: "larkly-suncare-brand-campaign",
+    client: "Larkly Suncare",
+    title: "Commercial Product Demonstration & Explainer",
+    category: "corporate",
+    categoryLabel: "Commercial Brand",
+    services: [
+      "Commercial Product Video",
+      "Product Demonstration",
+      "Brand Explainer Film",
+      "Social-First Vertical Edits",
+    ],
+    summary:
+      "A commercial product demonstration and explainer for Larkly Suncare — showcasing texture, portability, and brand story for retail and digital campaigns.",
+    fullDescription:
+      "Conté Films produced a commercial product demonstration and explainer for Larkly Suncare, combining sunlit product cinematography with clear brand storytelling so shoppers understand the formula, feel, and everyday use — built for website, retail, and social distribution.",
+    posterImage:
+      "https://image.mux.com/pRM7Wco4zdDaunVl8ENuhdK7YtZcNxRK02NGVeSSn7R00/thumbnail.webp?time=1&width=1280",
+    videoSource: {
+      type: "mux",
+      url: "pRM7Wco4zdDaunVl8ENuhdK7YtZcNxRK02NGVeSSn7R00",
+      aspectRatio: "16:9",
+    },
+    featured: true,
+    altText:
+      "Larkly Suncare commercial product demonstration and brand explainer film",
+    year: "2023",
+    location: "Atlanta, GA",
+  },
+  {
+    slug: "see-and-be-seen-grand-opening",
+    client: "See & Be Seen",
+    title: "Grand Opening Video",
+    category: "events",
+    categories: ["events", "corporate"],
+    categoryLabel: "Healthcare & Events",
+    services: [
+      "Grand Opening Film",
+      "Healthcare Brand Storytelling",
+      "Event Highlight Coverage",
+      "Social & Website Cuts",
+    ],
+    summary:
+      "A grand opening film for See & Be Seen — capturing the launch energy of a healthcare brand event with cinematic event coverage and brand presence.",
+    fullDescription:
+      "Conté Films produced the See & Be Seen Grand Opening Video, documenting the launch of this healthcare brand experience with polished event cinema — guest energy, space reveal, and brand moments engineered for website, social, and ongoing patient outreach.",
+    posterImage:
+      "https://image.mux.com/5ZnUMQAGjkrIL8alJ2NraW01XCpwjNlpB31FN00iRyhdM/thumbnail.webp?time=1&width=1280",
+    videoSource: {
+      type: "mux",
+      url: "5ZnUMQAGjkrIL8alJ2NraW01XCpwjNlpB31FN00iRyhdM",
+      aspectRatio: "16:9",
+    },
+    featured: true,
+    altText:
+      "See & Be Seen healthcare brand grand opening event film by Conté Films",
+    year: "2024",
+    location: "Atlanta, GA",
+  },
+  {
     slug: "clinix-ai-brand-faq-series",
     client: "Clinix AI",
     title: "Customer Testimonials & FAQ Video Series",
@@ -165,34 +244,6 @@ export const projectsContent: Project[] = [
       "Clinix AI customer testimonials and FAQ video production filmed onsite at Big Apple Spine and Orthopedics in New York",
     year: "2024",
     location: "New York, NY",
-  },
-  {
-    slug: "larkly-suncare-brand-campaign",
-    client: "Larkly Suncare",
-    title: "Editorial Product & Brand Launch Film",
-    category: "corporate",
-    categoryLabel: "Commercial Brand",
-    services: [
-      "Commercial Product Cinematography",
-      "Fashion & Beauty Direction",
-      "Social-First Vertical Edits",
-      "E-Commerce Photography",
-    ],
-    summary:
-      "Dynamic, sunshine-lit commercial production highlighting the luxury texture and portable design of Larkly Suncare.",
-    fullDescription:
-      "Leveraging Stefan Jobe’s fashion and beauty background, Conté Films developed high-energy, sunlit visuals that elevated Larkly’s premium placement in retail and direct-to-consumer digital campaigns.",
-    posterImage: "/images/projects/larkly-suncare-poster.jpg",
-    videoSource: {
-      type: "mp4",
-      url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4", // Replace with final asset per ASSET_GUIDE.md
-      aspectRatio: "16:9",
-    },
-    featured: true,
-    altText:
-      "Editorial sunlit lifestyle shot of model applying Larkly Suncare product",
-    year: "2023",
-    location: "Atlanta, GA",
   },
   {
     slug: "dr-daniel-berant-educational-keynotes",
@@ -224,77 +275,21 @@ export const projectsContent: Project[] = [
     location: "Thrive Live",
   },
   {
-    slug: "caesars-palace-las-vegas-experience",
-    client: "Caesars Palace Las Vegas",
-    title: "Luxury Event & Hospitality Experience Film",
-    category: "events",
-    categoryLabel: "High-End Hospitality",
-    services: [
-      "Large-Scale Event Production",
-      "Atmospheric Videography",
-      "VIP Experience Coverage",
-      "Highlight Reel Assembly",
-    ],
-    summary:
-      "High-energy, cinematic event coverage detailing premier hospitality activations and private brand experiences.",
-    fullDescription:
-      "Capturing the grandeur and exclusivity of premier resort events, Conté Films delivered rapid highlight edits and rich archival photography for corporate leadership and venue marketing.",
-    posterImage: "/images/projects/caesars-palace-poster.jpg",
-    videoSource: {
-      type: "mp4",
-      url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4", // Replace with final asset per ASSET_GUIDE.md
-      aspectRatio: "16:9",
-    },
-    featured: false,
-    altText:
-      "Grand ballroom lighting setup during luxury corporate gala at Caesars Palace",
-    year: "2022",
-    location: "Las Vegas, NV",
-  },
-  {
-    slug: "buckhead-art-company-gallery-film",
-    client: "Buckhead Art & Company",
-    title: "Fine Art Exhibition & Gallery Feature",
+    slug: "pergament-properties-atlanta-commercial-drone",
+    client: "Pergament Properties",
+    title: "Commercial Drone Project",
     category: "real-estate",
-    categoryLabel: "Architecture & Fine Art",
-    services: [
-      "Architectural Interior Capture",
-      "Art Gallery Videography",
-      "Artist Interview Series",
-      "Exhibition Catalog Photography",
-    ],
-    summary:
-      "An artfully paced gallery walkthrough highlighting contemporary art installations and architectural lighting in Buckhead.",
-    fullDescription:
-      "Conté Films produced a tranquil, color-calibrated exhibition showcase capturing the texture of canvas works, space proportions, and opening night energy.",
-    posterImage: "/images/projects/buckhead-art-poster.jpg",
-    videoSource: {
-      type: "mp4",
-      url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4", // Replace with final asset per ASSET_GUIDE.md
-      aspectRatio: "16:9",
-    },
-    featured: true,
-    altText:
-      "Contemporary art gallery interior with museum-grade track lighting and large modern paintings",
-    year: "2023",
-    location: "Buckhead, Atlanta, GA",
-  },
-  {
-    slug: "metro-atlanta-aerial-architecture-reel",
-    client: "Conté Films Aerial",
-    title: "FAA Aerial Architecture & Site Cinema",
-    category: "real-estate",
-    categoryLabel: "Aerial & Architecture",
+    categoryLabel: "Commercial Aerial",
     services: [
       "FAA Part 107 Aerial Cinema",
-      "Lot-to-Roofline Context Passes",
-      "High-Resolution Aerial Stills",
-      "Listing & Portfolio Cutdowns",
+      "Commercial Property Overview",
+      "Site Context & Scale Passes",
+      "Listing & Marketing Cutdowns",
     ],
     summary:
-      "Cinematic drone coverage articulating scale, site context, and architectural form across Metro Atlanta residential and commercial properties.",
+      "Commercial drone cinematography for Pergament Properties in Atlanta, GA — capturing site scale, access, and architectural presence from the air.",
     fullDescription:
-      "Produced entirely under FAA Part 107 operations, this aerial architecture reel combines smooth orbiting passes, establishing approaches, and high-resolution stills that give builders, brokers, and architects the site context their ground films can’t capture alone.",
+      "Conté Films produced FAA-certified commercial drone cinema for Pergament Properties in Atlanta, using smooth aerial passes to communicate lot context, building massing, and neighborhood positioning for leasing, investor, and marketing audiences.",
     posterImage:
       "https://image.mux.com/5BUMdA7REN28y02fC6kW1yoy02DYeWeMrSFYjpSm3Mu02I/thumbnail.webp?time=2&width=1280",
     videoSource: {
@@ -304,36 +299,8 @@ export const projectsContent: Project[] = [
     },
     featured: true,
     altText:
-      "Aerial drone cinema of luxury residential architecture and landscaped sites across Metro Atlanta",
+      "Commercial drone cinematography of Atlanta property for Pergament Properties",
     year: "2024",
-    location: "Metro Atlanta, GA",
-  },
-  {
-    slug: "buckhead-business-association-event-recap",
-    client: "Buckhead Business Association",
-    title: "Member Event Recap Film",
-    category: "events",
-    categoryLabel: "Association & Community",
-    services: [
-      "Event Recap Film",
-      "Multi-Camera Coverage",
-      "Rapid Social Cutdowns",
-      "Speaker & Networking Highlights",
-    ],
-    summary:
-      "A polished event recap capturing networking energy, speaker moments, and community leadership for the Buckhead Business Association.",
-    fullDescription:
-      "Conté Films documented a signature BBA gathering with unobtrusive multi-camera coverage, delivering a cinematic recap film and same-week social cutdowns for member engagement and association marketing.",
-    posterImage: "/images/projects/buckhead-business-association-poster.jpg",
-    videoSource: {
-      type: "mp4",
-      url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4", // Replace with final asset per ASSET_GUIDE.md
-      aspectRatio: "16:9",
-    },
-    featured: true,
-    altText:
-      "Buckhead Business Association networking event with speakers and members in a modern Atlanta venue",
-    year: "2024",
-    location: "Buckhead, Atlanta, GA",
+    location: "Atlanta, GA",
   },
 ];
