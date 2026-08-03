@@ -187,6 +187,35 @@ export const projectsContent: Project[] = [
     location: "Atlanta, GA",
   },
   {
+    slug: "zara-product-fashion-shoot",
+    client: "Zara",
+    title: "Spec Product & Fashion Shoot",
+    category: "corporate",
+    categoryLabel: "Fashion & Product",
+    services: [
+      "Spec Product Shoot",
+      "Fashion Cinematography",
+      "Apparel & Lookbook Stills",
+      "Social-First Vertical Edits",
+    ],
+    summary:
+      "A speculative product and fashion shoot for Zara — elevating garment texture, silhouette, and campaign energy for digital and brand storytelling.",
+    fullDescription:
+      "Conté Films produced a speculative product and fashion shoot for Zara, combining precise apparel cinematography with editorial pacing to highlight fabric, fit, and brand attitude — built as a portfolio piece for fashion and product campaigns.",
+    posterImage:
+      "https://image.mux.com/rkqBYEPYz7QUCkc00ZlTqOn1RYpgdaXiVG2QKYdwV2TM/thumbnail.webp?time=1&width=1280",
+    videoSource: {
+      type: "mux",
+      url: "rkqBYEPYz7QUCkc00ZlTqOn1RYpgdaXiVG2QKYdwV2TM",
+      aspectRatio: "16:9",
+    },
+    featured: true,
+    altText:
+      "Zara speculative product and fashion shoot by Conté Films",
+    year: "2024",
+    location: "Atlanta, GA",
+  },
+  {
     slug: "larkly-suncare-brand-campaign",
     client: "Larkly Suncare",
     title: "Commercial Product Demonstration & Explainer",

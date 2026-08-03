@@ -113,7 +113,9 @@ export function Header() {
           </div>
 
           {/* Mobile Navigation Menu */}
-          <MobileMenu />
+          <MobileMenu
+            overDarkHero={isOverDarkHero && !isScrolled}
+          />
         </div>
       </header>
     </>

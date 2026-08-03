@@ -26,7 +26,12 @@ const primaryLinks = [
   { index: "04", label: "Contact", href: "/contact" },
 ] as const;
 
-export function MobileMenu() {
+interface MobileMenuProps {
+  /** Gold icon when the header sits over a dark hero (readable in light & dark themes). */
+  overDarkHero?: boolean;
+}
+
+export function MobileMenu({ overDarkHero = false }: MobileMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [solutionsExpanded, setSolutionsExpanded] = useState(true);
   const pathname = usePathname();
@@ -58,7 +63,12 @@ export function MobileMenu() {
     <div className="md:hidden">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="rounded-md p-2 text-text-primary transition-colors hover:text-accent-bronze focus-ring"
+        className={cn(
+          "rounded-md p-2 transition-colors focus-ring",
+          overDarkHero
+            ? "text-accent-bronze hover:text-accent-bronze/80"
+            : "text-text-primary hover:text-accent-bronze dark:text-accent-bronze dark:hover:text-accent-bronze/80"
+        )}
         aria-label={isOpen ? "Close mobile menu" : "Open mobile menu"}
         aria-expanded={isOpen}
       >
