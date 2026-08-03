@@ -32,6 +32,7 @@ export default function EventsSolutionPage() {
         description={content.heroDescription}
         primaryCta={{ label: "Book Event Coverage", href: "/contact" }}
         secondaryCta={{ label: "View Event Work", href: "#case-studies" }}
+        playbackId="Wt4OwK02015Cxc22004EjuGqHCzJcNXzR502BQLlSGVZxSM"
       />
 
       <EventsWhoWeServe />
