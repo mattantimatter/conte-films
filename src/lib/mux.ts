@@ -15,8 +15,12 @@ export function projectPosterSrc(project: {
   posterImage: string;
   videoSource?: { type: string; url: string };
 }) {
+  // Prefer the explicit poster (local stills, curated Mux frames, etc.).
+  if (project.posterImage) {
+    return project.posterImage;
+  }
   if (project.videoSource?.type === "mux") {
     return muxPosterUrl(project.videoSource.url);
   }
-  return project.posterImage;
+  return "";
 }
