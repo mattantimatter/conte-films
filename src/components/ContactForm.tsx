@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Send, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 import { contactFormSchema, ContactFormData } from "@/lib/contact-schema";
 import { Button } from "@/components/ui/Button";
@@ -57,6 +57,17 @@ export function ContactForm({
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const panelRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (status !== "success") return;
+    // Form collapses after submit; keep the success card in view instead of
+    // leaving the viewport anchored where the submit button used to be.
+    const panel = panelRef.current;
+    if (!panel) return;
+    panel.focus({ preventScroll: true });
+    panel.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [status]);
 
   const availableServices = [
     "Brand & Commercial Film",
@@ -127,22 +138,26 @@ export function ContactForm({
 
   if (status === "success") {
     return (
-      <div className="p-10 rounded-2xl bg-bg-surface border border-accent-bronze/40 text-center space-y-6 animate-in fade-in duration-300 shadow-xl">
-        <div className="w-16 h-16 rounded-full bg-accent-bronze/10 text-accent-bronze flex items-center justify-center mx-auto">
-          <CheckCircle2 className="w-8 h-8" />
+      <div
+        ref={panelRef}
+        tabIndex={-1}
+        className="space-y-6 rounded-2xl border border-accent-bronze/40 bg-bg-surface p-10 text-center shadow-xl animate-in fade-in duration-300 outline-none"
+      >
+        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-accent-bronze/10 text-accent-bronze">
+          <CheckCircle2 className="h-8 w-8" />
         </div>
         <div className="space-y-2">
-          <h3 className="text-2xl font-serif font-semibold text-text-primary">
+          <h3 className="font-serif text-2xl font-semibold text-text-primary">
             Project Inquiry Received
           </h3>
-          <p className="text-sm text-text-muted max-w-md mx-auto leading-relaxed">
+          <p className="mx-auto max-w-md text-sm leading-relaxed text-text-muted">
             Thank you for reaching out to Conté Films. Founder Stefan Jobe and our production team will review your project details and respond within 24 business hours.
           </p>
         </div>
-        <div className="pt-4 border-t border-border-subtle">
+        <div className="border-t border-border-subtle pt-4">
           <p className="text-xs text-text-muted">
             Need urgent assistance? Call direct at{" "}
-            <a href="tel:6784440034" className="text-accent-bronze font-semibold hover:underline">
+            <a href="tel:6784440034" className="font-semibold text-accent-bronze hover:underline">
               (678) 444-0034
             </a>
           </p>
