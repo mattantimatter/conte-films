@@ -33,7 +33,7 @@ export default function EventsSolutionPage() {
         primaryCta={{ label: "Book Event Coverage", href: "/contact" }}
         secondaryCta={{ label: "View Event Work", href: "#case-studies" }}
         playbackId="Wt4OwK02015Cxc22004EjuGqHCzJcNXzR502BQLlSGVZxSM"
-        mediaPositionClassName="object-[28%_center] md:object-center"
+        mediaPositionClassName="object-[78%_center] md:object-center"
       />
 
       <EventsWhoWeServe />
