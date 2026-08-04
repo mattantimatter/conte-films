@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion, type Variants } from "motion/react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useSkipScrollMotion } from "@/lib/use-skip-scroll-motion";
 
 export interface SocialProofStory {
   quote: string;
@@ -18,11 +19,6 @@ const ROTATE_MS = 6000;
 const container: Variants = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.1 } },
-};
-
-const item: Variants = {
-  hidden: { opacity: 0, y: 18 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
 };
 
 function InitialsAvatar({ name, className }: { name: string; className?: string }) {
@@ -76,11 +72,21 @@ export default function SocialProof15({
   className,
   id = "testimonials",
 }: SocialProof15Props) {
+  const skip = useSkipScrollMotion();
   const shouldReduceMotion = useReducedMotion();
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const [progress, setProgress] = useState(0);
   const pausedRef = useRef(false);
+
+  const item: Variants = {
+    hidden: { opacity: skip ? 1 : 0, y: skip ? 0 : 18 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: skip ? 0 : 0.6, ease: [0.22, 1, 0.36, 1] },
+    },
+  };
 
   const safeStories = stories.length > 0 ? stories : [];
   const story = safeStories[Math.min(active, Math.max(safeStories.length - 1, 0))];
@@ -195,7 +201,7 @@ export default function SocialProof15({
               <AnimatePresence mode="wait" initial={false}>
                 <motion.figure
                   key={active}
-                  initial={{ opacity: 0 }}
+                  initial={skip ? false : {opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: shouldReduceMotion ? 0 : 0.28, ease: [0.22, 1, 0.36, 1] }}

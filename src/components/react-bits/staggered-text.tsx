@@ -128,17 +128,25 @@ const StaggeredText = forwardRef<StaggeredTextHandle, StaggeredTextProps>(
       useState<boolean>(false);
 
     useEffect(() => {
-      if (!respectReducedMotion) return;
-
-      const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-      setPrefersReducedMotion(mediaQuery.matches);
-
-      const handleChange = (e: MediaQueryListEvent) => {
-        setPrefersReducedMotion(e.matches);
+      const reduceMq = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const touchMq = window.matchMedia("(hover: none), (pointer: coarse)");
+      const sync = () => {
+        setPrefersReducedMotion(
+          (respectReducedMotion && reduceMq.matches) || touchMq.matches
+        );
+        // Touch: show final text immediately — IO + URL-bar resize re-triggers
+        // stagger animations and reads as scroll flicker.
+        if (touchMq.matches) {
+          setHasEnteredView(true);
+        }
       };
-
-      mediaQuery.addEventListener("change", handleChange);
-      return () => mediaQuery.removeEventListener("change", handleChange);
+      sync();
+      reduceMq.addEventListener("change", sync);
+      touchMq.addEventListener("change", sync);
+      return () => {
+        reduceMq.removeEventListener("change", sync);
+        touchMq.removeEventListener("change", sync);
+      };
     }, [respectReducedMotion]);
 
     useImperativeHandle(ref, () => ({

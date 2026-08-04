@@ -5,6 +5,7 @@ import { ArrowUpRight, type LucideIcon } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
+import { useSkipScrollMotion } from "@/lib/use-skip-scroll-motion";
 
 export interface Features9Item {
   key: string;
@@ -34,6 +35,7 @@ export default function Features9({
   id,
 }: Features9Props) {
   const reduce = useReducedMotion();
+  const skip = useSkipScrollMotion() || Boolean(reduce);
   const initial =
     defaultActive && items.some((item) => item.key === defaultActive)
       ? defaultActive
@@ -55,7 +57,7 @@ export default function Features9({
         <div className="mx-auto max-w-3xl space-y-4 text-center">
           {eyebrow ? (
             <motion.p
-              initial={{ opacity: 0, y: reduce ? 0 : 14 }}
+              initial={skip ? false : {opacity: 0, y: reduce ? 0 : 14 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
@@ -65,7 +67,7 @@ export default function Features9({
             </motion.p>
           ) : null}
           <motion.h2
-            initial={{ opacity: 0, y: reduce ? 0 : 14 }}
+            initial={skip ? false : {opacity: 0, y: reduce ? 0 : 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
@@ -139,7 +141,7 @@ export default function Features9({
 
         <motion.div
           key={active}
-          initial={{ opacity: 0, y: reduce ? 0 : 10 }}
+          initial={skip ? false : {opacity: 0, y: reduce ? 0 : 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
           className="mt-10 grid grid-cols-1 gap-8 border-t border-border-subtle pt-8 md:grid-cols-2 lg:gap-12"

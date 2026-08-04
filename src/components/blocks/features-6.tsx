@@ -4,6 +4,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { ArrowRight, type LucideIcon } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import { cn } from "@/lib/utils";
+import { useSkipScrollMotion } from "@/lib/use-skip-scroll-motion";
 
 export interface Features6Item {
   title: string;
@@ -30,6 +31,7 @@ export default function Features6({
   id,
 }: Features6Props) {
   const reduce = useReducedMotion();
+  const skip = useSkipScrollMotion() || Boolean(reduce);
 
   return (
     <section
@@ -43,7 +45,7 @@ export default function Features6({
         <div className="max-w-3xl">
           {eyebrow ? (
             <motion.p
-              initial={{ opacity: 0, y: reduce ? 0 : 14 }}
+              initial={skip ? false : {opacity: 0, y: reduce ? 0 : 14 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.35 }}
@@ -53,7 +55,7 @@ export default function Features6({
             </motion.p>
           ) : null}
           <motion.h2
-            initial={{ opacity: 0, y: reduce ? 0 : 14 }}
+            initial={skip ? false : {opacity: 0, y: reduce ? 0 : 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4 }}
@@ -71,6 +73,7 @@ export default function Features6({
               index={i}
               blob={item.blob ?? DEFAULT_BLOB}
               reduce={!!reduce}
+              skip={skip}
             />
           ))}
         </div>
@@ -84,17 +87,19 @@ function Card({
   index,
   blob,
   reduce,
+  skip,
 }: {
   item: Features6Item;
   index: number;
   blob: string;
   reduce: boolean;
+  skip: boolean;
 }) {
   const [hovered, setHovered] = useState(false);
   const [canHover, setCanHover] = useState(false);
   const Icon = item.icon;
   const words = item.desc.split(" ");
-  const revealed = reduce || !canHover || hovered;
+  const revealed = reduce || skip || !canHover || hovered;
 
   useEffect(() => {
     const mq = window.matchMedia("(hover: hover) and (pointer: fine)");
@@ -106,7 +111,7 @@ function Card({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: reduce ? 0 : 20 }}
+      initial={skip ? false : { opacity: 0, y: reduce ? 0 : 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.35, delay: 0.05 * index }}

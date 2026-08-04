@@ -4,6 +4,7 @@ import { useEffect, useRef, type ReactNode } from "react";
 import type { LucideIcon } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import { cn } from "@/lib/utils";
+import { useSkipScrollMotion } from "@/lib/use-skip-scroll-motion";
 
 export interface Features3Item {
   icon: LucideIcon;
@@ -38,6 +39,7 @@ export default function Features3({
   const marquee1Ref = useRef<HTMLDivElement>(null);
   const marquee2Ref = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
+  const skip = useSkipScrollMotion() || Boolean(reduce);
 
   const columnA = images.filter((_, i) => i % 2 === 0);
   const columnB = images.filter((_, i) => i % 2 === 1);
@@ -102,7 +104,7 @@ export default function Features3({
             <div className="mb-8 md:mb-12">
               {eyebrow ? (
                 <motion.p
-                  initial={{ opacity: 0, y: reduce ? 0 : 10 }}
+                  initial={skip ? false : {opacity: 0, y: reduce ? 0 : 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4 }}
@@ -113,7 +115,7 @@ export default function Features3({
               ) : null}
 
               <motion.h2
-                initial={{ opacity: 0, y: reduce ? 0 : 10 }}
+                initial={skip ? false : {opacity: 0, y: reduce ? 0 : 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: 0.05 }}
@@ -124,7 +126,7 @@ export default function Features3({
 
               {description ? (
                 <motion.p
-                  initial={{ opacity: 0, y: reduce ? 0 : 10 }}
+                  initial={skip ? false : {opacity: 0, y: reduce ? 0 : 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: 0.1 }}
@@ -141,7 +143,7 @@ export default function Features3({
                 return (
                   <motion.div
                     key={feature.title ?? feature.description}
-                    initial={{ opacity: 0, y: reduce ? 0 : 20 }}
+                    initial={skip ? false : {opacity: 0, y: reduce ? 0 : 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.4, delay: 0.15 + index * 0.08 }}
@@ -178,7 +180,7 @@ export default function Features3({
 
               <div className="relative overflow-hidden">
                 <motion.div
-                  initial={{ opacity: 0 }}
+                  initial={skip ? false : {opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6 }}
@@ -204,7 +206,7 @@ export default function Features3({
 
               <div className="relative overflow-hidden">
                 <motion.div
-                  initial={{ opacity: 0 }}
+                  initial={skip ? false : {opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.1 }}

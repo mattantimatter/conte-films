@@ -3,6 +3,7 @@
 import { motion, useReducedMotion, type Variants } from "motion/react";
 import type { LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useSkipScrollMotion } from "@/lib/use-skip-scroll-motion";
 
 export interface About12Item {
   index: string;
@@ -35,6 +36,7 @@ export default function About12({
   id,
 }: About12Props) {
   const reduce = useReducedMotion();
+  const skip = useSkipScrollMotion() || Boolean(reduce);
 
   const container: Variants = {
     hidden: {},
@@ -42,7 +44,7 @@ export default function About12({
   };
 
   const item: Variants = {
-    hidden: { opacity: 0, y: reduce ? 0 : 20 },
+    hidden: { opacity: skip ? 1 : 0, y: reduce ? 0 : 20 },
     visible: {
       opacity: 1,
       y: 0,

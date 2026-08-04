@@ -13,12 +13,12 @@ export function Logo({ className, forceWhite }: LogoProps) {
     <Link
       href="/"
       className={cn(
-        "inline-flex items-center focus-ring rounded-sm transition-opacity hover:opacity-85 group",
+        "group relative inline-flex h-6 w-[7.25rem] items-center focus-ring rounded-sm transition-opacity hover:opacity-85 sm:h-7 sm:w-[8.5rem]",
         className
       )}
       aria-label="Conté Films Home"
     >
-      {/* White logo: shown in dark mode OR when forced (e.g. over dark hero video) */}
+      {/* Crossfade instead of display swapping — avoids a 1-frame blank on scroll. */}
       <Image
         src="/logo-white.png"
         alt="Conté Films"
@@ -26,21 +26,20 @@ export function Logo({ className, forceWhite }: LogoProps) {
         height={203}
         priority
         className={cn(
-          "h-6 sm:h-7 w-auto object-contain",
-          forceWhite ? "block" : "hidden dark:block"
+          "absolute inset-0 h-full w-full object-contain object-left transition-opacity duration-200",
+          forceWhite ? "opacity-100" : "opacity-0 dark:opacity-100"
         )}
       />
-
-      {/* Dark logo: shown in light mode, hidden when forceWhite */}
       <Image
         src="/logo-dark.png"
-        alt="Conté Films"
+        alt=""
+        aria-hidden
         width={1024}
         height={203}
         priority
         className={cn(
-          "h-6 sm:h-7 w-auto object-contain",
-          forceWhite ? "hidden" : "block dark:hidden"
+          "absolute inset-0 h-full w-full object-contain object-left transition-opacity duration-200",
+          forceWhite ? "opacity-0" : "opacity-100 dark:opacity-0"
         )}
       />
     </Link>

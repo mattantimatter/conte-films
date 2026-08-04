@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Check } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { cn } from "@/lib/utils";
+import { useSkipScrollMotion } from "@/lib/use-skip-scroll-motion";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -45,6 +46,7 @@ export default function Pricing13({
 }: Pricing13Props) {
   const [active, setActive] = useState(defaultActive);
   const reduceMotion = useReducedMotion();
+  const skip = useSkipScrollMotion() || Boolean(reduceMotion);
   const plan = plans[Math.min(active, plans.length - 1)];
   const shift = reduceMotion ? 0 : 18;
 
@@ -53,7 +55,7 @@ export default function Pricing13({
     visible: { transition: { staggerChildren: 0.08 } },
   };
   const item = {
-    hidden: { opacity: 0, y: shift },
+    hidden: { opacity: skip ? 1 : 0, y: shift },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } },
   };
 
@@ -163,7 +165,7 @@ export default function Pricing13({
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
                 key={plan.name}
-                initial={{ opacity: 0, y: reduceMotion ? 0 : 10 }}
+                initial={skip ? false : {opacity: 0, y: reduceMotion ? 0 : 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: reduceMotion ? 0 : -10 }}
                 transition={{ duration: reduceMotion ? 0 : 0.25, ease: EASE }}

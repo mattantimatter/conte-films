@@ -3,6 +3,7 @@
 import type { LucideIcon } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import { cn } from "@/lib/utils";
+import { useSkipScrollMotion } from "@/lib/use-skip-scroll-motion";
 
 export interface Features1Item {
   icon: LucideIcon;
@@ -28,6 +29,7 @@ export default function Features1({
   id,
 }: Features1Props) {
   const reduce = useReducedMotion();
+  const skip = useSkipScrollMotion() || Boolean(reduce);
 
   return (
     <section
@@ -41,7 +43,7 @@ export default function Features1({
         <div className="mb-12 max-w-3xl md:mb-16 lg:mb-20">
           {eyebrow ? (
             <motion.p
-              initial={{ opacity: 0, y: reduce ? 0 : 10 }}
+              initial={skip ? false : {opacity: 0, y: reduce ? 0 : 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4 }}
@@ -52,7 +54,7 @@ export default function Features1({
           ) : null}
 
           <motion.h2
-            initial={{ opacity: 0, y: reduce ? 0 : 10 }}
+            initial={skip ? false : {opacity: 0, y: reduce ? 0 : 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: 0.05 }}
@@ -63,7 +65,7 @@ export default function Features1({
 
           {description ? (
             <motion.p
-              initial={{ opacity: 0, y: reduce ? 0 : 10 }}
+              initial={skip ? false : {opacity: 0, y: reduce ? 0 : 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: 0.1 }}
@@ -85,7 +87,7 @@ export default function Features1({
             return (
               <motion.div
                 key={feature.title}
-                initial={{ opacity: 0, y: reduce ? 0 : 20 }}
+                initial={skip ? false : {opacity: 0, y: reduce ? 0 : 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.05 }}

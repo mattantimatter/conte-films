@@ -92,13 +92,25 @@ html {
   text-rendering: optimizeLegibility;
 }
 
+/* Smooth scroll + IO thrashing from mobile browser chrome causes flicker. */
+@media (hover: none), (pointer: coarse) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 body {
   font-family: var(--font-sans);
   background-color: var(--bg-primary);
   color: var(--text-primary);
   min-height: 100vh;
   overflow-x: hidden;
-  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  body {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
 }
 
 /* SF Pro Display is optically tuned for large sizes; let the system pick it for headings. */

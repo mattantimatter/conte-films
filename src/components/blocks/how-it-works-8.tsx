@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { Check, Clapperboard, MoveRight } from "lucide-react";
 import { motion, useReducedMotion, type Variants } from "motion/react";
 import { cn } from "@/lib/utils";
+import { useSkipScrollMotion } from "@/lib/use-skip-scroll-motion";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -82,6 +83,7 @@ function PlanningVisual() {
 
 function ExecuteVisual() {
   const reduce = useReducedMotion();
+  const skip = useSkipScrollMotion() || Boolean(reduce);
   const stats = [
     ["Crew", "Up to 10"],
     ["Capture", "4K cinema"],
@@ -136,6 +138,7 @@ export default function HowItWorks8({
   id,
 }: HowItWorks8Props) {
   const reduce = useReducedMotion();
+  const skip = useSkipScrollMotion() || Boolean(reduce);
 
   const container: Variants = {
     hidden: {},
@@ -143,7 +146,7 @@ export default function HowItWorks8({
   };
 
   const item: Variants = {
-    hidden: { opacity: 0, y: reduce ? 0 : 24 },
+    hidden: { opacity: skip ? 1 : 0, y: reduce ? 0 : 24 },
     show: {
       opacity: 1,
       y: 0,
@@ -162,7 +165,7 @@ export default function HowItWorks8({
     >
       <div className="mx-auto w-full max-w-7xl">
         <motion.div
-          initial={{ opacity: 0, y: reduce ? 0 : 20 }}
+          initial={skip ? false : {opacity: 0, y: reduce ? 0 : 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6, ease: EASE }}

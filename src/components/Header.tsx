@@ -52,7 +52,6 @@ export function Header() {
 
       const bottom = hero.getBoundingClientRect().bottom;
       const currentlyOver = overDarkHeroRef.current;
-      // Hysteresis: leave dark-nav later / re-enter earlier to avoid flicker.
       const nextOver = currentlyOver
         ? bottom > HERO_EXIT_PX
         : bottom > HERO_ENTER_PX;
@@ -83,6 +82,7 @@ export function Header() {
   }, [hasDarkHeroPage, pathname]);
 
   const lightOnDark = hasDarkHeroPage && overDarkHero;
+  const sticky = isScrolled || !lightOnDark;
 
   return (
     <>
@@ -95,18 +95,28 @@ export function Header() {
 
       <header
         className={cn(
-          "fixed top-0 left-0 right-0 z-40 transition-[background-color,border-color,padding,box-shadow] duration-300",
-          lightOnDark
-            ? isScrolled
-              ? "border-b border-white/10 bg-black/55 py-3 md:bg-black/40 md:backdrop-blur-md"
-              : "border-b border-transparent bg-transparent py-5"
-            : isScrolled
-              ? "border-b border-border-subtle bg-bg-primary/95 py-3 shadow-sm md:bg-bg-primary/85 md:backdrop-blur-md"
-              : "border-b border-transparent bg-transparent py-5",
+          // Fixed padding avoids mobile scroll jumps when sticky state toggles.
+          "fixed top-0 left-0 right-0 z-40 py-3.5 transition-[background-color,border-color,box-shadow] duration-300",
+          lightOnDark && !isScrolled
+            ? "border-b border-transparent bg-transparent"
+            : lightOnDark
+              ? "border-b border-white/10 bg-black/45 shadow-sm backdrop-blur-md"
+              : isScrolled
+                ? "border-b border-border-subtle bg-bg-primary/80 shadow-sm backdrop-blur-md"
+                : "border-b border-transparent bg-transparent",
           lightOnDark && "accent-on-dark"
         )}
       >
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        {/* Metallic accent rule — same gradient language as desktop CTAs */}
+        <span
+          aria-hidden
+          className={cn(
+            "rule-gradient-accent pointer-events-none absolute inset-x-0 bottom-0 h-px transition-opacity duration-300",
+            sticky && isScrolled ? "opacity-100" : "opacity-0"
+          )}
+        />
+
+        <div className="relative mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <Logo forceWhite={lightOnDark} />
 
           <nav className="hidden items-center gap-8 text-sm font-medium md:flex">

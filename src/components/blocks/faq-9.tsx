@@ -10,6 +10,7 @@ import {
 } from "motion/react";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
+import { useSkipScrollMotion } from "@/lib/use-skip-scroll-motion";
 
 export interface FAQ9Item {
   question: string;
@@ -48,6 +49,7 @@ export default function FAQ9({
   id,
 }: FAQ9Props) {
   const reduce = useReducedMotion();
+  const skip = useSkipScrollMotion() || Boolean(reduce);
   const [openIndex, setOpenIndex] = useState(0);
   const mid = Math.ceil(faqs.length / 2);
   const columns = [faqs.slice(0, mid), faqs.slice(mid)];
@@ -57,7 +59,7 @@ export default function FAQ9({
     show: { transition: { staggerChildren: 0.06, delayChildren: 0.05 } },
   };
   const item: Variants = {
-    hidden: { opacity: 0, y: reduce ? 0 : 14 },
+    hidden: { opacity: skip ? 1 : 0, y: skip ? 0 : 14 },
     show: {
       opacity: 1,
       y: 0,
@@ -76,7 +78,7 @@ export default function FAQ9({
       <div className="mx-auto w-full max-w-7xl">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-12">
           <motion.aside
-            initial={{ opacity: 0, y: reduce ? 0 : 18 }}
+            initial={skip ? false : {opacity: 0, y: reduce ? 0 : 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
