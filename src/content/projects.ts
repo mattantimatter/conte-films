@@ -69,7 +69,7 @@ export const projectsContent: Project[] = [
     altText:
       "Exterior dusk twilight view of a luxury multimillion-dollar custom architectural residence in Atlanta",
     year: "2024",
-    location: "Buckhead, Atlanta, GA",
+    location: "Canton, GA",
   },
   {
     slug: "pergament-properties-alpharetta-aerial",
