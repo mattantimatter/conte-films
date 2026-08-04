@@ -70,7 +70,7 @@ export default function Pricing13({
       <motion.div
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, margin: "-80px" }}
+        viewport={{ once: true, amount: 0.2 }}
         variants={container}
         className="mx-auto w-full max-w-7xl"
       >

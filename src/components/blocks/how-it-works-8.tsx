@@ -104,7 +104,7 @@ function ExecuteVisual() {
         <motion.div
           initial={reduce ? false : { scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
-          viewport={{ once: true, margin: "-80px" }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.8, delay: 1.15, ease: EASE }}
           className="h-full origin-left rounded-full bg-accent-gradient"
         />
@@ -164,7 +164,7 @@ export default function HowItWorks8({
         <motion.div
           initial={{ opacity: 0, y: reduce ? 0 : 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6, ease: EASE }}
           className="mx-auto max-w-2xl text-center"
         >
@@ -190,7 +190,7 @@ export default function HowItWorks8({
           variants={container}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, margin: "-80px" }}
+          viewport={{ once: true, amount: 0.2 }}
           className="mt-14 grid list-none grid-cols-1 gap-12 sm:mt-16 lg:mt-20 lg:grid-cols-3 lg:gap-x-12"
         >
           {steps.map((step, index) => {
@@ -225,7 +225,7 @@ export default function HowItWorks8({
                     aria-hidden="true"
                     initial={reduce ? false : { scaleX: 0 }}
                     whileInView={{ scaleX: 1 }}
-                    viewport={{ once: true, margin: "-80px" }}
+                    viewport={{ once: true, amount: 0.2 }}
                     transition={{
                       duration: 0.35,
                       delay: 0.3 + index * 0.35,

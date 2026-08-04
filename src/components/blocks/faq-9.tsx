@@ -78,7 +78,7 @@ export default function FAQ9({
           <motion.aside
             initial={{ opacity: 0, y: reduce ? 0 : 18 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
             className="flex flex-col justify-between gap-12 rounded-3xl bg-neutral-950 p-7 ring-1 ring-border-subtle sm:p-10 lg:sticky lg:top-24 lg:self-start"
           >
@@ -123,7 +123,7 @@ export default function FAQ9({
             variants={container}
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, margin: "-80px" }}
+            viewport={{ once: true, amount: 0.2 }}
             className="grid grid-cols-1 items-start gap-4 sm:grid-cols-2"
           >
             {columns.map((column, columnIndex) => (

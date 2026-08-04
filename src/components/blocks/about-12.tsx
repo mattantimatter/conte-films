@@ -65,7 +65,7 @@ export default function About12({
               variants={container}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, margin: "-80px" }}
+              viewport={{ once: true, amount: 0.2 }}
             >
               <motion.p
                 variants={item}
@@ -125,7 +125,7 @@ export default function About12({
             variants={container}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
+            viewport={{ once: true, amount: 0.2 }}
             className="divide-y divide-border-subtle"
           >
             {items.map((value) => {
