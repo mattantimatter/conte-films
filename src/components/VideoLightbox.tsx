@@ -175,9 +175,9 @@ export function VideoLightbox({ project, onClose }: VideoLightboxProps) {
             <h3 className="mt-1 hidden font-serif text-xl font-medium leading-snug text-text-primary lg:block">
               {project.title}
             </h3>
-            {project.location || project.year ? (
+            {project.location ? (
               <p className="mt-2 hidden text-xs text-text-muted lg:block">
-                {[project.location, project.year].filter(Boolean).join(" · ")}
+                {project.location}
               </p>
             ) : null}
             <p className="text-sm leading-relaxed text-text-muted lg:mt-5">

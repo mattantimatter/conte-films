@@ -68,7 +68,6 @@ export const projectsContent: Project[] = [
     featured: true,
     altText:
       "Exterior dusk twilight view of a luxury multimillion-dollar custom architectural residence in Atlanta",
-    year: "2024",
     location: "Canton, GA",
   },
   {
@@ -97,7 +96,6 @@ export const projectsContent: Project[] = [
     featured: true,
     altText:
       "Aerial drone cinematography of commercial property for Pergament Properties in Alpharetta, Georgia",
-    year: "2024",
     location: "Alpharetta, GA",
   },
   {
@@ -126,7 +124,6 @@ export const projectsContent: Project[] = [
     featured: true,
     altText:
       "Atlanta Humane Society documentary commercial The Boromir Story — rescue and adoption storytelling",
-    year: "2023",
     location: "Atlanta, GA",
   },
   {
@@ -154,7 +151,6 @@ export const projectsContent: Project[] = [
     featured: true,
     altText:
       "Smiling model in a premium olive crew-neck tee from Legend Apparel, outdoor lifestyle product shoot",
-    year: "2024",
     location: "Atlanta, GA",
   },
   {
@@ -183,7 +179,6 @@ export const projectsContent: Project[] = [
     featured: true,
     altText:
       "Zara speculative product and fashion shoot by Conté Films",
-    year: "2024",
     location: "Atlanta, GA",
   },
   {
@@ -212,7 +207,6 @@ export const projectsContent: Project[] = [
     featured: true,
     altText:
       "Larkly Suncare commercial product demonstration and brand explainer film",
-    year: "2023",
     location: "Atlanta, GA",
   },
   {
@@ -241,7 +235,6 @@ export const projectsContent: Project[] = [
     featured: true,
     altText:
       "Luxury eyewear product display for See and Be Seen grand opening film by Conté Films",
-    year: "2024",
     location: "Atlanta, GA",
   },
   {
@@ -270,7 +263,6 @@ export const projectsContent: Project[] = [
     featured: true,
     altText:
       "Clinix AI customer testimonials and FAQ video production filmed onsite at Big Apple Spine and Orthopedics in New York",
-    year: "2024",
     location: "New York, NY",
   },
   {
@@ -299,7 +291,6 @@ export const projectsContent: Project[] = [
     featured: true,
     altText:
       "Dr. Daniel Berant presenting at Thrive Live on holistic dentistry and whole-body health",
-    year: "2024",
     location: "Thrive Live",
   },
   {
@@ -328,7 +319,6 @@ export const projectsContent: Project[] = [
     featured: true,
     altText:
       "Cinematic event recap for The Hessings reception celebration in Riviera Maya, Mexico",
-    year: "2024",
     location: "Riviera Maya, Mexico",
   },
   {
@@ -357,7 +347,6 @@ export const projectsContent: Project[] = [
     featured: true,
     altText:
       "Commercial drone cinematography of Atlanta property for Pergament Properties",
-    year: "2024",
     location: "Atlanta, GA",
   },
   {
@@ -386,7 +375,6 @@ export const projectsContent: Project[] = [
     featured: true,
     altText:
       "Commercial drone shoot of Pergament Properties in Norcross, Georgia with surrounding landscape",
-    year: "2024",
     location: "Norcross, GA",
   },
 ];
