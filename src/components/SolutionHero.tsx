@@ -23,6 +23,11 @@ export interface SolutionHeroProps {
   playbackId?: string;
   /** Still frame shown while buffering (or as the sole background before video exists) */
   posterSrc?: string;
+  /**
+   * CSS object-position for the hero media. Use to reframe on mobile when the
+   * subject isn’t centered in the source (e.g. `object-[30%_center] md:object-center`).
+   */
+  mediaPositionClassName?: string;
 }
 
 function renderHeadline(headline: string, accentWord?: string) {
@@ -49,6 +54,7 @@ export function SolutionHero({
   secondaryCta,
   playbackId,
   posterSrc,
+  mediaPositionClassName = "object-center",
 }: SolutionHeroProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
@@ -137,6 +143,7 @@ export function SolutionHero({
               aria-hidden
               className={cn(
                 "absolute inset-0 h-full w-full object-cover scale-105 transition-opacity duration-700",
+                mediaPositionClassName,
                 streamUrl && playing ? "opacity-0" : "opacity-100"
               )}
             />
@@ -158,6 +165,7 @@ export function SolutionHero({
               aria-hidden
               className={cn(
                 "absolute inset-0 h-full w-full object-cover scale-105 transition-opacity duration-700",
+                mediaPositionClassName,
                 playing ? "opacity-100" : "opacity-0"
               )}
             >
