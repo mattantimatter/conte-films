@@ -348,10 +348,10 @@ export const projectsContent: Project[] = [
     fullDescription:
       "Conté Films produced FAA-certified commercial drone cinema for Pergament Properties in Atlanta, using smooth aerial passes to communicate lot context, building massing, and neighborhood positioning for leasing, investor, and marketing audiences.",
     posterImage:
-      "https://image.mux.com/5BUMdA7REN28y02fC6kW1yoy02DYeWeMrSFYjpSm3Mu02I/thumbnail.webp?time=2&width=1280",
+      "https://image.mux.com/Wbz01FwjfLKesHwupmReValQDFh01qq8RBtc01ewz2C2Xs/thumbnail.webp?time=1&width=1280",
     videoSource: {
       type: "mux",
-      url: "5BUMdA7REN28y02fC6kW1yoy02DYeWeMrSFYjpSm3Mu02I",
+      url: "Wbz01FwjfLKesHwupmReValQDFh01qq8RBtc01ewz2C2Xs",
       aspectRatio: "16:9",
     },
     featured: true,
