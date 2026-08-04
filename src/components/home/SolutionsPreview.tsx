@@ -12,6 +12,9 @@ import { solutionsContent } from "@/content/solutions";
 interface SolutionPreview {
   slug: keyof typeof solutionsContent;
   icon: LucideIcon;
+  imageSrc: string;
+  imageAlt: string;
+  imagePositionClassName?: string;
   /** Short homepage-level blurb; the solution pages carry the full description. */
   blurb: string;
   /** Compact market name for the card's call to action. */
@@ -27,13 +30,15 @@ const PREVIEWS: SolutionPreview[] = [
     slug: "corporate",
     icon: Building2,
     shortTitle: "Corporate",
+    imageSrc: "/images/solutions/corporate-preview.jpg",
+    imageAlt: "Luxury product cinematography for brand and commercial campaigns",
     blurb:
       "Executive thought leadership, authentic customer stories, and commercial media for mid-market companies, healthcare institutions, and brand leaders.",
     chips: [
-      "Brand Overview Films",
+      "Brand Films",
       "Client Testimonials",
-      "Corporate Headshots",
-      "Social Cutdowns",
+      "Product Explainers",
+      "Social Content",
     ],
     reel: "A-CAM",
     timecode: "00:04:12:18",
@@ -43,6 +48,8 @@ const PREVIEWS: SolutionPreview[] = [
     slug: "real-estate",
     icon: HomeIcon,
     shortTitle: "Real Estate",
+    imageSrc: "/images/solutions/real-estate-preview.jpg",
+    imageAlt: "Aerial view of a luxury residence with pool and landscaped grounds",
     blurb:
       "Twilight illumination, spatial continuity, and FAA-certified aerial passes for custom home builders, architects, interior designers, and luxury brokers.",
     chips: [
@@ -59,6 +66,10 @@ const PREVIEWS: SolutionPreview[] = [
     slug: "events",
     icon: Calendar,
     shortTitle: "Events",
+    imageSrc: "/images/solutions/events-preview.jpg",
+    imageAlt: "Keynote speaker on stage during a multi-camera conference production",
+    // Subject sits toward the right of the still — bias framing so he’s visible in the crop.
+    imagePositionClassName: "object-[68%_center]",
     blurb:
       "Multi-camera keynote recording, gala coverage, and rapid-turnaround vertical highlights for conferences, brand activations, and nonprofit galas.",
     chips: [
@@ -112,6 +123,9 @@ export function SolutionsPreview() {
                 <SpotlightCard className="h-full bg-bg-primary" contentClassName="flex flex-col">
                   <ViewfinderFrame
                     icon={<Icon className="h-12 w-12" strokeWidth={1.25} />}
+                    imageSrc={preview.imageSrc}
+                    imageAlt={preview.imageAlt}
+                    imagePositionClassName={preview.imagePositionClassName}
                     reel={preview.reel}
                     timecode={preview.timecode}
                     meta={preview.lens}
