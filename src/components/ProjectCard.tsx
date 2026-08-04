@@ -142,12 +142,15 @@ export function ProjectCard({ project, onSelect }: ProjectCardProps) {
           <span
             className={cn(
               "relative flex h-16 w-16 items-center justify-center transition-all duration-300 ease-out",
-              hovering ? "scale-90 opacity-0" : "scale-100 opacity-100"
+              hovering ? "scale-110" : "scale-100"
             )}
           >
             <span
               aria-hidden
-              className="bg-accent-gradient absolute inset-0 rounded-full opacity-40 blur-md"
+              className={cn(
+                "bg-accent-gradient absolute inset-0 rounded-full blur-md transition-opacity duration-300",
+                hovering ? "opacity-70" : "opacity-40"
+              )}
             />
             <span className="bg-accent-gradient relative flex h-14 w-14 items-center justify-center rounded-full text-accent-fg shadow-accent-lg">
               <Play className="h-5 w-5 translate-x-0.5 fill-current" />
