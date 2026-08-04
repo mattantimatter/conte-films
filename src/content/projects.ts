@@ -132,19 +132,19 @@ export const projectsContent: Project[] = [
   {
     slug: "legend-apparel-product-shoot",
     client: "Legend Apparel",
-    title: "Product Shoot",
+    title: "Commercial product shoot",
     category: "corporate",
     categoryLabel: "Fashion & Brand",
     services: [
-      "Product Shoot",
+      "Commercial Product Shoot",
       "Apparel Cinematography",
       "E-Commerce & Campaign Stills",
       "Social-First Vertical Edits",
     ],
     summary:
-      "A product shoot for Legend Apparel — an Atlanta-based premium basics company — capturing fabric quality, fit, and everyday wear for digital and retail campaigns.",
+      "A commercial product shoot for Legend Apparel — an Atlanta-based premium basics company — capturing fabric quality, fit, and everyday wear for digital and retail campaigns.",
     fullDescription:
-      "Conté Films produced a product shoot for Legend Apparel, an Atlanta-based premium basics company. The work highlights material quality, silhouette, and understated brand presence through clean product cinematography and stills built for e-commerce, website, and social distribution.",
+      "Conté Films produced a commercial product shoot for Legend Apparel, an Atlanta-based premium basics company. The work highlights material quality, silhouette, and understated brand presence through clean product cinematography and stills built for e-commerce, website, and social distribution.",
     posterImage: "/images/projects/legend-apparel-poster.jpg?v=2",
     videoSource: {
       type: "mux",
@@ -232,8 +232,7 @@ export const projectsContent: Project[] = [
       "A grand opening film for See and Be Seen — capturing the launch energy of a healthcare brand event with cinematic event coverage and brand presence.",
     fullDescription:
       "Conté Films produced the See and Be Seen Grand Opening Video, documenting the launch of this healthcare brand experience with polished event cinema — guest energy, space reveal, and brand moments engineered for website, social, and ongoing patient outreach.",
-    posterImage:
-      "https://image.mux.com/5ZnUMQAGjkrIL8alJ2NraW01XCpwjNlpB31FN00iRyhdM/thumbnail.webp?time=1&width=1280",
+    posterImage: "/images/projects/see-and-be-seen-poster.jpg",
     videoSource: {
       type: "mux",
       url: "5ZnUMQAGjkrIL8alJ2NraW01XCpwjNlpB31FN00iRyhdM",
@@ -241,7 +240,7 @@ export const projectsContent: Project[] = [
     },
     featured: true,
     altText:
-      "See and Be Seen healthcare brand grand opening event film by Conté Films",
+      "Luxury eyewear product display for See and Be Seen grand opening film by Conté Films",
     year: "2024",
     location: "Atlanta, GA",
   },
@@ -331,5 +330,34 @@ export const projectsContent: Project[] = [
       "Commercial drone cinematography of Atlanta property for Pergament Properties",
     year: "2024",
     location: "Atlanta, GA",
+  },
+  {
+    slug: "pergament-properties-norcross-commercial-drone",
+    client: "Pergament Properties",
+    title: "Commercial Drone Shoot — Surrounding Landscape",
+    category: "real-estate",
+    categoryLabel: "Commercial Aerial",
+    services: [
+      "FAA Part 107 Aerial Cinema",
+      "Commercial Property Overview",
+      "Surrounding Landscape Passes",
+      "Listing & Marketing Cutdowns",
+    ],
+    summary:
+      "Commercial drone shoot for Pergament Properties in Norcross, GA — capturing the property with surrounding landscape, site access, and neighborhood context from the air.",
+    fullDescription:
+      "Conté Films produced a commercial drone shoot for Pergament Properties in Norcross, GA, pairing building massing with surrounding landscape passes so leasing and marketing audiences can read scale, greenery, access, and local context in one aerial narrative.",
+    posterImage:
+      "https://image.mux.com/D9VAabnE7wfpttU00t71lZmsCkhSxyNeFkKz4yavpZMs/thumbnail.webp?time=1&width=1280",
+    videoSource: {
+      type: "mux",
+      url: "D9VAabnE7wfpttU00t71lZmsCkhSxyNeFkKz4yavpZMs",
+      aspectRatio: "16:9",
+    },
+    featured: true,
+    altText:
+      "Commercial drone shoot of Pergament Properties in Norcross, Georgia with surrounding landscape",
+    year: "2024",
+    location: "Norcross, GA",
   },
 ];
