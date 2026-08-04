@@ -94,7 +94,7 @@ export default function Features9({
                 type="button"
                 onClick={() => setActive(p.key)}
                 className={cn(
-                  "group relative flex shrink-0 cursor-pointer items-center justify-start gap-2 rounded-xl border px-3 py-2.5 text-center transition-colors sm:shrink sm:flex-col sm:justify-center sm:gap-4 sm:px-4 sm:py-8",
+                  "group relative flex shrink-0 cursor-pointer items-center justify-center gap-2 rounded-xl border px-3 py-2.5 text-center transition-colors sm:shrink sm:flex-col sm:gap-4 sm:px-4 sm:py-8",
                   isActive
                     ? "border-border-medium bg-bg-surface shadow-sm"
                     : "border-transparent bg-bg-surface/60 hover:bg-bg-surface"
