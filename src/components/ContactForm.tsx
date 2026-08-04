@@ -28,21 +28,30 @@ const timeframeOptions = [
   { value: "Flexible / Planning Stage", label: "Flexible / Planning Stage" },
 ];
 
-export function ContactForm() {
+const defaultFormData: Partial<ContactFormData> = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  phone: "",
+  company: "",
+  projectType: "corporate",
+  services: [],
+  budget: "$10,000 - $25,000",
+  timeframe: "Within 1 - 2 Months",
+  location: "",
+  projectDetails: "",
+  referralSource: "",
+  honeypot: "",
+};
+
+export function ContactForm({
+  initialPrefill,
+}: {
+  initialPrefill?: Partial<ContactFormData> | null;
+}) {
   const [formData, setFormData] = useState<Partial<ContactFormData>>({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    company: "",
-    projectType: "corporate",
-    services: [],
-    budget: "$10,000 - $25,000",
-    timeframe: "Within 1 - 2 Months",
-    location: "",
-    projectDetails: "",
-    referralSource: "",
-    honeypot: "",
+    ...defaultFormData,
+    ...initialPrefill,
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});

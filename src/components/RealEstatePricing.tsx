@@ -5,6 +5,7 @@ import { ArrowUpRight, Camera, Check, Plane, Smartphone } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
+import { buildRealEstateContactHref } from "@/lib/contact-prefill";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -134,6 +135,17 @@ export function RealEstatePricing() {
     ...selectedAddons.flatMap((addon) => addon.features),
     `Homes sized at ${formatSqft(sqft)} sq ft`,
   ];
+
+  const contactHref = buildRealEstateContactHref({
+    sqft,
+    videoPrice,
+    addons: Object.fromEntries(
+      selectedAddons.map((addon) => [addon.id, addonPrices[addon.id]])
+    ),
+    total,
+    coverage: coverageParts.join(" + "),
+    turnaround: addons.photo || addons.drone ? "10–14 days" : "7–10 days",
+  });
 
   const toggleAddon = (id: AddonId) => {
     setAddons((prev) => ({ ...prev, [id]: !prev[id] }));
@@ -399,7 +411,7 @@ export function RealEstatePricing() {
             </ul>
 
             <Button
-              href="/contact"
+              href={contactHref}
               size="lg"
               fullWidth
               className="mt-8"

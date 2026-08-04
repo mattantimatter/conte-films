@@ -5,6 +5,7 @@ import { siteContent } from "@/content/site";
 import { ContactForm } from "@/components/ContactForm";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { contactPrefillFromSearchParams } from "@/lib/contact-prefill";
 
 export const metadata: Metadata = {
   title: "Start a Project | Conté Films",
@@ -12,7 +13,12 @@ export const metadata: Metadata = {
     "Get in touch with Conté Films in Atlanta, GA. Submit project details for corporate video production, luxury real estate photography, or event media.",
 };
 
-export default function ContactPage() {
+export default function ContactPage({
+  searchParams,
+}: {
+  searchParams: Record<string, string | string[] | undefined>;
+}) {
+  const initialPrefill = contactPrefillFromSearchParams(searchParams);
   return (
     <div className="space-y-0">
       <section className="relative flex min-h-screen items-start bg-bg-primary pb-16 pt-28 transition-colors sm:items-center sm:pb-20">
@@ -92,7 +98,10 @@ export default function ContactPage() {
             {/* Right Column: Contact Form */}
             <div className="lg:col-span-7">
               <Reveal direction="left">
-                <ContactForm />
+                <ContactForm
+                  key={initialPrefill ? "re-pricing" : "default"}
+                  initialPrefill={initialPrefill}
+                />
               </Reveal>
             </div>
           </div>
