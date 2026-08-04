@@ -42,7 +42,7 @@ const PREVIEWS: SolutionPreview[] = [
     ],
     reel: "A-CAM",
     timecode: "00:04:12:18",
-    lens: ["35mm", "f/2.0", "Interview"],
+    lens: ["35mm", "f/2.0", "Product"],
   },
   {
     slug: "real-estate",
@@ -60,7 +60,7 @@ const PREVIEWS: SolutionPreview[] = [
     ],
     reel: "AERIAL",
     timecode: "00:07:38:04",
-    lens: ["16mm", "f/8.0", "Golden Hour"],
+    lens: ["16mm", "f/8.0"],
   },
   {
     slug: "events",
