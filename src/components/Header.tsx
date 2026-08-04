@@ -82,7 +82,6 @@ export function Header() {
   }, [hasDarkHeroPage, pathname]);
 
   const lightOnDark = hasDarkHeroPage && overDarkHero;
-  const sticky = isScrolled || !lightOnDark;
 
   return (
     <>
@@ -107,15 +106,6 @@ export function Header() {
           lightOnDark && "accent-on-dark"
         )}
       >
-        {/* Metallic accent rule — same gradient language as desktop CTAs */}
-        <span
-          aria-hidden
-          className={cn(
-            "rule-gradient-accent pointer-events-none absolute inset-x-0 bottom-0 h-px transition-opacity duration-300",
-            sticky && isScrolled ? "opacity-100" : "opacity-0"
-          )}
-        />
-
         <div className="relative mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <Logo forceWhite={lightOnDark} />
 
