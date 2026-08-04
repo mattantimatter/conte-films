@@ -303,6 +303,35 @@ export const projectsContent: Project[] = [
     location: "Thrive Live",
   },
   {
+    slug: "the-hessings-cinematic-event-recap",
+    client: "The Hessings",
+    title: "Cinematic Event Recap",
+    category: "events",
+    categoryLabel: "Events & Experiences",
+    services: [
+      "Cinematic Event Recap",
+      "Reception Atmosphere Coverage",
+      "Guest & Moment Highlights",
+      "Rapid Social Cutdown",
+    ],
+    summary:
+      "A quick cinematic event recap for The Hessings in Riviera Maya, Mexico — capturing reception energy, atmosphere, and celebration in a polished thirty-second film.",
+    fullDescription:
+      "Conté Films produced a thirty-second cinematic event recap for The Hessings in Riviera Maya, Mexico. The piece distills reception atmosphere, guest energy, and defining moments into a refined highlight built for private sharing and social — framed as elevated event cinema rather than a full-length documentary.",
+    posterImage:
+      "https://image.mux.com/diMVFaAQhHCW7lrYat02nb49zqKygcb6TZ6RAsy3aiVc/thumbnail.webp?time=1&width=1280",
+    videoSource: {
+      type: "mux",
+      url: "diMVFaAQhHCW7lrYat02nb49zqKygcb6TZ6RAsy3aiVc",
+      aspectRatio: "16:9",
+    },
+    featured: true,
+    altText:
+      "Cinematic event recap for The Hessings reception celebration in Riviera Maya, Mexico",
+    year: "2024",
+    location: "Riviera Maya, Mexico",
+  },
+  {
     slug: "pergament-properties-atlanta-commercial-drone",
     client: "Pergament Properties",
     title: "Commercial Drone Project",
