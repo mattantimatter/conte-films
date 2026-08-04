@@ -5,6 +5,7 @@ import { Play } from "lucide-react";
 import { Project } from "@/content/projects";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { muxStreamUrl, projectPosterSrc } from "@/lib/mux";
+import { disableVideoTextTracks } from "@/lib/video-captions";
 import { cn } from "@/lib/utils";
 
 interface ProjectCardProps {
@@ -29,6 +30,12 @@ export function ProjectCard({ project, onSelect }: ProjectCardProps) {
       loadedRef.current = false;
     };
   }, [project.videoSource]);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    return disableVideoTextTracks(video);
+  }, [project.slug]);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -131,7 +138,7 @@ export function ProjectCard({ project, onSelect }: ProjectCardProps) {
               previewReady && hovering ? "opacity-100" : "opacity-0"
             )}
           >
-            <track kind="captions" src="/captions/ambient.vtt" srcLang="en" label="English" />
+            {/* Decorative hover preview — no caption track (iOS would auto-enable it). */}
           </video>
         )}
 

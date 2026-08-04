@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { X, Volume2, VolumeX } from "lucide-react";
 import { Project } from "@/content/projects";
 import { muxStreamUrl, projectPosterSrc } from "@/lib/mux";
+import { disableVideoTextTracks } from "@/lib/video-captions";
 
 interface VideoLightboxProps {
   project: Project | null;
@@ -33,13 +34,24 @@ export function VideoLightbox({ project, onClose }: VideoLightboxProps) {
 
   useEffect(() => {
     const video = videoRef.current;
+    if (!video || !project) return;
+    return disableVideoTextTracks(video);
+  }, [project]);
+
+  useEffect(() => {
+    const video = videoRef.current;
     if (!video || !project?.videoSource || project.videoSource.type !== "mux") {
       return;
     }
 
     const streamUrl = muxStreamUrl(project.videoSource.url);
     video.playsInline = true;
-    const startPlay = () => video.play().catch(() => {});
+    const startPlay = () => {
+      for (let i = 0; i < video.textTracks.length; i += 1) {
+        video.textTracks[i].mode = "disabled";
+      }
+      video.play().catch(() => {});
+    };
 
     async function initHls(el: HTMLVideoElement) {
       if (el.canPlayType("application/vnd.apple.mpegurl")) {
@@ -152,6 +164,7 @@ export function VideoLightbox({ project, onClose }: VideoLightboxProps) {
                   src="/captions/ambient.vtt"
                   srcLang="en"
                   label="English"
+                  default={false}
                 />
               </video>
             ) : (
