@@ -141,7 +141,7 @@ export default function SocialProof15({
         variants={container}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, margin: "-80px" }}
+        viewport={{ once: true, amount: 0.2 }}
         className="mx-auto w-full max-w-7xl"
       >
         <motion.div

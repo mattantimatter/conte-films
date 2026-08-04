@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
+import { useSkipScrollMotion } from "@/lib/use-skip-scroll-motion";
 
 interface RevealProps {
   children: React.ReactNode;
@@ -18,17 +19,17 @@ export function Reveal({
   className = "",
   duration = 0.6,
 }: RevealProps) {
-  const shouldReduceMotion = useReducedMotion();
+  const skipMotion = useSkipScrollMotion();
 
-  if (shouldReduceMotion) {
+  if (skipMotion) {
     return <div className={className}>{children}</div>;
   }
 
   const directions = {
-    up: { y: 24 },
-    down: { y: -24 },
-    left: { x: 24 },
-    right: { x: -24 },
+    up: { y: 16 },
+    down: { y: -16 },
+    left: { x: 16 },
+    right: { x: -16 },
     none: {},
   };
 
@@ -43,7 +44,7 @@ export function Reveal({
         x: 0,
         y: 0,
       }}
-      viewport={{ once: true, margin: "-50px" }}
+      viewport={{ once: true, amount: 0.2 }}
       transition={{
         duration,
         delay,

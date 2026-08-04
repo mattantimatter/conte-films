@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ArrowUpRight } from "lucide-react";
@@ -11,7 +11,8 @@ import { MobileMenu } from "@/components/MobileMenu";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
-const HEADER_CLEARANCE_PX = 72;
+const HERO_EXIT_PX = 56;
+const HERO_ENTER_PX = 96;
 
 export function Header() {
   const pathname = usePathname();
@@ -19,33 +20,65 @@ export function Header() {
     pathname === "/" || pathname.startsWith("/solutions/");
   const [isScrolled, setIsScrolled] = useState(false);
   const [overDarkHero, setOverDarkHero] = useState(hasDarkHeroPage);
+  const overDarkHeroRef = useRef(overDarkHero);
+  const isScrolledRef = useRef(isScrolled);
+  const rafRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    overDarkHeroRef.current = overDarkHero;
+  }, [overDarkHero]);
+
+  useEffect(() => {
+    isScrolledRef.current = isScrolled;
+  }, [isScrolled]);
 
   useEffect(() => {
     const update = () => {
-      setIsScrolled(window.scrollY > 20);
+      const nextScrolled = window.scrollY > 12;
+      if (nextScrolled !== isScrolledRef.current) {
+        setIsScrolled(nextScrolled);
+      }
 
       if (!hasDarkHeroPage) {
-        setOverDarkHero(false);
+        if (overDarkHeroRef.current) setOverDarkHero(false);
         return;
       }
 
       const hero = document.querySelector<HTMLElement>("[data-site-hero]");
       if (!hero) {
-        setOverDarkHero(false);
+        if (overDarkHeroRef.current) setOverDarkHero(false);
         return;
       }
 
-      // Stay in the light-on-dark nav state while the hero still fills
-      // the area under the fixed header.
-      setOverDarkHero(hero.getBoundingClientRect().bottom > HEADER_CLEARANCE_PX);
+      const bottom = hero.getBoundingClientRect().bottom;
+      const currentlyOver = overDarkHeroRef.current;
+      // Hysteresis: leave dark-nav later / re-enter earlier to avoid flicker.
+      const nextOver = currentlyOver
+        ? bottom > HERO_EXIT_PX
+        : bottom > HERO_ENTER_PX;
+
+      if (nextOver !== currentlyOver) {
+        setOverDarkHero(nextOver);
+      }
+    };
+
+    const onScrollOrResize = () => {
+      if (rafRef.current != null) return;
+      rafRef.current = window.requestAnimationFrame(() => {
+        rafRef.current = null;
+        update();
+      });
     };
 
     update();
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update, { passive: true });
+    window.addEventListener("scroll", onScrollOrResize, { passive: true });
+    window.addEventListener("resize", onScrollOrResize, { passive: true });
     return () => {
-      window.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
+      window.removeEventListener("scroll", onScrollOrResize);
+      window.removeEventListener("resize", onScrollOrResize);
+      if (rafRef.current != null) {
+        window.cancelAnimationFrame(rafRef.current);
+      }
     };
   }, [hasDarkHeroPage, pathname]);
 
@@ -53,7 +86,6 @@ export function Header() {
 
   return (
     <>
-      {/* Skip to Content Link for Accessibility */}
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 z-[100] px-4 py-2 bg-accent-gradient text-accent-fg font-medium text-sm rounded-md shadow-lg"
@@ -63,24 +95,20 @@ export function Header() {
 
       <header
         className={cn(
-          "fixed top-0 left-0 right-0 z-40 transition-all duration-300",
+          "fixed top-0 left-0 right-0 z-40 transition-[background-color,border-color,padding,box-shadow] duration-300",
           lightOnDark
             ? isScrolled
-              ? "border-b border-white/10 bg-black/40 py-3 backdrop-blur-md"
-              : "bg-transparent py-5"
+              ? "border-b border-white/10 bg-black/55 py-3 md:bg-black/40 md:backdrop-blur-md"
+              : "border-b border-transparent bg-transparent py-5"
             : isScrolled
-              ? "border-b border-border-subtle bg-bg-primary/85 py-3 shadow-sm backdrop-blur-md"
-              : "bg-transparent py-5",
-          // Sitting over the hero video, so the accent needs the dark-surface
-          // ramp to match the hero's own actions rather than the page theme's.
+              ? "border-b border-border-subtle bg-bg-primary/95 py-3 shadow-sm md:bg-bg-primary/85 md:backdrop-blur-md"
+              : "border-b border-transparent bg-transparent py-5",
           lightOnDark && "accent-on-dark"
         )}
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          {/* Logo */}
           <Logo forceWhite={lightOnDark} />
 
-          {/* Desktop Navigation */}
           <nav className="hidden items-center gap-8 text-sm font-medium md:flex">
             <Link
               href="/work"
@@ -127,7 +155,6 @@ export function Header() {
             </Link>
           </nav>
 
-          {/* Desktop Right Actions */}
           <div className="hidden items-center gap-4 md:flex">
             <ThemeToggle
               className={
@@ -142,7 +169,6 @@ export function Header() {
             </Button>
           </div>
 
-          {/* Mobile Navigation Menu */}
           <MobileMenu overDarkHero={lightOnDark} />
         </div>
       </header>

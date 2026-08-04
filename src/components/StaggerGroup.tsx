@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
+import { useSkipScrollMotion } from "@/lib/use-skip-scroll-motion";
 
 interface StaggerGroupProps {
   children: React.ReactNode;
@@ -14,9 +15,9 @@ export function StaggerGroup({
   className = "",
   staggerChildren = 0.08,
 }: StaggerGroupProps) {
-  const shouldReduceMotion = useReducedMotion();
+  const skipMotion = useSkipScrollMotion();
 
-  if (shouldReduceMotion) {
+  if (skipMotion) {
     return <div className={className}>{children}</div>;
   }
 
@@ -24,7 +25,7 @@ export function StaggerGroup({
     <motion.div
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, margin: "-40px" }}
+      viewport={{ once: true, amount: 0.15 }}
       variants={{
         hidden: {},
         show: {
@@ -47,21 +48,21 @@ export function StaggerItem({
   children: React.ReactNode;
   className?: string;
 }) {
-  const shouldReduceMotion = useReducedMotion();
+  const skipMotion = useSkipScrollMotion();
 
-  if (shouldReduceMotion) {
+  if (skipMotion) {
     return <div className={className}>{children}</div>;
   }
 
   return (
     <motion.div
       variants={{
-        hidden: { opacity: 0, y: 20 },
+        hidden: { opacity: 0, y: 16 },
         show: {
           opacity: 1,
           y: 0,
           transition: {
-            duration: 0.5,
+            duration: 0.45,
             ease: [0.25, 0.1, 0.25, 1],
           },
         },

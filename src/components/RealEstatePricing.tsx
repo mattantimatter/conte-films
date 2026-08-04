@@ -6,6 +6,7 @@ import { motion, useReducedMotion } from "motion/react";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import { buildRealEstateContactHref } from "@/lib/contact-prefill";
+import { useSkipScrollMotion } from "@/lib/use-skip-scroll-motion";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -93,6 +94,7 @@ function formatSqft(value: number) {
 
 export function RealEstatePricing() {
   const reduceMotion = useReducedMotion();
+  const skipScrollMotion = useSkipScrollMotion();
   const [sqft, setSqft] = useState(SQFT_MIN);
   const [addons, setAddons] = useState<Record<AddonId, boolean>>({
     drone: false,
@@ -151,14 +153,14 @@ export function RealEstatePricing() {
     setAddons((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
-  const shift = reduceMotion ? 0 : 18;
+  const shift = reduceMotion || skipScrollMotion ? 0 : 18;
   const container = {
     hidden: {},
-    visible: { transition: { staggerChildren: 0.08 } },
+    visible: { transition: { staggerChildren: skipScrollMotion ? 0 : 0.08 } },
   };
   const item = {
-    hidden: { opacity: 0, y: shift },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } },
+    hidden: { opacity: skipScrollMotion ? 1 : 0, y: shift },
+    visible: { opacity: 1, y: 0, transition: { duration: skipScrollMotion ? 0 : 0.6, ease: EASE } },
   };
 
   const sliderProgress = ((sqft - SQFT_MIN) / (SQFT_MAX - SQFT_MIN)) * 100;
@@ -169,9 +171,9 @@ export function RealEstatePricing() {
       className="w-full bg-bg-primary px-4 py-16 transition-colors sm:px-6 sm:py-20 lg:px-8 lg:py-24"
     >
       <motion.div
-        initial="hidden"
+        initial={skipScrollMotion ? "visible" : "hidden"}
         whileInView="visible"
-        viewport={{ once: true, margin: "-80px" }}
+        viewport={{ once: true, amount: 0.15 }}
         variants={container}
         className="mx-auto w-full max-w-7xl"
       >
