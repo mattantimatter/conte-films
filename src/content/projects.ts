@@ -57,7 +57,7 @@ export const projectsContent: Project[] = [
     summary:
       "Full-scale visual production documenting a landmark custom estate in Metro Atlanta, capturing intricate craftsmanship, material textures, and natural lighting transitions.",
     fullDescription:
-      "Designed specifically for high-stakes builder reputation and architectural publication, this production combined ground-based cinema cameras with smooth FAA-certified aerial passes to articulate the scale, spatial harmony, and bespoke detailing of Kalos Construction's flag residence.",
+      "Designed specifically for high-stakes builder reputation and architectural publication, this production combined ground-based cinema cameras with smooth FAA-certified aerial passes to articulate the scale, spatial harmony, and bespoke detailing of Kalos Construction's flagship residence.",
     posterImage:
       "https://image.mux.com/cZ8Qdmz3KK4402Pk27GveJbUdr7ve1t64sMXxWj8OmT8/thumbnail.webp?time=1&width=1280",
     videoSource: {
