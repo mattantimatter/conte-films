@@ -1,96 +1,20 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useState } from "react";
 import { Volume2, VolumeX, ChevronDown } from "lucide-react";
+import { muxStreamUrl } from "@/lib/mux";
+import { useAmbientVideo } from "@/lib/use-ambient-video";
 
 const PLAYBACK_ID = "7FEEOISkBx8NenBqj76E902NEDY4fqL6qFizqzK8oYoc";
 
-// Strip blurry low-res renditions at the Mux CDN level.
-// min_resolution=720p removes 270p–540p from the manifest entirely.
-// rendition_order=desc puts 1080p first so the player picks it by default.
-const STREAM_URL =
-  `https://stream.mux.com/${PLAYBACK_ID}.m3u8` +
-  `?min_resolution=720p` +
-  `&max_resolution=1080p` +
-  `&rendition_order=desc`;
+const STREAM_URL = muxStreamUrl(PLAYBACK_ID);
 
 const POSTER_URL =
   `https://image.mux.com/${PLAYBACK_ID}/thumbnail.webp?time=0&width=1920`;
 
 export function HeroVideo() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [playing, setPlaying]   = useState(false);
-  const [muted,   setMuted]     = useState(true);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    // React's `muted` prop doesn't set the HTML attribute — do it directly.
-    video.muted    = true;
-    video.loop     = true;
-    video.playsInline = true;
-
-    const startPlay = () => video.play().catch(() => {});
-
-    // Dissolve poster 500 ms after playback is confirmed playing at 720p+
-    const onPlaying = () => window.setTimeout(() => setPlaying(true), 500);
-    video.addEventListener("playing", onPlaying);
-
-    async function initHls() {
-      // Safari has native HLS — just set src directly
-      if (video && video.canPlayType("application/vnd.apple.mpegurl")) {
-        video.src = STREAM_URL;
-        video.addEventListener("loadedmetadata", startPlay, { once: true });
-        startPlay();
-        return;
-      }
-
-      // Chrome / Firefox / Edge — use hls.js
-      const { default: Hls } = await import("hls.js");
-      if (!Hls.isSupported() || !video) return;
-
-      const hls = new Hls({
-        capLevelToPlayerSize:   false,
-        // Seed bandwidth estimate at 50 Mbps so hls.js picks the highest level
-        abrEwmaDefaultEstimate: 50_000_000,
-        maxBufferLength:        60,
-        maxMaxBufferLength:     120,
-      });
-
-      hls.loadSource(STREAM_URL);
-      hls.attachMedia(video);
-
-      hls.on(Hls.Events.MANIFEST_PARSED, (_e, data) => {
-        // With rendition_order=desc, level 0 is already the highest quality.
-        // Lock it in and start playing.
-        hls.startLevel   = 0;
-        hls.loadLevel    = 0;
-        hls.currentLevel = 0;
-        startPlay();
-      });
-
-      return () => hls.destroy();
-    }
-
-    const cleanup = initHls();
-
-    // Pause when scrolled out of view
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) startPlay();
-        else video.pause();
-      },
-      { threshold: 0.1 }
-    );
-    observer.observe(video);
-
-    return () => {
-      video.removeEventListener("playing", onPlaying);
-      observer.disconnect();
-      cleanup?.then((fn) => fn?.());
-    };
-  }, []);
+  const { videoRef, playing } = useAmbientVideo(STREAM_URL);
+  const [muted, setMuted] = useState(true);
 
   return (
     <div className="relative w-full h-full min-h-screen flex items-center justify-center overflow-hidden bg-[#090909]">

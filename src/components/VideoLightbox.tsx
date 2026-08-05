@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { X, Volume2, VolumeX } from "lucide-react";
 import { Project } from "@/content/projects";
+import { attachHlsStream } from "@/lib/hls-video";
 import { muxStreamUrl, projectPosterSrc } from "@/lib/mux";
 import { disableVideoTextTracks } from "@/lib/video-captions";
 
@@ -44,7 +45,6 @@ export function VideoLightbox({ project, onClose }: VideoLightboxProps) {
       return;
     }
 
-    const streamUrl = muxStreamUrl(project.videoSource.url);
     video.playsInline = true;
     const startPlay = () => {
       for (let i = 0; i < video.textTracks.length; i += 1) {
@@ -53,39 +53,12 @@ export function VideoLightbox({ project, onClose }: VideoLightboxProps) {
       video.play().catch(() => {});
     };
 
-    async function initHls(el: HTMLVideoElement) {
-      if (el.canPlayType("application/vnd.apple.mpegurl")) {
-        el.src = streamUrl;
-        el.addEventListener("loadedmetadata", startPlay, { once: true });
-        startPlay();
-        return;
-      }
+    const detach = attachHlsStream(video, muxStreamUrl(project.videoSource.url), {
+      onReady: startPlay,
+    });
 
-      const { default: Hls } = await import("hls.js");
-      if (!Hls.isSupported()) return;
-
-      const hls = new Hls({
-        capLevelToPlayerSize: false,
-        abrEwmaDefaultEstimate: 50_000_000,
-        maxBufferLength: 60,
-        maxMaxBufferLength: 120,
-      });
-
-      hls.loadSource(streamUrl);
-      hls.attachMedia(el);
-      hls.on(Hls.Events.MANIFEST_PARSED, () => {
-        hls.startLevel = 0;
-        hls.loadLevel = 0;
-        hls.currentLevel = 0;
-        startPlay();
-      });
-
-      return () => hls.destroy();
-    }
-
-    const cleanup = initHls(video);
     return () => {
-      cleanup?.then((fn) => fn?.());
+      detach();
       video.removeAttribute("src");
       video.load();
     };

@@ -1,9 +1,11 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { ArrowUpRight, ChevronDown, Volume2, VolumeX } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
 import { Button } from "@/components/ui/Button";
+import { muxStreamUrl } from "@/lib/mux";
+import { useAmbientVideo } from "@/lib/use-ambient-video";
 import { cn } from "@/lib/utils";
 
 export interface SolutionHeroCta {
@@ -56,76 +58,15 @@ export function SolutionHero({
   posterSrc,
   mediaPositionClassName = "object-center",
 }: SolutionHeroProps) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [playing, setPlaying] = useState(false);
   const [muted, setMuted] = useState(true);
 
-  const streamUrl = playbackId
-    ? `https://stream.mux.com/${playbackId}.m3u8?min_resolution=720p&max_resolution=1080p&rendition_order=desc`
-    : null;
+  const streamUrl = playbackId ? muxStreamUrl(playbackId) : null;
   const muxPoster =
     playbackId && !posterSrc
       ? `https://image.mux.com/${playbackId}/thumbnail.webp?time=0&width=1920`
       : posterSrc;
 
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video || !streamUrl) return;
-
-    video.muted = true;
-    video.loop = true;
-    video.playsInline = true;
-
-    const startPlay = () => video.play().catch(() => {});
-    const onPlaying = () => window.setTimeout(() => setPlaying(true), 500);
-    video.addEventListener("playing", onPlaying);
-
-    async function initHls() {
-      if (video && video.canPlayType("application/vnd.apple.mpegurl")) {
-        video.src = streamUrl!;
-        video.addEventListener("loadedmetadata", startPlay, { once: true });
-        startPlay();
-        return;
-      }
-
-      const { default: Hls } = await import("hls.js");
-      if (!Hls.isSupported() || !video) return;
-
-      const hls = new Hls({
-        capLevelToPlayerSize: false,
-        abrEwmaDefaultEstimate: 50_000_000,
-        maxBufferLength: 60,
-        maxMaxBufferLength: 120,
-      });
-
-      hls.loadSource(streamUrl!);
-      hls.attachMedia(video);
-      hls.on(Hls.Events.MANIFEST_PARSED, () => {
-        hls.startLevel = 0;
-        hls.loadLevel = 0;
-        hls.currentLevel = 0;
-        startPlay();
-      });
-
-      return () => hls.destroy();
-    }
-
-    const cleanup = initHls();
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) startPlay();
-        else video.pause();
-      },
-      { threshold: 0.1 }
-    );
-    observer.observe(video);
-
-    return () => {
-      video.removeEventListener("playing", onPlaying);
-      observer.disconnect();
-      cleanup?.then((fn) => fn?.());
-    };
-  }, [streamUrl]);
+  const { videoRef, playing } = useAmbientVideo(streamUrl);
 
   return (
     <section

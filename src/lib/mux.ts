@@ -1,3 +1,6 @@
+// `min_resolution=720p` strips the blurry 270p–540p renditions from the
+// manifest entirely, and `rendition_order=desc` puts 1080p first so it is the
+// level players start on.
 export function muxStreamUrl(playbackId: string) {
   return (
     `https://stream.mux.com/${playbackId}.m3u8` +

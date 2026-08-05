@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Play } from "lucide-react";
 import { Project } from "@/content/projects";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
+import { attachHlsStream } from "@/lib/hls-video";
 import { muxStreamUrl, projectPosterSrc } from "@/lib/mux";
 import { disableVideoTextTracks } from "@/lib/video-captions";
 import { cn } from "@/lib/utils";
@@ -15,7 +16,7 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project, onSelect }: ProjectCardProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const hlsRef = useRef<{ destroy: () => void } | null>(null);
+  const detachRef = useRef<(() => void) | null>(null);
   const loadedRef = useRef(false);
   const [hovering, setHovering] = useState(false);
   const [previewReady, setPreviewReady] = useState(false);
@@ -25,8 +26,8 @@ export function ProjectCard({ project, onSelect }: ProjectCardProps) {
 
   useEffect(() => {
     return () => {
-      hlsRef.current?.destroy();
-      hlsRef.current = null;
+      detachRef.current?.();
+      detachRef.current = null;
       loadedRef.current = false;
     };
   }, [project.videoSource]);
@@ -43,60 +44,42 @@ export function ProjectCard({ project, onSelect }: ProjectCardProps) {
 
     let cancelled = false;
 
-    async function ensureLoaded() {
-      if (!video || !project.videoSource) return;
+    video.muted = true;
+    video.playsInline = true;
+    video.loop = true;
 
-      video.muted = true;
-      video.playsInline = true;
-      video.loop = true;
-
-      if (!loadedRef.current) {
-        if (project.videoSource.type === "mp4") {
-          video.src = project.videoSource.url;
-        } else {
-          const streamUrl = muxStreamUrl(project.videoSource.url);
-
-          if (video.canPlayType("application/vnd.apple.mpegurl")) {
-            video.src = streamUrl;
-          } else {
-            const { default: Hls } = await import("hls.js");
-            if (cancelled || !Hls.isSupported()) return;
-
-            const hls = new Hls({
-              capLevelToPlayerSize: true,
-              maxBufferLength: 10,
-              maxMaxBufferLength: 20,
-              abrEwmaDefaultEstimate: 2_000_000,
-            });
-            hls.loadSource(streamUrl);
-            hls.attachMedia(video);
-            hlsRef.current = hls;
-          }
-        }
-        loadedRef.current = true;
+    if (!loadedRef.current) {
+      if (project.videoSource.type === "mp4") {
+        video.src = project.videoSource.url;
+      } else {
+        detachRef.current = attachHlsStream(
+          video,
+          muxStreamUrl(project.videoSource.url),
+          { profile: "preview" }
+        );
       }
-
-      const play = () => {
-        if (cancelled) return;
-        video.currentTime = 0;
-        video
-          .play()
-          .then(() => {
-            if (!cancelled) setPreviewReady(true);
-          })
-          .catch(() => {
-            if (!cancelled) setPreviewReady(false);
-          });
-      };
-
-      if (video.readyState >= 2) play();
-      else video.addEventListener("loadeddata", play, { once: true });
+      loadedRef.current = true;
     }
 
-    ensureLoaded();
+    const play = () => {
+      if (cancelled) return;
+      video.currentTime = 0;
+      video
+        .play()
+        .then(() => {
+          if (!cancelled) setPreviewReady(true);
+        })
+        .catch(() => {
+          if (!cancelled) setPreviewReady(false);
+        });
+    };
+
+    if (video.readyState >= 2) play();
+    else video.addEventListener("loadeddata", play, { once: true });
 
     return () => {
       cancelled = true;
+      video.removeEventListener("loadeddata", play);
       video.pause();
       setPreviewReady(false);
     };

@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import {
   Image as ImageIcon,
   Plane,
@@ -9,15 +8,13 @@ import {
 import StaggeredText from "@/components/react-bits/staggered-text";
 import { Reveal } from "@/components/Reveal";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { muxStreamUrl } from "@/lib/mux";
+import { useAmbientVideo } from "@/lib/use-ambient-video";
 import { cn } from "@/lib/utils";
 
 const PLAYBACK_ID = "5BUMdA7REN28y02fC6kW1yoy02DYeWeMrSFYjpSm3Mu02I";
 
-const STREAM_URL =
-  `https://stream.mux.com/${PLAYBACK_ID}.m3u8` +
-  `?min_resolution=720p` +
-  `&max_resolution=1080p` +
-  `&rendition_order=desc`;
+const STREAM_URL = muxStreamUrl(PLAYBACK_ID);
 
 const POSTER_URL = `https://image.mux.com/${PLAYBACK_ID}/thumbnail.webp?time=0&width=1920`;
 
@@ -129,67 +126,7 @@ export function RealEstateAerial() {
 }
 
 function AerialVideoCard() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [playing, setPlaying] = useState(false);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    video.muted = true;
-    video.loop = true;
-    video.playsInline = true;
-
-    const startPlay = () => video.play().catch(() => {});
-    const onPlaying = () => window.setTimeout(() => setPlaying(true), 500);
-    video.addEventListener("playing", onPlaying);
-
-    async function initHls() {
-      if (video && video.canPlayType("application/vnd.apple.mpegurl")) {
-        video.src = STREAM_URL;
-        video.addEventListener("loadedmetadata", startPlay, { once: true });
-        startPlay();
-        return;
-      }
-
-      const { default: Hls } = await import("hls.js");
-      if (!Hls.isSupported() || !video) return;
-
-      const hls = new Hls({
-        capLevelToPlayerSize: false,
-        abrEwmaDefaultEstimate: 50_000_000,
-        maxBufferLength: 60,
-        maxMaxBufferLength: 120,
-      });
-
-      hls.loadSource(STREAM_URL);
-      hls.attachMedia(video);
-      hls.on(Hls.Events.MANIFEST_PARSED, () => {
-        hls.startLevel = 0;
-        hls.loadLevel = 0;
-        hls.currentLevel = 0;
-        startPlay();
-      });
-
-      return () => hls.destroy();
-    }
-
-    const cleanup = initHls();
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) startPlay();
-        else video.pause();
-      },
-      { threshold: 0.25 }
-    );
-    observer.observe(video);
-
-    return () => {
-      video.removeEventListener("playing", onPlaying);
-      observer.disconnect();
-      cleanup?.then((fn) => fn?.());
-    };
-  }, []);
+  const { videoRef, playing } = useAmbientVideo(STREAM_URL, 0.25);
 
   return (
     <figure className="accent-on-dark group/spot relative isolate clip-rounded overflow-hidden rounded-[1.75rem] bg-neutral-950 shadow-2xl">
